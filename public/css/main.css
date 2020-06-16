@@ -189,6 +189,117 @@ iframe {
   outline: none !important;
 }
 
+/*[ MODAL ]
+///////////////////////////////////////////////////////////
+*/
+
+.my-modal-body {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden !important;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.my-modal-content {
+  position: relative;
+  background-color: #fffffe;
+  margin: 5% auto;
+  padding: 20px;
+  width: 70%;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+	/* -moz-box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important
+	-webkit-box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important
+	-o-box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important
+  -ms-box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important */
+  animation: modalopen 0.7s ease;
+  -webkit-animation: modalopen 0.7s ease;
+  -moz-animation: modalopen 0.7s ease;
+  -ms-animation: modalopen 0.7s ease;
+  -o-animation: modalopen 0.7s ease;
+}
+
+.closeBtn {
+  color: #333333;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 20px;
+  font-size: 30px;
+}
+
+.closeBtn:hover, .closeBtn:focus {
+  color: #e65540;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes modalopen {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-moz-keyframes modalopen {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-webkit-keyframes modalopen {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@-ms-keyframes modalopen {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@-o-keyframes modalopen {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+/*[ MODAL INPUT ]
+///////////////////////////////////////////////////////////
+*/
+
+/* .modal-input-body {
+  border: 1px solid #e6e6e6;
+} */
+
+/* .modal-input-body-danger {
+  border: 1px solid #F44336;
+} */
+
+
+.modal-input {
+  border: 1px solid #e6e6e6;
+}
+
+.modal-input-danger {
+  border: 1px solid #F44336 !important;
+}
+
+.modal-input-danger:focus, .modal-input-danger:active {
+  border: 1px solid #F44336 !important;
+}
+
+.modal-input:focus, .modal-input:active {
+  border: 1px solid #333 !important;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.invalid-text {
+  display: block;
+  width: 100%;
+  font-size: 90%;
+  margin-bottom: 30px;
+  margin-top: 5px;
+  color: #F44336;
+}
 
 
 

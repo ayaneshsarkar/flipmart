@@ -9,6 +9,12 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 class RegisterController extends Controller
 {
     /*
@@ -29,7 +35,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -41,6 +47,25 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new Response('', 201)
+                    : redirect($this->redirectPath());
+    }
+
+    
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,11 +74,18 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $validator = Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:5', 'required_with:confirm_password', 'same:confirm_password'],
+            'confirm_password' => ['required', 'string', 'min:5', 'required_with:password', 'same:password']
         ]);
+
+        if(!$validator) {
+            return redirect('/register')->withInput()->withErrors($validator);
+        }
+
+        return $validator;
     }
 
     /**
