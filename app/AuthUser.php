@@ -12,5 +12,9 @@ class AuthUser extends Model
     protected $primaryKey = 'id';
     //Timestamps
     public $timestamps = true;
+    // Fillable
+    protected $fillable = [
+        'name', 'email', 'password', 'remember_token', 'verified', 'created_at', 'updated_at'
+    ];
 
 }

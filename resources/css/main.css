@@ -208,7 +208,7 @@ iframe {
 .my-modal-content {
   position: relative;
   background-color: #fffffe;
-  margin: 5% auto;
+  margin: 1% auto;
   padding: 20px;
   width: 70%;
   box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
@@ -300,6 +300,83 @@ iframe {
   margin-top: 5px;
   color: #F44336;
 }
+
+
+
+/*[ ADMIN PANEL ]
+///////////////////////////////////////////////////////////
+*/
+
+.wrapper {
+  position: relative;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  left: 0;
+  z-index: 7000;
+  box-shadow: 0 2px 22px 0 rgba(0,0,0,.2), 0 2px 30px 0 rgba(0,0,0,.35);
+  height: 100%;
+  max-height: 100%;
+  background-color: #7f5af0;
+}
+
+.sidebar:before {
+  display: block;
+  content: '';
+  opacity: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.sidebar .logo {
+  position: relative;
+  padding: .5rem .7rem;
+  z-index: 4;
+  top: 5%;
+  left: 0;
+}
+
+.sidebar .logo .logo-normal {
+  display: block;
+  opacity: 1;
+  transform: translateZ(0);
+  text-align: center;
+}
+
+.simple-text {
+  text-transform: uppercase;
+  padding: 0.5rem 0;
+  white-space: nowrap;
+  font-size: 1em;
+  color: #fffffe;
+  text-decoration: none;
+  font-weight: 400;
+  line-height: 30px;
+  overflow: hidden;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index')->name('home');
+Route::get('/signup', 'AuthController@signup');
+Route::get('/register', 'AuthController@signup');
+Route::get('/signin', 'AuthController@signin');
+Route::get('/login', 'AuthController@signin');
+Route::get('/verify/{hashParam}', 'AuthController@verify');
+Route::get('/admin', function() {
+  $data['title'] = 'Admin';
+  return view('admin.dashboard')->with($data);
+});
 
-Auth::routes();
+Route::post('register', 'AuthController@register')->name('auth.register');
+Route::post('login', 'AuthController@login')->name('auth.login');
+
+
+Route::resource('auth', 'AuthController');
+
+// Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

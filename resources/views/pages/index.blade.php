@@ -1,10 +1,11 @@
-@include('layouts.header')
+	@include('layouts.includes.header')
 
-	<!-- Header -->
+	<!-- Nav -->
 	@include('layouts.pages.nav')
 
 	{{-- Modal --}}
-	@include('layouts.pages.modal')
+	@include('layouts.pages.modalSignIn')
+	@include('layouts.pages.modalSignUp')
 
 	<!-- Slide1 -->
 	<section class="slide1">
@@ -584,4 +585,4 @@
 		</div>
 	</section>
 
-	@include('layouts.footer')
+	@include('layouts.includes.footer')

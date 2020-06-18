@@ -68,15 +68,32 @@
 
 				<!-- Header Icon -->
 				<div class="header-icons">
-					<a href="#" id="modalSignUp" class="modalBtn header-wrapicon1 dis-block">
+
+					@if(session('loggedIn') == TRUE)
+						<a href="#" class="header-wrapicon1 dis-block">
+							<img src="images/icons/icon-header-01.png" class="header-icon1" alt="ICON">
+						</a>
+
+						<span class="linedivide1"></span>
+
+						<div class="header-wrapicon2">
+							<img src="images/icons/icon-header-02.png" class="header-icon1 js-show-header-dropdown" alt="ICON">
+							<span class="header-icons-noti">0</span>
+
+							{{-- Header Cart Noti --}}
+							@include('layouts.includes.cartDropdown')
+						</div>
+					@else
+
+					<a href="#" id="modalBtnSignUp" class="modalBtn header-wrapicon1 dis-block">
 						SIGN UP
 					</a>
-
 					<span class="linedivide1"></span>
-
-					<a href="#" id="modalSignIn" class="modalBtn header-wrapicon1 dis-block">
+					<a href="#" id="modalBtnSignIn" class="modalBtn header-wrapicon1 dis-block">
 						SIGN IN
 					</a>
+
+					@endif
 				</div>
 			</div>
 		</div>

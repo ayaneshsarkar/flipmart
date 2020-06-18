@@ -1,0 +1,1 @@
+<p><a href="{{ $baseURL }}/verify/{{ $hashVerify }}">Click Here To Verify</a></p>
