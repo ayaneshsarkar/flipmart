@@ -21,5 +21,6 @@
 	<script type="text/javascript" src="{{ asset('vendor/lightbox2/js/lightbox.min.js') }}"></script>
 <!--===============================================================================================-->
   <script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
-  
+	
+	<script src="{{ asset('js/admin.js') }}"></script>
   <script src="{{ asset('js/main.js') }}"></script>

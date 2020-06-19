@@ -1,0 +1,246 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #fffffe;
+}
+
+.wrapper .top_navbar {
+  width: 100%;
+  height: 65px;
+  display: flex;
+  position: fixed;
+  top: 0;
+}
+
+.wrapper .top_navbar .adminLogo {
+  width: 250px;
+  height: 100%;
+  background: #FF5722;
+  border-bottom: 1px solid #fff;
+  transition: all 0.3s linear;
+}
+
+.wrapper .top_navbar .adminLogo a {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  font-family: inherit;
+  color: #fff;
+  padding: 15px 0;
+  transition: all 0.3s linear;
+}
+
+.wrapper .top_navbar .top_menu {
+  width: calc(100% - 250px);
+  height: 100%;
+  background-color: #fff;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  transition: all 0.3s linear;
+}
+
+.wrapper .top_navbar .top_menu .home_link a {
+  display: block;
+  background-color: #FF5722;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 3px;
+  transition: all 0.3s linear;
+}
+
+.wrapper .top_navbar .top_menu .home_link a:hover {
+  background-color: #E64A19;
+}
+
+.wrapper .top_navbar .top_menu .right_info {
+  display: flex;
+}
+
+.wrapper .top_navbar .top_menu .right_info .icon_wrap {
+  padding: 8px 15px;
+  color: #fff;
+  border-radius: 3px;
+  background-color: #FF5722;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.wrapper .top_navbar .top_menu .right_info .icon_wrap:hover {
+  background-color: #E64A19;
+}
+
+.wrapper .main_body .sidebar_menu {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  background-image: linear-gradient(to right bottom, #FF5722, #E64A19);
+  color: #fff;
+  width: 250px;
+  height: 100%;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .sidebar_menu__inner {
+  position: relative;
+  padding-top: 23px;
+}
+
+.wrapper .main_body .sidebar_menu ul li a {
+  color: #FFCCBC;
+  font-size: 18px;
+  padding: 20px 35px;
+  display: block;
+  white-space: nowrap;
+  transition: all 0.3s;
+}
+
+.wrapper .main_body .sidebar_menu ul li a span {
+  display: inline-block;
+}
+
+.wrapper .main_body .sidebar_menu ul li a .icon {
+  margin-right: 8px;
+}
+
+.wrapper .main_body .sidebar_menu ul li a:hover {
+  background-color: #E64A19;
+  color: #fff;
+}
+
+.wrapper .main_body .sidebar_menu ul li a.active {
+  background-color: #E64A19;
+  color: #fff;
+}
+
+.wrapper .main_body .sidebar_menu .hamberger {
+  position: absolute;
+  top: 5px;
+  right: -25px;
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border-radius: 50%;
+}
+
+.wrapper .main_body .sidebar_menu .hamberger:hover {
+  cursor: pointer;
+}
+
+.wrapper .main_body .sidebar_menu .hamberger_inner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #FF5722;
+}
+
+.wrapper .main_body .sidebar_menu .hamberger_inner .arrow {
+  color: #fff;
+  font-size: 20px;
+}
+
+.wrapper .main_body .sidebar_menu .hamberger_inner,
+.wrapper .main_body .sidebar_menu .hamberger_inner .arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapper .main_body .container {
+  width: calc(100% - 250px);
+  margin-left: 250px;
+  margin-top: 65px;
+  padding: 25px 40px;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.wrapper .main_body .container .item_wrap .item {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  margin: 20px;
+  padding: 25px;
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.wrapper.active .sidebar_menu {
+  width: 100px;
+}
+
+.wrapper.active .sidebar_menu__inner ul li a .list {
+  display: none !important;
+}
+
+.wrapper.active .sidebar_menu__inner ul li a {
+  font-size: 23px;
+}
+
+.wrapper.active .hamberger .toggledRight {
+  display: block !important;
+}
+
+.wrapper.active .hamberger .toggledLeft {
+  display: none !important;
+}
+
+.wrapper.active .container {
+  width: calc(100% - 100px);
+  margin-left: 100px;
+}
+
+.wrapper.active .adminLogo {
+  width: 100px;
+}
+
+.wrapper.active .adminLogo a {
+  font-size: 19px;
+}
+
+.wrapper.active .top_menu {
+  width: calc(100% - 100px);
+}
+
+@media (max-width: 768px) {
+  .wrapper.mediaTab {
+    font-size: 8px;
+  }
+
+  .wrapper.mediaTab .sidebar_menu {
+    width: 100px;
+  }
+
+  .wrapper.mediaTab .sidebar_menu__inner ul li a .list {
+    display: none !important;
+  }
+
+  .wrapper.mediaTab .sidebar_menu__inner ul li a {
+    font-size: 20px;
+  }
+
+  .wrapper.mediaTab .hamberger {
+    display: none;
+  }
+
+  .wrapper.mediaTab .container {
+    width: calc(100% - 100px);
+    margin-left: 100px;
+  }
+
+  .wrapper.mediaTab .adminLogo {
+    width: 100px;
+  }
+
+  .wrapper.mediaTab .adminLogo a {
+    font-size: 16px;
+  }
+}
+
