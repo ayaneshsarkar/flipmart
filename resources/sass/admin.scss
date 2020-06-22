@@ -1,12 +1,21 @@
 $background: #fffffe;
 $theme: #FF5722;
 $themeHover: #E64A19;
+$success: #4CAF50;
 
 $primaryText: #fff;
 $lightPrimaryText: #FFCCBC;
+$secondaryText: #757575;
+
+$dividerColor: rgba(189, 189, 189, 0.5);
+
+$shadowMd: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+//0 .5rem 1rem rgba(0,0,0,.15)!important;
+$shadowLg: 0 1rem 3rem rgba(0,0,0,.175) !important;
+
+@import 'orders';
 
 .wrapper {
-
   width: 100%;
   height: 100%;
   background-color: $background;
@@ -17,6 +26,7 @@ $lightPrimaryText: #FFCCBC;
     display: flex;
     position: fixed;
     top: 0;
+    z-index: 2005;
 
     .adminLogo {
       width: 250px;
@@ -29,7 +39,6 @@ $lightPrimaryText: #FFCCBC;
         display: block;
         text-align: center;
         font-size: 20px;
-        font-family: inherit;
         color: #fff;
         padding: 15px 0;
         transition: all 0.3s linear;
@@ -44,8 +53,9 @@ $lightPrimaryText: #FFCCBC;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid $dividerColor;
       transition: all 0.3s linear;
+      box-shadow: $shadowMd;
 
       .home_link {
         a {
@@ -65,6 +75,7 @@ $lightPrimaryText: #FFCCBC;
 
       .right_info {
         display: flex;
+        font-size: 15px !important;
 
         .icon_wrap {
           padding: 8px 15px;
@@ -100,16 +111,16 @@ $lightPrimaryText: #FFCCBC;
 
       &__inner {
         position: relative;
-        padding-top: 23px;
+        padding-top: 16px;
       }
 
       ul li a {
         color: $lightPrimaryText;
-        font-size: 18px;
+        font-size: 19px;
         padding: 20px 35px;
         display: block;
         white-space: nowrap;
-        transition: all 0.3s;
+        transition: all 0.3s linear;
 
         span {
           display: inline-block;
@@ -123,6 +134,11 @@ $lightPrimaryText: #FFCCBC;
           background-color: $themeHover;
           color: #fff;
         }
+      }
+
+      ul li a svg {
+        height: 19px;
+        width: 19px;
       }
 
       ul li a.active {
@@ -149,9 +165,17 @@ $lightPrimaryText: #FFCCBC;
           border-radius: 50%;
           background-color: $theme;
 
+          &:hover {
+            cursor: pointer;
+          }
+
           .arrow {
             color: #fff;
             font-size: 20px;
+
+            &:hover {
+              cursor: pointer;
+            }
           }
         }
 
@@ -166,6 +190,7 @@ $lightPrimaryText: #FFCCBC;
     }
 
     .container {
+      position: relative;
       width: calc(100% - 250px);
       margin-left: 250px;
       margin-top: 65px;
@@ -173,18 +198,99 @@ $lightPrimaryText: #FFCCBC;
       transition: all 0.3s linear;
 
       .item_wrap {
-        display: flex;
-        margin-bottom: 20px;
-        
-        .item {
-          background-color: #fff;
-          border: 1px solid #e0e0e0;
-          margin: 20px;
-          padding: 25px;
-          font-size: 16px;
-          line-height: 22px;
+        margin-top: 25px;
+
+        .widget {
+          background-color: $primaryText;
+          padding: 20px;
+          margin-bottom: 25px;
+          border-radius: 3px;
+        }
+
+        .widget.widget-tile {
+          padding: 24px 20px;
+          margin-bottom: 25px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          box-shadow: $shadowLg;
+          transition: all 0.3s linear;
+
+          &:hover {
+            transform: translateY(-3px);
+          }
+
+          .icon {
+            font-size: 70px;
+            padding: 5px 0;
+            color: $theme;
+          }
+
+          .data-info {
+            text-align: right;
+
+            .desc {
+              font-size: 20px;
+              line-height: 19px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              margin-bottom: 3px;
+            }
+
+            .value {
+              font-size: 25px;
+
+              .icon {
+                font-size: inherit;
+                color: $success;
+                margin-right: 7px;
+                line-height: 23px;
+                vertical-align: middle;
+              }
+            }
+          }
         }
       }
+
+      .dropdown_mobile {
+        position: absolute;
+        display: none;
+        opacity: 0;
+        visibility: hidden;
+        top: 20px;
+        right: 10px;
+        left: 30px;
+        font-size: 15px;
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        transition: all 0.3s linear;
+
+        &-wrap {
+          padding: 15px 10px;
+          color: $secondaryText;
+
+          ul li {
+            margin-bottom: 10px;
+          }
+
+          ul li a {
+            display: block;
+            padding: 10px;
+            transition: all 0.3s linear;
+             
+            &:hover {
+              background-color: $themeHover;
+              color: $primaryText;
+            }
+          }
+
+        }
+
+      }
+
     }
 
   }
@@ -203,6 +309,11 @@ $lightPrimaryText: #FFCCBC;
 
       ul li a {
         font-size: 23px;
+      }
+
+      ul li a svg {
+        height: 23px;
+        width: 23px;
       }
     }
   }
@@ -240,10 +351,29 @@ $lightPrimaryText: #FFCCBC;
   .wrapper.mediaTab {
     font-size: 8px;
 
+    .top_menu {
+      width: calc(100% - 100px);
+      justify-content: flex-end !important;
+
+      .home_link {
+        display: none;
+      }
+
+      .right_info .icon_wrap {
+        display: none;
+      }
+
+      .right_info #toggleMenu {
+        display: block !important;
+      }
+    }
+
     .sidebar_menu {
       width: 100px;
   
       &__inner {
+        padding-top: 3px;
+
         ul li a .list {
           display: none !important;
         }
@@ -261,6 +391,26 @@ $lightPrimaryText: #FFCCBC;
     .container {
       width: calc(100% - 100px);
       margin-left: 100px;
+
+      .dropdown_mobile {
+        position: absolute;
+        display: block;
+        top: 0px;
+        right: 10px;
+        left: 10px;
+      }
+
+      .dropdown_mobile.toggled {
+        position: absolute !important;
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        top: 0px !important;
+        right: 10px !important;
+        left: 30px !important;
+        z-index: 2003 !important;
+        transition: all 0.3s linear;
+      }
     }
   
     .adminLogo {

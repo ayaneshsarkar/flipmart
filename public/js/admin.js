@@ -10980,16 +10980,14 @@ return jQuery;
 var _require = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js"),
     cssNumber = _require.cssNumber;
 
-$('.hamberger').click(function () {
-  $('.wrapper').toggleClass('active');
-}); // function tabletFunction(tabletWidth) {
-//   if(tabletWidth.matches) {
-//     document.querySelector('.wrapper').classList.toggle('active');
-//   }
-// }
-// const tabletWidth = window.matchMedia("(max-width: 768px)");
-// tabletFunction(tabletWidth);
-// tabletWidth.addEventListener(tabletFunction);
+$(document).ready(function () {
+  $('.hamberger').click(function () {
+    $('.wrapper').toggleClass('active');
+  });
+  $('#toggleMenu').click(function () {
+    $('.dropdown_mobile').toggleClass('toggled');
+  });
+});
 
 /***/ }),
 

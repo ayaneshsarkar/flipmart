@@ -1,15 +1,11 @@
 const { cssNumber } = require("jquery");
+$(document).ready(function() {  
+  $('.hamberger').click(function() {
+    $('.wrapper').toggleClass('active');
+  });
 
-$('.hamberger').click(function() {
-  $('.wrapper').toggleClass('active');
-})
+  $('#toggleMenu').click(function() {
+    $('.dropdown_mobile').toggleClass('toggled');
+  });
 
-// function tabletFunction(tabletWidth) {
-//   if(tabletWidth.matches) {
-//     document.querySelector('.wrapper').classList.toggle('active');
-//   }
-// }
-
-// const tabletWidth = window.matchMedia("(max-width: 768px)");
-// tabletFunction(tabletWidth);
-// tabletWidth.addEventListener(tabletFunction);
+});

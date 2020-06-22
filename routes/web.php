@@ -25,6 +25,11 @@ Route::get('/admin', function() {
   return view('admin.dashboard')->with($data);
 });
 
+Route::get('/orders', function() {
+  $data['title'] = 'Orders';
+  return view('admin.orders')->with($data);
+});
+
 Route::post('register', 'AuthController@register')->name('auth.register');
 Route::post('login', 'AuthController@login')->name('auth.login');
 
