@@ -6,7 +6,7 @@ $danger: #F44336;
 .order__active {
 
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   box-shadow: $shadowMd;
   margin-bottom: 50px;
@@ -41,7 +41,6 @@ $danger: #F44336;
 
   &__inner {
     display: flex;
-    //flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
@@ -53,7 +52,6 @@ $danger: #F44336;
       font-size: 20px;
       color: $textColor;
       margin-right: 30px;
-      //margin-bottom: 30px;
 
       &-title {
         .title {

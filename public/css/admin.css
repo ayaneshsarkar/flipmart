@@ -238,7 +238,7 @@
 
 .wrapper .main_body .container .item_wrap .order__active {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   margin-bottom: 50px;
@@ -350,7 +350,7 @@
 
 .wrapper .main_body .container .dropdown_mobile-wrap {
   padding: 15px 10px;
-  color: #757575;
+  color: #333;
 }
 
 .wrapper .main_body .container .dropdown_mobile-wrap ul li {
@@ -360,6 +360,7 @@
 .wrapper .main_body .container .dropdown_mobile-wrap ul li a {
   display: block;
   padding: 10px;
+  color: #333;
   transition: all 0.3s linear;
 }
 

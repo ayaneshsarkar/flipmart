@@ -30,6 +30,11 @@ Route::get('/orders', function() {
   return view('admin.orders')->with($data);
 });
 
+Route::get('/addproduct', function() {
+  $data['title'] = 'Add Product';
+  return view('admin.addProduct')->with($data);
+});
+
 Route::post('register', 'AuthController@register')->name('auth.register');
 Route::post('login', 'AuthController@login')->name('auth.login');
 
