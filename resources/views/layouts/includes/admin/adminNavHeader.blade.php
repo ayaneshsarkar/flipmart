@@ -16,7 +16,7 @@
       <div class="right_info">
         <div class="icon_wrap">
           <div class="icon">
-            <i class="fa fa-bell" aria-hidden="true"></i>
+            <i class="fa fa-user" aria-hidden="true"></i>
           </div>
         </div>
 
@@ -35,14 +35,14 @@
       <div class="sidebar_menu__inner">
         <ul>
           <li>
-            <a href="{{ URL::to('/admin') }}" class="active">
+            <a href="{{ URL::to('/admin') }}">
               <span class="icon"><i class="fa fa-tachometer" aria-hidden="true"></i></span>
               <span class="list">Dashboard</span>
             </a>
           </li>
 
           <li>
-            <a href="{{ URL::to('/orders') }}">
+            <a href="{{ URL::to('/orders') }}" class="active">
               <span class="icon">
                 <svg class="bi bi-life-preserver" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -90,14 +90,14 @@
             </a>
           </li>
 
-          <li>
+          {{-- <li>
             <a href="#">
               <span class="icon">
                 <i class="fa fa-sliders" aria-hidden="true"></i>
               </span>
               <span class="list">Slides</span>
             </a>
-          </li>
+          </li> --}}
         </ul>
 
         <div class="hamberger">

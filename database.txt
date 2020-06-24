@@ -1,0 +1,24 @@
+=====ORDER=====
+id | user_id | product_id | category_id | quantity | status
+
+
+=====PRODUCT=====
+
+id | user_id | category_id | title | description | size | color | images | info
+
+
+=====CATEGORY=====
+
+id | user_id | product_id | gender | type | brand | info
+
+
+
+
+
+
+
+
+=====REVIEWS=====
+
+id | user_id | product_id | category_id | order_id | title | description | review
+
