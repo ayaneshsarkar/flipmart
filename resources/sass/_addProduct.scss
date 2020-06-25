@@ -1,0 +1,48 @@
+$textColor: #333;
+$textSecondary: #666666;
+
+$borderUnfocused: 1px solid #e6e6e6;
+$borderFocused: 1px solid $textColor !important;
+
+.product__heading {
+  padding: 0 20px;
+  width: 100%;
+  margin-bottom: 45px;
+  color: $textColor;
+  
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+  }
+}
+
+
+
+.product__inputbox {
+
+  padding: 0 20px;
+
+  &_inner {
+    width: 100%;
+    height: 50px;
+    overflow: hidden !important;
+    border: $borderUnfocused;
+    transition: $mainTransition;
+
+    &-input {
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+      border: $borderUnfocused;
+      transition: $mainTransition;
+
+      &:focus, &:active {
+        border: $borderFocused;
+        transition: $mainTransition;
+        -webkit-transition: $mainTransition;
+      }
+    }
+
+  }
+
+}

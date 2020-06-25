@@ -1,0 +1,212 @@
+$textColor: #333;
+$textSecondary: #666666;
+
+$borderUnfocused: 1px solid #e6e6e6;
+$borderFocused: 1px solid $textColor !important;
+
+$borderDanger: 1px solid #F44336 !important;
+
+.category__heading {
+  padding: 0 20px;
+  width: 100%;
+  margin-bottom: 45px;
+  color: $textColor;
+  
+  h2 {
+    font-size: 30px;
+    font-weight: 500;
+  }
+}
+
+
+
+.category__inputbox {
+
+  padding: 0 20px;
+  margin-bottom: 34px;
+
+  &_inner {
+    width: 100%;
+    height: 50px;
+    overflow: hidden !important;
+    border: $borderUnfocused;
+    transition: $mainTransition;
+
+    &-input {
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+      font-size: 16px;
+      font-weight: 400;
+      border: $borderUnfocused;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+
+      &:focus, &:active {
+        border: $borderFocused;
+        transition: $mainTransition;
+        -webkit-transition: $mainTransition;
+      }
+    }
+
+    &-input-danger {
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+      font-size: 16px;
+      font-weight: 400;
+      border: $borderDanger;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+
+      &:focus, &:active {
+        border: $borderDanger;
+        transition: $mainTransition;
+        -webkit-transition: $mainTransition;
+      }
+    }
+
+  }
+
+  &_text {
+    width: 100%;
+    height: 250px;
+    overflow: hidden !important;
+    border: $borderUnfocused;
+    transition: $mainTransition;
+
+    textarea {
+      padding: 20px 20px;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      font-weight: 400;
+      border: none;
+      resize: none;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+
+      &:focus, &:active {
+        border: $borderFocused;
+        transition: $mainTransition;
+        -webkit-transition: $mainTransition;
+      }
+    }
+
+  }
+
+  &_text-danger {
+    width: 100%;
+    height: 250px;
+    overflow: hidden !important;
+    border: $borderDanger;
+    transition: $mainTransition;
+
+    textarea {
+      padding: 20px 20px;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      font-weight: 400;
+      border: none;
+      resize: none;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+    }
+  }
+
+}
+
+
+.category__buttonbox {
+
+  width: 100%;
+  padding: 0 20px;
+
+  &_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 46px;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-radius: 100px;
+    color: $primaryText;
+    background-color: $theme;
+    transition: $mainTransition;
+
+    &:hover {
+      background-color: $themeHover;
+      transition: $mainTransition;
+    }
+  }
+
+}
+
+
+
+

@@ -8,8 +8,8 @@
           <div class="data-info">
             <div class="desc">Orders</div>
             <div class="value">
-              <span class="icon"><i class="fa fa-chevron-up" aria-hidden="true"></i></span>
-              <span class="number">25</span>
+              <span class="icon" style="color: #2196F3"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+              <span class="number">{{ $orderCount }}</span>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
             <div class="value">
               <span class="icon" style="color: #2196F3"><i class="fa fa-chevron-right" aria-hidden="true"></i>
               </span>
-              <span class="number">25</span>
+              <span class="number">{{ $productCount }}</span>
             </div>
           </div>
         </div>
@@ -41,8 +41,10 @@
           <div class="data-info">
             <div class="desc">Categories</div>
             <div class="value">
-              <span class="icon" style="color: #F44336"><i class="fa fa-chevron-down" aria-hidden="true"></i></span>
-              <span class="number">12</span>
+              <span class="icon">
+                <i class="fa fa-chevron-up" aria-hidden="true"></i>
+              </span>
+              <span class="number">{{ $categoryCount }}</span>
             </div>
           </div>
         </div>

@@ -73,7 +73,7 @@
           </li>
 
           <li>
-            <a href="{{ URL::to('/addproduct') }}" class="active">
+            <a href="{{ URL::to('/addproduct') }}">
               <span class="icon">
                 <i class="fa fa-cart-plus" aria-hidden="true"></i>
               </span>
@@ -82,22 +82,13 @@
           </li>
 
           <li>
-            <a href="#">
+            <a href="{{ URL::to('/addcategory') }}" class="active">
               <span class="icon">
                 <i class="fa fa-desktop" aria-hidden="true"></i>
               </span>
-              <span class="list">Categories</span>
+              <span class="list">Add Categories</span>
             </a>
           </li>
-
-          {{-- <li>
-            <a href="#">
-              <span class="icon">
-                <i class="fa fa-sliders" aria-hidden="true"></i>
-              </span>
-              <span class="list">Slides</span>
-            </a>
-          </li> --}}
         </ul>
 
         <div class="hamberger">

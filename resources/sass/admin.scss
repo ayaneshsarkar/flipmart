@@ -16,7 +16,10 @@ $shadowMediumHover: 0 10px 13px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0,
 
 $shadowLg: 0 1rem 3rem rgba(0,0,0,.175) !important;
 
+$mainTransition: all 0.3s linear;
 
+
+@import 'helpers';
 
 .wrapper {
   width: 100%;
@@ -263,6 +266,7 @@ $shadowLg: 0 1rem 3rem rgba(0,0,0,.175) !important;
 
         @import 'orders';
         @import 'addProduct';
+        @import 'addCategory';
       }
 
       .dropdown_mobile {

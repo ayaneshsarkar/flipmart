@@ -20,10 +20,7 @@ Route::get('/register', 'AuthController@signup');
 Route::get('/signin', 'AuthController@signin');
 Route::get('/login', 'AuthController@signin');
 Route::get('/verify/{hashParam}', 'AuthController@verify');
-Route::get('/admin', function() {
-  $data['title'] = 'Admin';
-  return view('admin.dashboard')->with($data);
-});
+Route::get('/admin', 'ProductController@admin');
 
 Route::get('/orders', function() {
   $data['title'] = 'Orders';
@@ -35,8 +32,11 @@ Route::get('/addproduct', function() {
   return view('admin.addProduct')->with($data);
 });
 
+Route::get('/addcategory', 'ProductController@addCategory');
+
 Route::post('register', 'AuthController@register')->name('auth.register');
 Route::post('login', 'AuthController@login')->name('auth.login');
+Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
 
 
 Route::resource('auth', 'AuthController');
