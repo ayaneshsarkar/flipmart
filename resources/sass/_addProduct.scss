@@ -4,6 +4,9 @@ $textSecondary: #666666;
 $borderUnfocused: 1px solid #e6e6e6;
 $borderFocused: 1px solid $textColor !important;
 
+$borderDanger: 1px solid #F44336 !important;
+
+
 .product__heading {
   padding: 0 20px;
   width: 100%;
@@ -21,6 +24,7 @@ $borderFocused: 1px solid $textColor !important;
 .product__inputbox {
 
   padding: 0 20px;
+  margin-bottom: 34px;
 
   &_inner {
     width: 100%;
@@ -33,8 +37,26 @@ $borderFocused: 1px solid $textColor !important;
       width: 100%;
       height: 100%;
       padding: 0 20px;
+      font-size: 16px;
+      font-weight: 400;
       border: $borderUnfocused;
       transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
 
       &:focus, &:active {
         border: $borderFocused;
@@ -43,6 +65,194 @@ $borderFocused: 1px solid $textColor !important;
       }
     }
 
+    &-input-danger {
+      width: 100%;
+      height: 100%;
+      padding: 0 20px;
+      font-size: 16px;
+      font-weight: 400;
+      border: $borderDanger;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+
+      &:focus, &:active {
+        border: $borderDanger;
+        transition: $mainTransition;
+        -webkit-transition: $mainTransition;
+      }
+    }
+
+  }
+
+  &_text {
+    width: 100%;
+    height: 250px;
+    overflow: hidden !important;
+    border: $borderUnfocused;
+    transition: $mainTransition;
+
+    textarea {
+      padding: 20px 20px;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      font-weight: 400;
+      border: none;
+      resize: none;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+
+      &:focus, &:active {
+        border: $borderFocused;
+        transition: $mainTransition;
+        -webkit-transition: $mainTransition;
+      }
+    }
+
+  }
+
+  &_text-danger {
+    width: 100%;
+    height: 250px;
+    overflow: hidden !important;
+    border: $borderDanger;
+    transition: $mainTransition;
+
+    textarea {
+      padding: 20px 20px;
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      font-weight: 400;
+      border: none;
+      resize: none;
+      transition: $mainTransition;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px !important;
+      }
+
+      &::-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-ms-input-placeholder {
+        font-size: 16px !important;
+      }
+      
+      &:-moz-placeholder {
+        font-size: 16px !important;
+      }
+      
+    }
+  }
+
+  &_filebox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: $borderFocused;
+
+    &-button {
+      height: 100%;
+      background-color: $textColor;
+      color: $primaryText;
+      padding: 0 20px;
+      transition: $mainTransition;
+
+      span {
+        font-size: 16px !important;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 13px;
+      }
+
+      &:hover, &:active, &:focus {
+        background-color: $theme;
+        transition: $mainTransition;
+      }
+    }
+
+    &-text {
+      margin-left: 20px;
+      font-size: 15px;
+      font-weight: 400;
+      color: $textSecondary;
+      text-transform: uppercase;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      @media (max-width: 768px) {
+        font-size: 12px;
+      }
+    }
+  }
+
+}
+
+
+.product__buttonbox {
+
+  width: 100%;
+  padding: 0 20px;
+
+  &_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 46px;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    text-transform: uppercase;
+    border-radius: 100px;
+    color: $primaryText;
+    background-color: $theme;
+    transition: $mainTransition;
+
+    &:hover {
+      background-color: $themeHover;
+      transition: $mainTransition;
+    }
   }
 
 }

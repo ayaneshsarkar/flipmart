@@ -35,7 +35,7 @@
       <div class="sidebar_menu__inner">
         <ul>
           <li>
-            <a href="{{ URL::to('/admin') }}">
+            <a href="{{ URL::to('/admin') }}" class="active">
               <span class="icon"><i class="fa fa-tachometer" aria-hidden="true"></i></span>
               <span class="list">Dashboard</span>
             </a>
@@ -82,7 +82,7 @@
           </li>
 
           <li>
-            <a href="{{ URL::to('/addcategory') }}" class="active">
+            <a href="{{ URL::to('/addcategory') }}">
               <span class="icon">
                 <i class="fa fa-desktop" aria-hidden="true"></i>
               </span>

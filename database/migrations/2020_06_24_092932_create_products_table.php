@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('title', 255);
             $table->mediumText('description');
             $table->tinyInteger('size');
-            $table->string('color', 50);
+            $table->string('main_image', 255);
             $table->string('images', 255);
             $table->mediumText('info')->nullable();
 

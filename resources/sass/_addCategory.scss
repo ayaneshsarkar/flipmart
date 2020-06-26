@@ -176,6 +176,72 @@ $borderDanger: 1px solid #F44336 !important;
     }
   }
 
+  &_number {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    //padding: 0 20px;
+    border: $borderFocused;
+    
+
+    .labelbox {
+
+      height: 100%;
+      display: flex;
+      align-items: center;
+      background-color: $textColor;
+      color: $primaryText;
+      padding: 0 20px;
+      transition: $mainTransition;
+
+      @media (max-width: 768px) {
+        padding: 0 10px !important;
+      }
+
+      span {
+        font-size: 16px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background-color: $theme;
+        transition: $mainTransition;
+      }
+
+    }
+
+    &-input {
+
+      margin: 0 20px;
+      height: 100%;
+      flex: 1;
+      font-size: 16px !important;
+
+      @media (max-width: 768px) {
+        font-size: 13px !important;
+      }
+
+      &::-webkit-inner-spin-button {
+        opacity: 1;
+      }
+
+    }
+
+    
+  }
+
+}
+
+.category__inputbox.divided-right {
+  padding-left: 0 !important;
+}
+.category__inputbox.divided-left {
+  padding-right: 0 !important;
 }
 
 

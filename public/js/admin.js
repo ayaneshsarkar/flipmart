@@ -10988,6 +10988,42 @@ $(document).ready(function () {
     $('.dropdown_mobile').toggleClass('toggled');
   });
 });
+var mainInput = document.getElementById('productFile');
+var mainButton = document.getElementById('productButton');
+var mainText = document.getElementById('productText');
+mainButton.addEventListener('click', function () {
+  mainInput.click();
+});
+mainInput.addEventListener('change', function () {
+  if (mainInput.value) {
+    mainText.innerHTML = mainInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+  } else {
+    mainText.innerHTML = 'CHOOSE MAIN FILE [NO FILE CHOSEN YET]';
+  }
+});
+var input = document.getElementById('productFiles');
+var button = document.getElementById('productButtons');
+var text = document.getElementById('productTexts');
+button.addEventListener('click', function () {
+  input.click();
+});
+input.addEventListener('change', function () {
+  var fileLength = input.files.length;
+  var files = input.files;
+  var fileList = [];
+
+  if (fileLength) {
+    Array.prototype.map.call(files, function (file) {
+      return fileList.push(file);
+    });
+    var fileNameList = fileList.map(function (file) {
+      return file.name;
+    });
+    text.innerHTML = fileNameList.join(', ');
+  } else {
+    text.innerHTML = 'Choose Files [No File(s) Chosen Yet]';
+  }
+});
 
 /***/ }),
 

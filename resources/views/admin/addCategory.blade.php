@@ -44,6 +44,41 @@
         </div>
       </div>
 
+      {{-- Sizes --}}
+      
+      <div class="col-12">
+        <div class="category__inputbox">
+          <div class="category__inputbox_number">
+            <div class="labelbox">
+              <span>Min Size</span>
+            </div>
+            <input type="number" class="category__inputbox_number-input" name="min_size">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="category__inputbox">
+          <div class="category__inputbox_number">
+            <div class="labelbox">
+              <span>Max Size</span>
+            </div>
+            <input type="number" class="category__inputbox_number-input" name="max_size">
+          </div>
+        </div>
+      </div>
+
+      {{-- Tags --}}
+      <div class="col-12">
+        <div class="category__inputbox">
+          <div class="category__inputbox_inner">
+            <input type="text" class="category__inputbox_inner-input" 
+            placeholder="Colors (Comma Separated):  (Ex: Blue, Orange)" name="colors">
+          </div>
+        </div>
+      </div>
+
+
       {{-- Info --}}
       <div class="col-12">
         <div class="category__inputbox">
@@ -60,6 +95,7 @@
           <button type="submit" class="category__buttonbox_button">ADD PRODUCT</button>
         </div>
       </div>
+      
 
     {{ Form::close() }}
 

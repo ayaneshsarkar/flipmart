@@ -2,6 +2,16 @@
   width: 100% !important;
 }
 
+.divider {
+  display: flex !important;
+}
+
+@media (max-width: 1000px) {
+  .divider {
+    flex-direction: column !important;
+  }
+}
+
 .wrapper {
   width: 100%;
   height: 100%;
@@ -174,6 +184,7 @@
   width: calc(100% - 250px);
   margin-left: 250px;
   margin-top: 65px;
+  margin-right: 0px !important;
   padding: 25px 40px;
   transition: all 0.3s linear;
 }
@@ -351,6 +362,7 @@
 
 .wrapper .main_body .container .item_wrap .product__inputbox {
   padding: 0 20px;
+  margin-bottom: 34px;
 }
 
 .wrapper .main_body .container .item_wrap .product__inputbox_inner {
@@ -365,8 +377,26 @@
   width: 100%;
   height: 100%;
   padding: 0 20px;
+  font-size: 16px;
+  font-weight: 400;
   border: 1px solid #e6e6e6;
   transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input::-webkit-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input::-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input:-ms-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input:-moz-placeholder {
+  font-size: 16px !important;
 }
 
 .wrapper .main_body .container .item_wrap .product__inputbox_inner-input:focus,
@@ -374,6 +404,197 @@
   border: 1px solid #333 !important;
   transition: all 0.3s linear;
   -webkit-transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger {
+  width: 100%;
+  height: 100%;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 400;
+  border: 1px solid #F44336 !important;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger::-webkit-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger::-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger:-ms-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger:-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger:focus,
+.wrapper .main_body .container .item_wrap .product__inputbox_inner-input-danger:active {
+  border: 1px solid #F44336 !important;
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text {
+  width: 100%;
+  height: 250px;
+  overflow: hidden !important;
+  border: 1px solid #e6e6e6;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea {
+  padding: 20px 20px;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  resize: none;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea::-webkit-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea::-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea:-ms-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea:-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea:focus,
+.wrapper .main_body .container .item_wrap .product__inputbox_text textarea:active {
+  border: 1px solid #333 !important;
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text-danger {
+  width: 100%;
+  height: 250px;
+  overflow: hidden !important;
+  border: 1px solid #F44336 !important;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text-danger textarea {
+  padding: 20px 20px;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  border: none;
+  resize: none;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text-danger textarea::-webkit-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text-danger textarea::-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text-danger textarea:-ms-input-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_text-danger textarea:-moz-placeholder {
+  font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #333 !important;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox-button {
+  height: 100%;
+  background-color: #333;
+  color: #fff;
+  padding: 0 20px;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox-button span {
+  font-size: 16px !important;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .wrapper .main_body .container .item_wrap .product__inputbox_filebox-button {
+    font-size: 13px;
+  }
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox-button:hover,
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox-button:active,
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox-button:focus {
+  background-color: #FF5722;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox-text {
+  margin-left: 20px;
+  font-size: 15px;
+  font-weight: 400;
+  color: #666666;
+  text-transform: uppercase;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .wrapper .main_body .container .item_wrap .product__inputbox_filebox-text {
+    font-size: 12px;
+  }
+}
+
+.wrapper .main_body .container .item_wrap .product__buttonbox {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.wrapper .main_body .container .item_wrap .product__buttonbox_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 46px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 100px;
+  color: #fff;
+  background-color: #FF5722;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .product__buttonbox_button:hover {
+  background-color: #E64A19;
+  transition: all 0.3s linear;
 }
 
 .wrapper .main_body .container .item_wrap .category__heading {
@@ -542,6 +763,68 @@
 
 .wrapper .main_body .container .item_wrap .category__inputbox_text-danger textarea:-moz-placeholder {
   font-size: 16px !important;
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox_number {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  border: 1px solid #333 !important;
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox_number .labelbox {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 0 20px;
+  transition: all 0.3s linear;
+}
+
+@media (max-width: 768px) {
+  .wrapper .main_body .container .item_wrap .category__inputbox_number .labelbox {
+    padding: 0 10px !important;
+  }
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox_number .labelbox span {
+  font-size: 16px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox_number .labelbox:hover {
+  background-color: #FF5722;
+  transition: all 0.3s linear;
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox_number-input {
+  margin: 0 20px;
+  height: 100%;
+  flex: 1;
+  font-size: 16px !important;
+}
+
+@media (max-width: 768px) {
+  .wrapper .main_body .container .item_wrap .category__inputbox_number-input {
+    font-size: 13px !important;
+  }
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox_number-input::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox.divided-right {
+  padding-left: 0 !important;
+}
+
+.wrapper .main_body .container .item_wrap .category__inputbox.divided-left {
+  padding-right: 0 !important;
 }
 
 .wrapper .main_body .container .item_wrap .category__buttonbox {
