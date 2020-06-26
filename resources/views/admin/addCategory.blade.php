@@ -43,59 +43,11 @@
           @error('brand')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
       </div>
-
-      {{-- Sizes --}}
-      
-      <div class="col-12">
-        <div class="category__inputbox">
-          <div class="category__inputbox_number {{ ($errors->has('min_size')) ? 'danger' : 'm-b-30' }}">
-            <div class="labelbox">
-              <span>Min Size</span>
-            </div>
-            <input type="number" class="category__inputbox_number-input" name="min_size">
-          </div>
-          @error('min_size')<span class="invalid-text">{{$message}}</span>@enderror
-        </div>
-      </div>
-
-      <div class="col-12">
-        <div class="category__inputbox">
-          <div class="category__inputbox_number {{ ($errors->has('max_size')) ? 'danger' : 'm-b-30' }}">
-            <div class="labelbox">
-              <span>Max Size</span>
-            </div>
-            <input type="number" class="category__inputbox_number-input" name="max_size">
-          </div>
-          @error('max_size')<span class="invalid-text">{{$message}}</span>@enderror
-        </div>
-      </div>
-
-      {{-- Colors --}}
-      <div class="col-12">
-        <div class="category__inputbox">
-          <div class="category__inputbox_inner {{ ($errors->has('colors')) ? '' : 'm-b-30' }}">
-            <input type="text" class="category__inputbox_inner-input{{ ($errors->has('colors')) ? '-danger' : '' }}" 
-            placeholder="Colors (Comma Separated):  (Ex: Blue, Orange)" name="colors">
-          </div>
-          @error('colors')<span class="invalid-text">{{$message}}</span>@enderror
-        </div>
-      </div>
-
-
-      {{-- Info --}}
-      <div class="col-12">
-        <div class="category__inputbox">
-          <div class="category__inputbox_text{{ ($errors->has('info')) ? '-danger' : ' m-b-30' }}">
-            <textarea placeholder="Addotional Info (Optional)" name="info"></textarea>
-          </div>
-          @error('info')<span class="invalid-text">{{$message}}</span>@enderror
-        </div>
-      </div>
       
       {{-- Submit Button --}}
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="category__buttonbox">
-          <button type="submit" class="category__buttonbox_button">ADD PRODUCT</button>
+          <button type="submit" class="category__buttonbox_button">ADD CATEGORY</button>
         </div>
       </div>
       

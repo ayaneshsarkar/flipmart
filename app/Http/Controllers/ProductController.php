@@ -24,6 +24,17 @@ class ProductController extends Controller
         return view('admin.dashboard')->with($data);
     }
 
+    public function addProduct() 
+    {
+
+        $data = [
+            'title' => 'Add Product',
+        ];
+
+        return view('admin.addProduct')->with($data);
+        
+    }
+
 
     public function addCategory() {
         $data['title'] = 'Add Category';
@@ -44,11 +55,7 @@ class ProductController extends Controller
 
             'gender'   => 'required|string|max:255',
             'type'     => 'required|string|max:255',
-            'brand'    => 'required|string|max:255',
-            'min_size' => 'required|integer',
-            'max_size' => 'required|integer',
-            'colors'   => 'required|string|max:255',
-            'info'     => 'string|nullable'
+            'brand'    => 'required|string|max:255'
 
         ]);
 
@@ -66,11 +73,7 @@ class ProductController extends Controller
                 'user_id'  => session('userId'),
                 'gender'   => $request->input('gender'),
                 'type'     => $request->input('type'),
-                'brand'    => $request->input('brand'),
-                'min_size' => $request->input('min_size'),
-                'max_size' => $request->input('max_size'),
-                'colors'   => strtolower($request->input('colors')),
-                'info'    => $info
+                'brand'    => $request->input('brand')
             ]
         );
 

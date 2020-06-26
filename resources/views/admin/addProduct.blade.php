@@ -8,6 +8,8 @@
         </div>
       </div>
 
+      {{-- Title --}}
+
       <div class="col-12">
         <div class="product__inputbox">
           <div class="product__inputbox_inner">
@@ -16,9 +18,37 @@
         </div>
       </div>
 
+      {{-- Sizes --}}
+
       <div class="col-12">
         <div class="product__inputbox">
-            <div class="product__inputbox_filebox">
+          <div class="product__inputbox_number {{ ($errors->has('min_size')) ? 'danger' : 'm-b-30' }}">
+            <div class="labelbox">
+              <span>Min Size</span>
+            </div>
+            <input type="number" class="product__inputbox_number-input" name="min_size">
+          </div>
+          @error('min_size')<span class="invalid-text">{{$message}}</span>@enderror
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="product__inputbox">
+          <div class="product__inputbox_number {{ ($errors->has('max_size')) ? 'danger' : 'm-b-30' }}">
+            <div class="labelbox">
+              <span>Max Size</span>
+            </div>
+            <input type="number" class="product__inputbox_number-input" name="max_size">
+          </div>
+          @error('max_size')<span class="invalid-text">{{$message}}</span>@enderror
+        </div>
+      </div>
+
+      {{-- Main Image --}}
+
+      <div class="col-12">
+        <div class="product__inputbox">
+            <div class="product__inputbox_filebox" id="filebox">
               <input type="file" name="main_image" id="productFile" hidden="hidden">
               <button type="button" id="productButton" class="product__inputbox_filebox-button">
                 <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
@@ -29,9 +59,11 @@
         </div>
       </div>
 
+      {{-- Images --}}
+
       <div class="col-12">
         <div class="product__inputbox">
-            <div class="product__inputbox_filebox">
+            <div class="product__inputbox_filebox" id="fileboxes">
               <input type="file" name="images[]" id="productFiles" hidden="hidden" multiple>
               <button type="button" id="productButtons" class="product__inputbox_filebox-button">
                 <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
@@ -42,6 +74,8 @@
         </div>
       </div>
 
+      {{-- Description --}}
+
       <div class="col-12">
         <div class="product__inputbox">
           <div class="product__inputbox_text">
@@ -50,6 +84,8 @@
         </div>
       </div>
 
+      {{-- Info --}}
+
       <div class="col-12">
         <div class="product__inputbox">
           <div class="product__inputbox_text">
@@ -57,6 +93,8 @@
           </div>
         </div>
       </div>
+
+      {{-- Submit Button --}}
 
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="product__buttonbox">

@@ -99,6 +99,63 @@ $borderDanger: 1px solid #F44336 !important;
 
   }
 
+  &_option {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0 20px;
+    overflow: hidden !important;
+    border: $borderUnfocused;
+    transition: $mainTransition;
+
+    p {
+      color: $textSecondary;
+      font-size: 16px;
+      font-weight: 400;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .icon {
+      color: $textSecondary;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    /*.icon i {
+      //transform: rotate(180deg);
+    }*/
+
+    &.optionbox {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      height: auto;
+      color: $textColor;
+      z-index: 10;
+      padding: 15px 20px;
+      overflow: hidden !important;
+      border-top: none !important;
+      border: $borderUnfocused;
+      transition: all 0.3s ease;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $theme;
+        color: $primaryText;
+        border: 1px solid $themeHover;
+        transition: all 0.3s ease;
+      }
+      
+    }
+
+  }
+
   &_text {
     width: 100%;
     height: 250px;
@@ -183,7 +240,8 @@ $borderDanger: 1px solid #F44336 !important;
     align-items: center;
     width: 100%;
     height: 50px;
-    border: $borderFocused;
+    border: $borderUnfocused;
+    transition: $primaryText;
 
     &-button {
       height: 100%;
@@ -224,6 +282,74 @@ $borderDanger: 1px solid #F44336 !important;
         font-size: 12px;
       }
     }
+  }
+
+  &_number {
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    border: $borderUnfocused;
+    transition: $mainTransition;
+
+    &:focus-within {
+      border: $borderFocused;
+      transition: $mainTransition;
+    }
+
+
+    .labelbox {
+
+      height: 100%;
+      display: flex;
+      align-items: center;
+      background-color: $textColor;
+      color: $primaryText;
+      padding: 0 20px;
+      transition: $mainTransition;
+
+      @media (max-width: 768px) {
+        padding: 0 10px !important;
+      }
+
+      span {
+        font-size: 16px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      &:hover {
+        background-color: $theme;
+        transition: $mainTransition;
+      }
+
+    }
+
+    &-input {
+
+      margin: 0 20px;
+      height: 100%;
+      flex: 1;
+      font-size: 16px !important;
+
+      @media (max-width: 768px) {
+        font-size: 13px !important;
+      }
+
+      &::-webkit-inner-spin-button {
+        opacity: 1;
+      }
+
+    }
+
+    
+  }
+
+  &_number.danger {
+    border: $borderDanger;
   }
 
 }

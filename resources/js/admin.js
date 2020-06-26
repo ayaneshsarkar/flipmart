@@ -14,8 +14,13 @@ const mainInput = document.getElementById('productFile');
 const mainButton = document.getElementById('productButton');
 const mainText = document.getElementById('productText');
 
+const filebox = document.getElementById('filebox');
+
 mainButton.addEventListener('click', () => {
   mainInput.click();
+
+  filebox.style.border = '1px solid #333';
+  filebox.style.transition = 'all 0.3s linear';
 });
 
 mainInput.addEventListener('change', () => {
@@ -30,8 +35,13 @@ const input = document.getElementById('productFiles');
 const button = document.getElementById('productButtons');
 const text = document.getElementById('productTexts');
 
+const fileboxes = document.getElementById('fileboxes');
+
 button.addEventListener('click', () => {
   input.click();
+
+  fileboxes.style.border = '1px solid #333';
+  fileboxes.style.transition = 'all 0.3s linear';
 });
 
 input.addEventListener('change', () => {
@@ -50,3 +60,9 @@ input.addEventListener('change', () => {
   }
 
 });
+
+// const focusedNumberInput =  document.getElementById('size').focus();
+
+// if(focusedNumberInput) {
+//   document.querySelectorAll('.product__inputbox_number').style.border = '1px solid $textColor !important';
+// }

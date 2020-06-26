@@ -14,6 +14,6 @@ class Category extends Model
     public $timestamps = true;
     // Fillable
     protected $fillable = [
-        'user_id', 'gender', 'type', 'brand', 'info', 'created_at', 'updated_at'
+        'user_id', 'gender', 'type', 'brand', 'min_size', 'max_size', 'colors', 'info', 'created_at', 'updated_at'
     ];
 }

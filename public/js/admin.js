@@ -10991,8 +10991,11 @@ $(document).ready(function () {
 var mainInput = document.getElementById('productFile');
 var mainButton = document.getElementById('productButton');
 var mainText = document.getElementById('productText');
+var filebox = document.getElementById('filebox');
 mainButton.addEventListener('click', function () {
   mainInput.click();
+  filebox.style.border = '1px solid #333';
+  filebox.style.transition = 'all 0.3s linear';
 });
 mainInput.addEventListener('change', function () {
   if (mainInput.value) {
@@ -11004,8 +11007,11 @@ mainInput.addEventListener('change', function () {
 var input = document.getElementById('productFiles');
 var button = document.getElementById('productButtons');
 var text = document.getElementById('productTexts');
+var fileboxes = document.getElementById('fileboxes');
 button.addEventListener('click', function () {
   input.click();
+  fileboxes.style.border = '1px solid #333';
+  fileboxes.style.transition = 'all 0.3s linear';
 });
 input.addEventListener('change', function () {
   var fileLength = input.files.length;
@@ -11023,7 +11029,10 @@ input.addEventListener('change', function () {
   } else {
     text.innerHTML = 'Choose Files [No File(s) Chosen Yet]';
   }
-});
+}); // const focusedNumberInput =  document.getElementById('size').focus();
+// if(focusedNumberInput) {
+//   document.querySelectorAll('.product__inputbox_number').style.border = '1px solid $textColor !important';
+// }
 
 /***/ }),
 

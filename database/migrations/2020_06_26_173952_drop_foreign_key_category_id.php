@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyCategoriesTableSizeColor extends Migration
+class DropForeignKeyCategoryId extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class ModifyCategoriesTableSizeColor extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->integer('min_size')->after('brand')->default(5);
-            $table->integer('max_size')->after('min_size')->default(12);
-            $table->string('colors', 255)->after('max_size')->default('black');
+        Schema::table('products', function (Blueprint $table) {
+            //Schema::dropIfExists('products_category_id_foreign');
+            $table->dropForeign('products_category_id_foreign');
+            $table->dropColumn('category_id');
         });
     }
 
