@@ -819,6 +819,10 @@
   opacity: 1;
 }
 
+.wrapper .main_body .container .item_wrap .category__inputbox_number.danger {
+  border: 1px solid #F44336 !important;
+}
+
 .wrapper .main_body .container .item_wrap .category__inputbox.divided-right {
   padding-left: 0 !important;
 }

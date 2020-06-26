@@ -48,33 +48,36 @@
       
       <div class="col-12">
         <div class="category__inputbox">
-          <div class="category__inputbox_number">
+          <div class="category__inputbox_number {{ ($errors->has('min_size')) ? 'danger' : 'm-b-30' }}">
             <div class="labelbox">
               <span>Min Size</span>
             </div>
             <input type="number" class="category__inputbox_number-input" name="min_size">
           </div>
+          @error('min_size')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
       </div>
 
       <div class="col-12">
         <div class="category__inputbox">
-          <div class="category__inputbox_number">
+          <div class="category__inputbox_number {{ ($errors->has('max_size')) ? 'danger' : 'm-b-30' }}">
             <div class="labelbox">
               <span>Max Size</span>
             </div>
             <input type="number" class="category__inputbox_number-input" name="max_size">
           </div>
+          @error('max_size')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
       </div>
 
-      {{-- Tags --}}
+      {{-- Colors --}}
       <div class="col-12">
         <div class="category__inputbox">
-          <div class="category__inputbox_inner">
-            <input type="text" class="category__inputbox_inner-input" 
+          <div class="category__inputbox_inner {{ ($errors->has('colors')) ? '' : 'm-b-30' }}">
+            <input type="text" class="category__inputbox_inner-input{{ ($errors->has('colors')) ? '-danger' : '' }}" 
             placeholder="Colors (Comma Separated):  (Ex: Blue, Orange)" name="colors">
           </div>
+          @error('colors')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
       </div>
 

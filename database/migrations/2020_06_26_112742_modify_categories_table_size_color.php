@@ -16,6 +16,7 @@ class ModifyCategoriesTableSizeColor extends Migration
         Schema::table('categories', function (Blueprint $table) {
             $table->integer('min_size')->after('brand')->default(5);
             $table->integer('max_size')->after('min_size')->default(12);
+            $table->string('colors', 255)->after('max_size')->default('black');
         });
     }
 

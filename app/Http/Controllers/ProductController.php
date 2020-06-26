@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\URL;
 
 use Illuminate\Http\Request;
 
+use App\Category;
+
 class ProductController extends Controller
 {
 
@@ -40,10 +42,13 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->all(), [
 
-            'gender' => 'required|string|max:255',
-            'type'   => 'required|string|max:255',
-            'brand'  => 'required|string|max:255',
-            'info'   => 'string|nullable'
+            'gender'   => 'required|string|max:255',
+            'type'     => 'required|string|max:255',
+            'brand'    => 'required|string|max:255',
+            'min_size' => 'required|integer',
+            'max_size' => 'required|integer',
+            'colors'   => 'required|string|max:255',
+            'info'     => 'string|nullable'
 
         ]);
 
@@ -58,10 +63,13 @@ class ProductController extends Controller
         // Create Category
         DB::table('categories')->insert(
             [
-                'user_id' => session('userId'),
-                'gender'  => $request->input('gender'),
-                'type'    => $request->input('type'),
-                'brand'   => $request->input('brand'),
+                'user_id'  => session('userId'),
+                'gender'   => $request->input('gender'),
+                'type'     => $request->input('type'),
+                'brand'    => $request->input('brand'),
+                'min_size' => $request->input('min_size'),
+                'max_size' => $request->input('max_size'),
+                'colors'   => strtolower($request->input('colors')),
                 'info'    => $info
             ]
         );

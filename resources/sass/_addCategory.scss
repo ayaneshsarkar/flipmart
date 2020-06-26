@@ -235,6 +235,10 @@ $borderDanger: 1px solid #F44336 !important;
     
   }
 
+  &_number.danger {
+    border: $borderDanger;
+  }
+
 }
 
 .category__inputbox.divided-right {

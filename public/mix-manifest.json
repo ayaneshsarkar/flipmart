@@ -2,11 +2,11 @@
     "/js/admin.js": "/js/admin.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/admin.css": "/css/admin.css",
     "/js/main.js": "/js/main.js",
     "/js/map-custom.js": "/js/map-custom.js",
     "/js/modal.js": "/js/modal.js",
     "/js/slick-custom.js": "/js/slick-custom.js",
     "/css/main.css": "/css/main.css",
-    "/css/util.css": "/css/util.css",
-    "/css/admin.css": "/css/admin.css"
+    "/css/util.css": "/css/util.css"
 }
