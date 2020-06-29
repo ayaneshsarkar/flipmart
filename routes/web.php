@@ -34,6 +34,7 @@ Route::get('/addcategory', 'ProductController@addCategory');
 Route::post('register', 'AuthController@register')->name('auth.register');
 Route::post('login', 'AuthController@login')->name('auth.login');
 Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
+Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');
 
 
 Route::resource('auth', 'AuthController');

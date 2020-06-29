@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 use App\Category;
 
@@ -41,6 +42,13 @@ class ProductController extends Controller
         return view('admin.addCategory')->with($data);
     }
 
+    private function randomStrings($strLength) 
+    { 
+        return substr(md5(time() . session('userId')), 0, $strLength);
+    } 
+
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -65,8 +73,6 @@ class ProductController extends Controller
                     ->withInput();
         }
 
-        (!empty($request->input('info'))) ? $info = $request->input('info') : $info  = '';
-
         // Create Category
         DB::table('categories')->insert(
             [
@@ -80,4 +86,88 @@ class ProductController extends Controller
         return redirect('/admin');
 
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function storeProduct(Request $request) 
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'min_size' => 'required|integer',
+            'max_size' => 'required|integer',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'images' => 'required',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'description' => 'required|string',
+            'info' => 'nullable|string'
+        ]);
+
+        if($validator->fails()) {
+            return redirect('/addproduct')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $mainImage = '';
+
+        if ($request->hasFile('main_image')) {
+            $ext = $request->file('main_image')->getClientOriginalExtension();
+            $mainImage = $this->randomStrings(10) . '.' . $ext;
+
+            $folderName = DB::table('users')->where('id', session('userId'))->first()->name . session('userId');
+
+            $path = \storage_path(). "/app/public/myimages/" . $folderName;
+
+            if(!File::isDirectory($path)) {
+                File::makeDirectory($path, 077, true, true);
+            }
+
+            $request->file('main_image')->move($path, $mainImage);
+        }
+
+        $imagesDB = [];
+
+        if($request->file('images')) {
+            $i = 0;
+            foreach($request->file('images') as $image) {
+                $ext = $image->getClientOriginalExtension();
+                $imageName = $this->randomStrings(10) . time() . $i++ . '.' . $ext;
+
+                $folderName = md5(DB::table('users')->where('id', session('userId'))->first()->name . session('userId'));
+
+                $path = \storage_path() . "/app/public/myimages/" . $folderName;
+
+                $image->move($path, $imageName);
+                $imagesDB[] = $imageName;
+            }
+        }
+
+        $info = '';
+
+        (!empty($request->input('info'))) ? $info = $request->input('info') : $info = '';
+
+        DB::table('products')->insert(
+            [
+                'user_id'      => session('userId'),
+                'product_slug' => strtoupper($this->randomStrings(12)),
+                'title'        => $request->input('title'),
+                'description'  => $request->input('description'),
+                'main_image'   => $mainImage,
+                'images'       => implode(', ', $imagesDB),
+                'min_size'     => $request->input('min_size'),
+                'max_size'     => $request->input('max_size'),
+                'info'         => $info
+
+            ]
+        );
+
+        return redirect('/admin');
+
+    }
+
 }

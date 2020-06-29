@@ -8,99 +8,110 @@
         </div>
       </div>
 
-      {{-- Title --}}
+      {{ Form::open(['action' => 'ProductController@storeProduct', 'method' => 'POST', 'class' => 'fullwidth', 'enctype' => 'multipart/form-data']) }}
 
-      <div class="col-12">
-        <div class="product__inputbox">
-          <div class="product__inputbox_inner">
-            <input type="text" class="product__inputbox_inner-input" placeholder="Title" name="title">
-          </div>
-        </div>
-      </div>
+        {{-- Title --}}
 
-      {{-- Sizes --}}
-
-      <div class="col-12">
-        <div class="product__inputbox">
-          <div class="product__inputbox_number {{ ($errors->has('min_size')) ? 'danger' : 'm-b-30' }}">
-            <div class="labelbox">
-              <span>Min Size</span>
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_inner {{ ($errors->has('title')) ? '' : 'm-b-30' }}">
+              <input type="text" class="product__inputbox_inner-input{{ ($errors->has('title')) ? '-danger' : '' }}" placeholder="Title" name="title" value="{{ old('title') }}">
             </div>
-            <input type="number" class="product__inputbox_number-input" name="min_size">
+            @error('title')<span class="invalid-text">{{$message}}</span>@enderror
           </div>
-          @error('min_size')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
-      </div>
 
-      <div class="col-12">
-        <div class="product__inputbox">
-          <div class="product__inputbox_number {{ ($errors->has('max_size')) ? 'danger' : 'm-b-30' }}">
-            <div class="labelbox">
-              <span>Max Size</span>
+        {{-- Sizes --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('min_size')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Min Size</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="min_size" 
+              value="{{ old('min_size') }}">
             </div>
-            <input type="number" class="product__inputbox_number-input" name="max_size">
+            @error('min_size')<span class="invalid-text">{{$message}}</span>@enderror
           </div>
-          @error('max_size')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
-      </div>
 
-      {{-- Main Image --}}
-
-      <div class="col-12">
-        <div class="product__inputbox">
-            <div class="product__inputbox_filebox" id="filebox">
-              <input type="file" name="main_image" id="productFile" hidden="hidden">
-              <button type="button" id="productButton" class="product__inputbox_filebox-button">
-                <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
-              </button>
-              <span id="productText" class="product__inputbox_filebox-text">Choose Main File [No File Chosen Yet]
-              </span>
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('max_size')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Max Size</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="max_size" 
+              value="{{ old('max_size') }}">
             </div>
+            @error('max_size')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
         </div>
-      </div>
 
-      {{-- Images --}}
+        {{-- Main Image --}}
 
-      <div class="col-12">
-        <div class="product__inputbox">
-            <div class="product__inputbox_filebox" id="fileboxes">
-              <input type="file" name="images[]" id="productFiles" hidden="hidden" multiple>
-              <button type="button" id="productButtons" class="product__inputbox_filebox-button">
-                <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
-              </button>
-              <span id="productTexts" class="product__inputbox_filebox-text">Choose Files [No File(s) Chosen Yet]
-              </span>
+        <div class="col-12">
+          <div class="product__inputbox">
+              <div class="product__inputbox_filebox {{ ($errors->has('main_image')) ? 'danger' : 'm-b-30' }}" id="filebox">
+                <input type="file" name="main_image" id="productFile" hidden="hidden">
+                <button type="button" id="productButton" class="product__inputbox_filebox-button">
+                  <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                </button>
+                <span id="productText" class="product__inputbox_filebox-text">Choose Main File [No File Chosen Yet]
+                </span>
+              </div>
+              @error('main_image')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
+        {{-- Images --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+              <div class="product__inputbox_filebox {{ ($errors->has('images')) ? 'danger' : 'm-b-30' }}" id="fileboxes">
+                <input type="file" name="images[]" id="productFiles" hidden="hidden" multiple>
+                <button type="button" id="productButtons" class="product__inputbox_filebox-button">
+                  <span><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                </button>
+                <span id="productTexts" class="product__inputbox_filebox-text">Choose Files [No File(s) Chosen Yet]
+                </span>
+              </div>
+              @error('images')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
+        {{-- Description --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_text{{ ($errors->has('description')) ? '-danger' : ' m-b-30' }}">
+              <textarea placeholder="Description" name="description">{{ old('description') }}</textarea>
             </div>
-        </div>
-      </div>
-
-      {{-- Description --}}
-
-      <div class="col-12">
-        <div class="product__inputbox">
-          <div class="product__inputbox_text">
-            <textarea placeholder="Description" name="desc"></textarea>
+            @error('description')<span class="invalid-text">{{$message}}</span>@enderror
           </div>
         </div>
-      </div>
 
-      {{-- Info --}}
+        {{-- Info --}}
 
-      <div class="col-12">
-        <div class="product__inputbox">
-          <div class="product__inputbox_text">
-            <textarea placeholder="Additional Info (Optional)" name="info"></textarea>
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_text{{ ($errors->has('info')) ? '-danger' : ' m-b-30' }}">
+              <textarea placeholder="Additional Info (Optional)" name="info">{{ old('info') }}</textarea>
+            </div>
+            @error('info')<span class="invalid-text">{{$message}}</span>@enderror
           </div>
         </div>
-      </div>
 
-      {{-- Submit Button --}}
+        {{-- Submit Button --}}
 
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="product__buttonbox">
-          <button type="submit" class="product__buttonbox_button">ADD PRODUCT</button>
+        <div class="col-lg-4 col-md-6 col-sm-12">
+          <div class="product__buttonbox">
+            <button type="submit" class="product__buttonbox_button">ADD PRODUCT</button>
+          </div>
         </div>
-      </div>
+
+      {{ Form::close() }}
 
     </div>
   </div>

@@ -625,6 +625,10 @@
   }
 }
 
+.wrapper .main_body .container .item_wrap .product__inputbox_filebox.danger {
+  border: 1px solid #F44336 !important;
+}
+
 .wrapper .main_body .container .item_wrap .product__inputbox_number {
   display: flex;
   justify-content: flex-start;

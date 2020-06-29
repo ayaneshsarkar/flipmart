@@ -284,6 +284,10 @@ $borderDanger: 1px solid #F44336 !important;
     }
   }
 
+  &_filebox.danger {
+    border: $borderDanger;
+  }
+
   &_number {
 
     display: flex;
