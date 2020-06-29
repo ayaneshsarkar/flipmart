@@ -11,23 +11,12 @@
     {{ Form::open(['action' => 'ProductController@storeCategory', 'method' => 'POST', 
     'class' => 'fullwidth']) }}
 
-      {{-- Gender --}}
-      <div class="col-12">
-        <div class="category__inputbox">
-          <div class="category__inputbox_inner {{ ($errors->has('gender')) ? '' : 'm-b-30' }}">
-            <input type="text" class="category__inputbox_inner-input{{ ($errors->has('gender')) ? '-danger' : '' }}" 
-            placeholder="Gender (Ex: Women)" name="gender">
-          </div>
-          @error('gender')<span class="invalid-text">{{$message}}</span>@enderror
-        </div>
-      </div>
-
       {{-- Type --}}
       <div class="col-12">
         <div class="category__inputbox">
           <div class="category__inputbox_inner {{ ($errors->has('type')) ? '' : 'm-b-30' }}">
             <input type="text" class="category__inputbox_inner-input{{ ($errors->has('type')) ? '-danger' : '' }}" 
-            placeholder="Shoe Type (Ex: Leather)" name="type">
+            placeholder="Shoe Type (Ex: Leather)" name="type" value="{{ old('type') }}">
           </div>
           @error('type')<span class="invalid-text">{{$message}}</span>@enderror
         </div>
@@ -38,7 +27,7 @@
         <div class="category__inputbox">
           <div class="category__inputbox_inner {{ ($errors->has('brand')) ? '' : 'm-b-30' }}">
             <input type="text" class="category__inputbox_inner-input{{ ($errors->has('brand')) ? '-danger' : '' }}" 
-            placeholder="Brand (Ex: Adidas)" name="brand">
+            placeholder="Brand (Ex: Adidas)" name="brand" value="{{ old('brand') }}">
           </div>
           @error('brand')<span class="invalid-text">{{$message}}</span>@enderror
         </div>

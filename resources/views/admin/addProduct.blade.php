@@ -81,6 +81,61 @@
           </div>
         </div>
 
+        {{-- Category --}}
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_option {{ $errors->has('category') ? 'danger' : '' }}" id="categoryOptions">
+              <input type="text" name="category" id="categoryInput" hidden="hidden">
+              <p id="categoryText">{{ old('category') ?? 'Choose Category (Required)' }}</p>
+              <span class="icon"><i class="fa fa-angle-down select_arrow" aria-hidden="true"></i></span>
+            </div>
+
+            <div class="product__inputbox_option optionbox">Men</div>
+            <div class="product__inputbox_option optionbox">Women</div>
+            <div class="product__inputbox_option optionbox">Kids</div>
+            @error('category')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
+        {{-- Type --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_option {{ $errors->has('type') ? 'danger' : '' }}" id="typeOptions">
+              <input type="text" name="type" id="typeInput" style="display: none">
+              <p id="typeText">{{ old('type') ?? 'Choose Type (Required)' }}</p>
+              <span class="icon"><i class="fa fa-angle-down select_arrow" aria-hidden="true"></i></span>
+            </div>
+
+            @if(!empty($categories))
+              @foreach ($categories as $category)
+                <div class="product__inputbox_option optionbox">{{ $category->type }}</div>
+              @endforeach
+              @error('type')<span class="invalid-text">{{$message}}</span>@enderror
+            @endif
+          </div>
+        </div>
+
+        {{-- Brand --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_option {{ $errors->has('brand') ? 'danger' : '' }}" id="brandOptions">
+              <input type="text" name="brand" id="brandInput" hidden="hidden">
+              <p id="brandText">{{ old('brand') ?? 'Choose Brand (Required)' }}</p>
+              <span class="icon"><i class="fa fa-angle-down select_arrow" aria-hidden="true"></i></span>
+            </div>
+
+            @if(!empty($categories))
+              @foreach ($categories as $category)
+                <div class="product__inputbox_option optionbox">{{ $category->brand }}</div>
+              @endforeach
+              @error('brand')<span class="invalid-text">{{$message}}</span>@enderror
+            @endif
+          </div>
+        </div>
+
+
         {{-- Description --}}
 
         <div class="col-12">
@@ -115,7 +170,5 @@
 
     </div>
   </div>
-
-
 
 @include('layouts.includes.admin.adminNavFooter')

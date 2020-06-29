@@ -18,8 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('gender', 20);
             $table->string('type', 255);
             $table->string('brand', 255);
-            $table->mediumText('info')->nullable();
-            
+                        
             $table->timestampsTz();
         });
     }

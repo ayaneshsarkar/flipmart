@@ -9,3 +9,21 @@
     flex-direction: column !important;
   }
 }
+
+.focusedBorder {
+  border: 1px solid #333 !important;
+}
+
+.textColor {
+  color: #333 !important;
+}
+
+.select {
+  display: flex !important;
+  transition: all 0.3s linear !important;
+}
+
+.rotateArrow {
+  transform: rotate(180deg);
+  transition: all 0.3s linear !important;
+}

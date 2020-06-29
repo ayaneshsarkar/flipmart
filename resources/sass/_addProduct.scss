@@ -25,6 +25,7 @@ $borderDanger: 1px solid #F44336 !important;
 
   padding: 0 20px;
   margin-bottom: 34px;
+  transition: $mainTransition;
 
   &_inner {
     width: 100%;
@@ -111,6 +112,10 @@ $borderDanger: 1px solid #F44336 !important;
     border: $borderUnfocused;
     transition: $mainTransition;
 
+    &.danger {
+      border: $borderDanger;
+    }
+
     p {
       color: $textSecondary;
       font-size: 16px;
@@ -126,12 +131,13 @@ $borderDanger: 1px solid #F44336 !important;
       font-weight: 400;
     }
 
-    /*.icon i {
-      //transform: rotate(180deg);
-    }*/
+    .icon i {
+      transition: $mainTransition;
+    }
 
     &.optionbox {
-      display: flex;
+      display: none;
+      //display: flex;
       justify-content: flex-start;
       align-items: center;
       width: 100%;
@@ -142,14 +148,14 @@ $borderDanger: 1px solid #F44336 !important;
       overflow: hidden !important;
       border-top: none !important;
       border: $borderUnfocused;
-      transition: all 0.3s ease;
+      transition: $mainTransition;
 
       &:hover {
         cursor: pointer;
         background-color: $theme;
         color: $primaryText;
         border: 1px solid $themeHover;
-        transition: all 0.3s ease;
+        transition: $mainTransition;
       }
       
     }
@@ -386,3 +392,16 @@ $borderDanger: 1px solid #F44336 !important;
   }
 
 }
+
+#categoryOptions:hover {
+  cursor: pointer;
+}
+
+#typeOptions:hover {
+  cursor: pointer;
+}
+
+#brandOptions:hover {
+  cursor: pointer;
+}
+

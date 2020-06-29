@@ -27,9 +27,11 @@ class ProductController extends Controller
 
     public function addProduct() 
     {
+        $category = new Category();
 
         $data = [
-            'title' => 'Add Product',
+            'title'      => 'Add Product',
+            'categories' => $category::where('user_id', session('userId'))->orderBy('type', 'desc')->get()
         ];
 
         return view('admin.addProduct')->with($data);
@@ -61,9 +63,8 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->all(), [
 
-            'gender'   => 'required|string|max:255',
-            'type'     => 'required|string|max:255',
-            'brand'    => 'required|string|max:255'
+            'type'     => 'nullable|string|max:255',
+            'brand'    => 'nullable|string|max:255'
 
         ]);
 
@@ -73,11 +74,14 @@ class ProductController extends Controller
                     ->withInput();
         }
 
+        if($request->input('type') == NULL && $request->input('brand') == NULL) {
+            return redirect('/admin');
+        }
+
         // Create Category
         DB::table('categories')->insert(
             [
                 'user_id'  => session('userId'),
-                'gender'   => $request->input('gender'),
                 'type'     => $request->input('type'),
                 'brand'    => $request->input('brand')
             ]
@@ -97,14 +101,17 @@ class ProductController extends Controller
     public function storeProduct(Request $request) 
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'required|string|max:255',
-            'min_size' => 'required|integer',
-            'max_size' => 'required|integer',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
-            'images' => 'required',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'title'       => 'required|string|max:255',
+            'min_size'    => 'required|integer',
+            'max_size'    => 'required|integer',
+            'main_image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'images'      => 'required',
+            'images.*'    => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'category'    => 'required|string|max:255',
+            'type'        => 'required|string|max:255',
+            'brand'       => 'required|string|max:255',
             'description' => 'required|string',
-            'info' => 'nullable|string'
+            'info'        => 'nullable|string'
         ]);
 
         if($validator->fails()) {
@@ -124,7 +131,7 @@ class ProductController extends Controller
             $path = \storage_path(). "/app/public/myimages/" . $folderName;
 
             if(!File::isDirectory($path)) {
-                File::makeDirectory($path, 077, true, true);
+                File::makeDirectory($path, 0777, true, true);
             }
 
             $request->file('main_image')->move($path, $mainImage);
@@ -138,7 +145,7 @@ class ProductController extends Controller
                 $ext = $image->getClientOriginalExtension();
                 $imageName = $this->randomStrings(10) . time() . $i++ . '.' . $ext;
 
-                $folderName = md5(DB::table('users')->where('id', session('userId'))->first()->name . session('userId'));
+                $folderName = DB::table('users')->where('id', session('userId'))->first()->name . session('userId');
 
                 $path = \storage_path() . "/app/public/myimages/" . $folderName;
 
@@ -157,6 +164,9 @@ class ProductController extends Controller
                 'product_slug' => strtoupper($this->randomStrings(12)),
                 'title'        => $request->input('title'),
                 'description'  => $request->input('description'),
+                'category'     => $request->input('category'),
+                'type'         => $request->input('type'),
+                'brand'        => $request->input('brand'),
                 'main_image'   => $mainImage,
                 'images'       => implode(', ', $imagesDB),
                 'min_size'     => $request->input('min_size'),

@@ -15,8 +15,6 @@ class ModifyCategoriesTable extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->foreignId('user_id')->after('id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-
-            $table->foreignId('product_id')->after('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

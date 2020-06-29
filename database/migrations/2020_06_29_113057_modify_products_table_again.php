@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropForeignKeyCategoryId extends Migration
+class ModifyProductsTableAgain extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class DropForeignKeyCategoryId extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            //Schema::dropIfExists('products_category_id_foreign');
-            $table->dropForeign('products_category_id_foreign');
-            $table->dropColumn('category_id');
+            $table->string('category', 255)->after('description');
+            $table->string('type', 255)->after('category');
+            $table->string('brand', 255)->after('type');
         });
     }
 
