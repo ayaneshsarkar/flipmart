@@ -18,9 +18,9 @@ class ProductController extends Controller
     public function admin() {
         $data = [
             'title' => 'Admin',
-            'orderCount' => DB::table('orders')->count(),
-            'productCount' => DB::table('products')->count(),
-            'categoryCount' => DB::table('categories')->count()
+            'orderCount' => DB::table('orders')->where('user_id', session('userId'))->count(),
+            'productCount' => DB::table('products')->where('user_id', session('userId'))->count(),
+            'categoryCount' => DB::table('categories')->where('user_id', session('userId'))->count()
         ];
         return view('admin.dashboard')->with($data);
     }

@@ -21,8 +21,13 @@ var signUpModal = document.getElementsByClassName('registerModal')[0];
 
 
 // Listen For Click
-modalBtnSignUp.addEventListener('click', openModal);
-modalBtnSignIn.addEventListener('click', openModalSignIn);
+if(modalBtnSignUp) {
+  modalBtnSignUp.addEventListener('click', openModal);
+}
+
+if(modalBtnSignIn) {
+  modalBtnSignIn.addEventListener('click', openModalSignIn);
+}
 
 // Listen For Close
 //closeBtn.addEventListener('click', closeModal);
@@ -85,4 +90,16 @@ function clickOutSide(e) {
       modalSignIn.classList.remove('signInModal');
     }
   }
+}
+
+
+const cross = document.getElementById('contactCross');
+const contact = document.getElementById('contactSuccess');
+
+if(cross) {
+    contactCross.addEventListener('click', closeDisplay);
+}
+
+function closeDisplay() {
+  contact.style.display = 'none';
 }

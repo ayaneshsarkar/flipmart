@@ -304,6 +304,51 @@ iframe {
 
 
 
+/*[ ABOUT ]
+///////////////////////////////////////////////////////////
+*/
+
+
+/*[ CONTACT ]
+///////////////////////////////////////////////////////////
+*/
+
+.borderDanger {
+  border: 1px solid #F44336 !important;
+}
+
+.contactSuccess {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 20px 20px;
+  margin-bottom: 50px;
+  font-size: 19px;
+  background-color: #4CAF50;
+  color: #fff;
+  transition: all 0.5s linear;
+}
+
+.contactSuccess p {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 400;
+}
+
+.contactSuccess #contactCross {
+  text-decoration: none;
+}
+
+.contactSuccess #contactCross:hover, #contactCross:active {
+  color: #fff;
+}
+
+.contactSuccess.danger {
+  background-color: #F44336 !important;
+}
+
+
 
 
 

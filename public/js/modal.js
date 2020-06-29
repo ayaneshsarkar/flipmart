@@ -10995,12 +10995,18 @@ var signInModal = document.getElementsByClassName('signInModal')[0]; // Redirect
 
 var signUpModal = document.getElementsByClassName('registerModal')[0]; // Listen For Click
 
-modalBtnSignUp.addEventListener('click', openModal);
-modalBtnSignIn.addEventListener('click', openModalSignIn); // Listen For Close
+if (modalBtnSignUp) {
+  modalBtnSignUp.addEventListener('click', openModal);
+}
+
+if (modalBtnSignIn) {
+  modalBtnSignIn.addEventListener('click', openModalSignIn);
+} // Listen For Close
 //closeBtn.addEventListener('click', closeModal);
 // closeBtnSignUp.addEventListener('click', closeBtnSignUp);
 // closeBtnSignIn.addEventListener('click', closeBtnSignIn);
 // Listen For Click Outside
+
 
 window.addEventListener('click', clickOutSide); // SignUp Click
 
@@ -11053,6 +11059,17 @@ function clickOutSide(e) {
       modalSignIn.classList.remove('signInModal');
     }
   }
+}
+
+var cross = document.getElementById('contactCross');
+var contact = document.getElementById('contactSuccess');
+
+if (cross) {
+  contactCross.addEventListener('click', closeDisplay);
+}
+
+function closeDisplay() {
+  contact.style.display = 'none';
 }
 
 /***/ }),

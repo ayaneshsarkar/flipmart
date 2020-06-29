@@ -30,7 +30,7 @@
 
 			<div class="wrap_header">
 				<!-- Logo -->
-				<a href="index.html" class="logo">
+				<a href="{{ URL::to('/') }}" class="logo">
 					<img src="images/icons/logo.png" alt="IMG-LOGO">
 				</a>
 
@@ -38,8 +38,8 @@
 				<div class="wrap_menu">
 					<nav class="menu">
 						<ul class="main_menu">
-							<li class="sale-noti">
-								<a href="index.html">Home</a>
+							<li class="{{ (!empty($page) && $page == 'home') ? 'sale-noti' : '' }}">
+								<a href="{{ URL::to('/') }}">Home</a>
 							</li>
 
 							<li>
@@ -55,12 +55,12 @@
 								</ul>
               </li>
 
-							<li>
-								<a href="about.html">About</a>
+							<li class="{{ (!empty($page) && $page == 'about') ? 'sale-noti' : '' }}">
+								<a href="{{ URL::to('/about') }}">About</a>
 							</li>
 
-							<li>
-								<a href="contact.html">Contact</a>
+							<li class="{{ (!empty($page) && $page == 'contact') ? 'sale-noti' : '' }}">
+								<a href="{{ URL::to('/contact') }}">Contact</a>
 							</li>
 						</ul>
 					</nav>

@@ -68,11 +68,6 @@
 						</a>
 					</li>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Privacy Policy
-						</a>
-					</li>
 				</ul>
 			</div>
 
@@ -84,13 +79,13 @@
 				<ul>
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Track Order
+							Contant
 						</a>
 					</li>
 
 					<li class="p-b-9">
 						<a href="#" class="s-text7">
-							Returns
+							Orders
 						</a>
 					</li>
 
