@@ -102,6 +102,8 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'       => 'required|string|max:255',
+            'price'       => 'required|integer',
+            'discount'    => 'nullable|integer',
             'min_size'    => 'required|integer',
             'max_size'    => 'required|integer',
             'main_image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
@@ -154,15 +156,18 @@ class ProductController extends Controller
             }
         }
 
-        $info = '';
+        $info = $discount = '';
 
         (!empty($request->input('info'))) ? $info = $request->input('info') : $info = '';
+        (!empty($request->input('discount'))) ? $discount = $request->input('discount') : $discount = NULL;
 
         DB::table('products')->insert(
             [
                 'user_id'      => session('userId'),
                 'product_slug' => strtoupper($this->randomStrings(12)),
                 'title'        => $request->input('title'),
+                'price'        => $request->input('price'),
+                'discount'     => $discount,
                 'description'  => $request->input('description'),
                 'category'     => $request->input('category'),
                 'type'         => $request->input('type'),

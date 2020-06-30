@@ -27,6 +27,11 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/daterangepicker/daterangepicker.css') }}">
 <!--===============================================================================================-->
+
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/noui/nouislider.min.css') }}">
+
+	<!--===============================================================================================-->
+
 	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/slick/slick.css') }}">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/slick/slick.css') }}">

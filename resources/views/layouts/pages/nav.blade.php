@@ -42,8 +42,8 @@
 								<a href="{{ URL::to('/') }}">Home</a>
 							</li>
 
-							<li>
-								<a href="product.html">Shop</a>
+							<li class="{{ (!empty($page) && $page == 'shop') ? 'sale-noti' : '' }}">
+								<a href="{{ URL::to('/shop') }}">Shop</a>
               </li>
               
               <li>

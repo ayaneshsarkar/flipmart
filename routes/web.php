@@ -18,6 +18,8 @@ Route::get('/', 'PagesController@index')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 
+Route::get('/shop', 'ShopsController@shop')->name('shop');
+
 Route::get('/signup', 'AuthController@signup');
 Route::get('/register', 'AuthController@signup');
 Route::get('/signin', 'AuthController@signin');

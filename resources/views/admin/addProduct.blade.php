@@ -21,6 +21,37 @@
           </div>
         </div>
 
+        {{-- Price --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('price')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Price</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="price" 
+              value="{{ old('price') }}">
+            </div>
+            @error('price')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
+        {{-- Discount --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('discount')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Discount (Optional)</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="discount" 
+              value="{{ old('discount') }}">
+            </div>
+            @error('discount')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
+
         {{-- Sizes --}}
 
         <div class="col-12">
