@@ -12,6 +12,16 @@
       return "/storage/myimages/$name$userId/$mainImage";
 		}
 
+		function sortClass($class) {
+			if($class == 'low') {
+				return 'lowSort';
+			} elseif ($class == 'high') {
+				return 'highSort';
+			} else {
+				return '';
+			}
+		}
+
 		$minRange = 10;
 		$maxRange = 50;
 		
@@ -25,7 +35,7 @@
   @endphp
 
 	<!-- Title Page -->
-	
+
 	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" 
 			style="background-image: linear-gradient(to right bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
 			url(images/shoes-all.jpg);">
@@ -36,7 +46,6 @@
       {{ ($category == 'all') ? "New Arrivals of " . date('Y') . ", Have a Look!" : '' }}
 		</p>
 	</section>
-
 
 	<!-- Content page -->
 	<section class="bgwhite p-t-55 p-b-65">
@@ -51,19 +60,19 @@
 
 						<ul class="p-b-54">
 							<li class="p-t-4">
-								<a href="#" class="s-text13 active1">
+								<a href="#" class="s-text13 {{ ($category == 'all') ? 'active1' : '' }}">
 									All
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
+								<a href="#" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
 									Women
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
+								<a href="#" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
 									Men
 								</a>
 							</li>
@@ -75,7 +84,6 @@
 							</li>
 
 						</ul>
-
 						<!--  -->
 						<h4 class="m-text14 p-b-32">
 							Filters
@@ -90,7 +98,7 @@
 								<div id="filter-bar"></div>
 							</div>
 
-							{{ Form::open(['action' => 'ShopsController@getPriceRange', 'method' => 'GET']) }}
+							{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET']) }}
 								<div class="flex-sb-m flex-w p-t-16">
 									<input type="hidden" name="min" id="minPrice">
 									<input type="hidden" name="max" id="maxPrice">
@@ -163,12 +171,12 @@
 
 				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
 					<!--  -->
+					
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w" style="align-items: center">
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
-								<select class="selection-2" name="sorting">
+								<select onchange="sortSelectFunction()" class="selection-2 {{ sortClass($sortClass) }}" name="sorting">
 									<option>Default Sorting</option>
-									<option>Popularity</option>
 									<option>Price: low to high</option>
 									<option>Price: high to low</option>
 								</select>
@@ -193,6 +201,14 @@
 									<i class="fs-12 fa fa-search" aria-hidden="true"></i>
 								</button>
 							</div>
+
+							<div style="display: none">
+								{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET', 'id' => 'sortForm']) }}
+									<input type="hidden" id="sortResult" name="price_sort">
+								{{ Form::close() }}
+							</div>
+
+							<p id='test'></p>
 						</div>
 
 						<span class="s-text8 p-t-5 p-b-5">
@@ -202,7 +218,7 @@
 
 					<!-- Product -->
 					<div class="row">
-						@if(count($products) == 0) 
+						@if(count($products) == 0)
 
 							<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 								<p>No Results Found</p>
@@ -210,7 +226,7 @@
 
 						@else
 
-							@foreach ($products as $product)								
+							@foreach ($products as $product)				
 
 								<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 									<!-- Block2 -->

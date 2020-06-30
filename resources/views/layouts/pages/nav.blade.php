@@ -19,12 +19,12 @@
 						ayaneshofficial@gmail.com
 					</span>
 
-					<div class="topbar-language rs1-select2">
+					{{-- <div class="topbar-language rs1-select2">
 						<select class="selection-1" name="time">
 							<option>USD</option>
 							<option>INR</option>
 						</select>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 
@@ -144,12 +144,12 @@
 								ayaneshofficial@gmail.com
 							</span>
 
-							<div class="topbar-language rs1-select2">
+							{{-- <div class="topbar-language rs1-select2">
 								<select class="selection-1" name="time">
 									<option>USD</option>
 									<option>INR</option>
 								</select>
-							</div>
+							</div> --}}
 						</div>
 					</li>
 

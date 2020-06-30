@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\DB;
 class ShopsController extends Controller
 {
 
-    private $category = '';
+    private function productResults() {
+        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
+                            ->select('products.*', 'users.name', 'users.id as userId')
+                            ->orderByDesc('updated_at')
+                            ->get();
+    }
 
     private function rangeResults($min, $max) {
         return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
@@ -21,58 +26,61 @@ class ShopsController extends Controller
                             ->get();
     }
 
-    public function shop() 
-    {
+    private function lowSort() {
+        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
+                            ->select('products.*', 'users.name', 'users.id as userId')
+                            ->orderBy('price')
+                            ->get();
+    }
 
-        //$products = new Product();
-        $this->category = 'all';
+    private function highSort() {
+        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
+                            ->select('products.*', 'users.name', 'users.id as userId')
+                            ->orderByDesc('price')
+                            ->get();
+    }
+
+    public function shop(Request $request) 
+    {
+        $min = $max = $priceSort = '';
 
         $data = [
             'title' => 'Shop',
             'page' => 'shop',
-            'category' => $this->category,
-            'products' => DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-                                                ->select('products.*', 'users.name', 'users.id as userId')
-                                                ->get(),
-            'result' => TRUE,
+            'products' => $this->productResults(),
+            'category' => 'all',
+            'min' => '',
+            'max' => '',
+            'sortClass' => '',
             'login' => FALSE,
             'register' => FALSE
         ];
 
-        return view('pages.shop')->with($data);
-    }
+        if($request->input('min') && $request->input('max')) {
+            $min = $request->input('min');
+            $max = $request->input('max');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-    */
+            $data['min'] = $min;
+            $data['max'] = $max;
 
-    public function getPriceRange(Request $request) {
-        $min = $request->input('min');
-        $max  =$request->input('max');
-
-        $result = TRUE;
-
-        if(empty($this->rangeResults($min, $max))) {
-            $result = FALSE;
+            $data['products'] = $this->rangeResults($min, $max);
         }
 
-        
-        $data = [
-            'title' => 'Shop',
-            'page' => 'shop',
-            'category' => $this->category,
-            'products' => $this->rangeResults($min, $max),
-            'min' => $min,
-            'max' => $max,
-            'result' => $result,
-            'login' => FALSE,
-            'register' => FALSE
-        ];
+        if($request->input('price_sort')) {
+            $priceSort = $request->input('price_sort');
+
+            if($priceSort == 'low') {
+                $data['products'] = $this->lowSort();
+                $data['sortClass'] = 'low';
+            } elseif($priceSort == 'high') {
+                $data['products'] = $this->highSort();
+                $data['sortClass'] = 'high';
+            } else {
+                $data['products'] = $this->productResults();
+            }
+        }
 
         return view('pages.shop')->with($data);
-        
     }
+    
 }

@@ -161,7 +161,7 @@
     </a>
 
     <div class="t-center s-text8 p-t-20">
-      Copyright © 2018 All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+      Copyright © <?= date('Y'); ?> All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
     </div>
   </div>
 </footer>
@@ -261,6 +261,41 @@
 <script>
   document.getElementById('value-lower').innerHTML = `<?= $minRange; ?>`;
   document.getElementById('value-upper').innerHTML = `<?= $maxRange; ?>`;
+
+  let sortResult = document.getElementById('sortResult');
+  const sortForm = document.getElementById('sortForm');
+
+  let sortSelection = document.querySelector('.selection-2');
+
+  let selectText = document.querySelector('.select2-selection__rendered');
+
+  if(document.querySelector('.highSort')) {
+    sortSelection.value = 'Price: high to low';
+
+    selectText.textContent = sortSelection.value;
+  }
+
+  if(document.querySelector('.lowSort')) {
+    sortSelection.value = 'Price: low to high';
+
+    selectText.textContent = sortSelection.value;
+  }
+  
+  function sortSelectFunction() {
+    if(sortSelection.value === 'Default Sorting') {
+      sortResult.value = 'default';
+      sortForm.submit();
+    }
+    if(sortSelection.value === 'Price: low to high') {
+      sortResult.value = 'low';
+      sortForm.submit();
+    }
+    if(sortSelection.value === 'Price: high to low') {
+      sortResult.value = 'high';
+      sortForm.submit();
+    }
+  }
+  
 </script>
 
 <script src="{{ asset('js/modal.js') }}"></script>
