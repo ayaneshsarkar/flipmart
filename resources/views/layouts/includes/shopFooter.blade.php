@@ -233,11 +233,11 @@
     var filterBar = document.getElementById('filter-bar');
 
     noUiSlider.create(filterBar, {
-        start: [ 50, 200 ],
+        start: [ 10, 50 ],
         connect: true,
         range: {
-            'min': 50,
-            'max': 200
+            'min': 10,
+            'max': 50
         }
     });
 
@@ -246,11 +246,23 @@
     document.getElementById('value-upper')
     ];
 
+    //document.getElementById('value-lower').innerHTML = <?= $minRange; ?>
+    //document.getElementById('value-upper').innerHTML = <?= $maxRange; ?>
+
     filterBar.noUiSlider.on('update', function( values, handle ) {
         skipValues[handle].innerHTML = Math.round(values[handle]) ;
+        document.getElementById('minPrice').value = skipValues[0].innerHTML;
+        document.getElementById('maxPrice').value = skipValues[1].innerHTML;
     });
+
 </script>
 <!--===============================================================================================-->
+
+<script>
+  document.getElementById('value-lower').innerHTML = `<?= $minRange; ?>`;
+  document.getElementById('value-upper').innerHTML = `<?= $maxRange; ?>`;
+</script>
+
 <script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 

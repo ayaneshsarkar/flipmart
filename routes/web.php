@@ -20,6 +20,8 @@ Route::get('/contact', 'PagesController@contact')->name('contact');
 
 Route::get('/shop', 'ShopsController@shop')->name('shop');
 
+Route::get('/shoprange', 'ShopsController@getPriceRange')->name('pricerange');
+
 Route::get('/signup', 'AuthController@signup');
 Route::get('/register', 'AuthController@signup');
 Route::get('/signin', 'AuthController@signin');
