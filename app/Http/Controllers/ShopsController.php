@@ -15,7 +15,7 @@ class ShopsController extends Controller
         return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
                             ->select('products.*', 'users.name', 'users.id as userId')
                             ->orderByDesc('updated_at')
-                            ->get();
+                            ->paginate(10);
     }
 
     private function rangeResults($min, $max) {
@@ -23,21 +23,21 @@ class ShopsController extends Controller
                             ->select('products.*', 'users.name', 'users.id as userId')
                             ->whereBetween('price', [$min, $max])
                             ->orderBy('price')
-                            ->get();
+                            ->paginate(10);
     }
 
     private function lowSort() {
         return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
                             ->select('products.*', 'users.name', 'users.id as userId')
                             ->orderBy('price')
-                            ->get();
+                            ->paginate(10);
     }
 
     private function highSort() {
         return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
                             ->select('products.*', 'users.name', 'users.id as userId')
                             ->orderByDesc('price')
-                            ->get();
+                            ->paginate(10);
     }
 
     private function categorySort($category) {
@@ -45,7 +45,7 @@ class ShopsController extends Controller
         ->select('products.*', 'users.name', 'users.id as userId')
         ->where('category', ucwords($category))
         ->orderByDesc('updated_at')
-        ->get();
+        ->paginate(10);
     }
 
     public function shop(Request $request) 

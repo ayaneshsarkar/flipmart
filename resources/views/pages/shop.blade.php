@@ -259,7 +259,7 @@
 										</div>
 
 										<div class="block2-txt p-t-20">
-											<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+											<a href="#" class="block2-name dis-block s-text3 p-b-5">
 												{{ $product->title }}
 											</a>
 
@@ -278,8 +278,7 @@
 
 					<!-- Pagination -->
 					<div class="pagination flex-m flex-w p-t-26">
-						<a href="#" class="item-pagination flex-c-m trans-0-4 active-pagination">1</a>
-						<a href="#" class="item-pagination flex-c-m trans-0-4">2</a>
+						{{ $products->links('vendor.pagination.custom') }}
 					</div>
 				</div>
 			</div>
