@@ -40,10 +40,11 @@
 			style="background-image: linear-gradient(to right bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
 			url(images/shoes-all.jpg);">
 		<h2 class="l-text2 t-center">
-			{{ ($category == 'all') ? 'Welcome' : '' }}
+			{{ ($category == 'all' || $category == 'men' || $category == 'women' || $category == 'kids') ? 'Welcome' : '' }}
 		</h2>
 		<p class="m-text13 t-center">
-      {{ ($category == 'all') ? "New Arrivals of " . date('Y') . ", Have a Look!" : '' }}
+			{{ ($category == 'all' || $category == 'men' || $category == 'women' || $category == 'kids') ? 
+			"New Arrivals of " . date('Y') . ", Have a Look!" : '' }}
 		</p>
 	</section>
 
@@ -60,30 +61,38 @@
 
 						<ul class="p-b-54">
 							<li class="p-t-4">
-								<a href="#" class="s-text13 {{ ($category == 'all') ? 'active1' : '' }}">
+								<a href="#" id="categoryAll" class="s-text13 {{ ($category == 'all') ? 'active1' : '' }}">
 									All
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
+								<a href="#" id="categoryWomen" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
 									Women
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
+								<a href="#" id="categoryMen" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
 									Men
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" class="s-text13">
+								<a href="#" id="categoryKids"  class="s-text13 {{ ($category == 'kids') ? 'active1' : '' }}">
 									Kids
 								</a>
 							</li>
 
 						</ul>
+
+						<div style="display: none">
+							{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET', 'id' => 'categoryForm']) }}
+								<input type="text" id="categoryResult" name="category_sort" hidden="hidden">
+							{{ Form::close() }}
+						</div>
+
+
 						<!--  -->
 						<h4 class="m-text14 p-b-32">
 							Filters
@@ -170,7 +179,7 @@
 				</div>
 
 				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
-					<!--  -->
+					<!-- Sort By Price -->
 					
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w" style="align-items: center">

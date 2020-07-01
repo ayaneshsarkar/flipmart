@@ -103,3 +103,31 @@ if(cross) {
 function closeDisplay() {
   contact.style.display = 'none';
 }
+
+const categoryAll = document.getElementById('categoryAll');
+const categoryWomen = document.getElementById('categoryWomen');
+const categoryMen = document.getElementById('categoryMen');
+const categoryKids = document.getElementById('categoryKids');
+
+const categoryForm = document.getElementById('categoryForm');
+const categoryResult = document.getElementById('categoryResult');
+
+categoryAll.addEventListener('click', function() {
+  categoryResult.value = 'all';
+  categoryForm.submit();
+});
+
+categoryWomen.addEventListener('click', function() {
+  categoryResult.value = 'women';
+  categoryForm.submit();
+});
+
+categoryMen.addEventListener('click', function() {
+  categoryResult.value = 'men';
+  categoryForm.submit();
+});
+
+categoryKids.addEventListener('click', function() {
+  categoryResult.value = 'kids';
+  categoryForm.submit();
+});

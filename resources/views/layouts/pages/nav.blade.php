@@ -47,12 +47,18 @@
               </li>
               
               <li>
-                <a href="#">Categories</a>
+                <a href="#" id="categoryAll">Categories</a>
                 <ul class="sub_menu">
-									<li><a href="index.html">Menz Wear</a></li>
-									<li><a href="home-02.html">Womenz Wear</a></li>
-									<li><a href="home-03.html">Kidz Wear</a></li>
+									<li><a href="#" id="categoryMen">Menz Wear</a></li>
+									<li><a href="#" id="categoryWomen">Womenz Wear</a></li>
+									<li><a href="#" id="categoryKids">Kidz Wear</a></li>
 								</ul>
+
+								<div style="display: none">
+									{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET', 'id' => 'categoryForm']) }}
+										<input type="text" id="categoryResult" name="category_sort" hidden="hidden">
+									{{ Form::close() }}
+								</div>
               </li>
 
 							<li class="{{ (!empty($page) && $page == 'about') ? 'sale-noti' : '' }}">

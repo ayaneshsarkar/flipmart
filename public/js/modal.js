@@ -11072,6 +11072,29 @@ function closeDisplay() {
   contact.style.display = 'none';
 }
 
+var categoryAll = document.getElementById('categoryAll');
+var categoryWomen = document.getElementById('categoryWomen');
+var categoryMen = document.getElementById('categoryMen');
+var categoryKids = document.getElementById('categoryKids');
+var categoryForm = document.getElementById('categoryForm');
+var categoryResult = document.getElementById('categoryResult');
+categoryAll.addEventListener('click', function () {
+  categoryResult.value = 'all';
+  categoryForm.submit();
+});
+categoryWomen.addEventListener('click', function () {
+  categoryResult.value = 'women';
+  categoryForm.submit();
+});
+categoryMen.addEventListener('click', function () {
+  categoryResult.value = 'men';
+  categoryForm.submit();
+});
+categoryKids.addEventListener('click', function () {
+  categoryResult.value = 'kids';
+  categoryForm.submit();
+});
+
 /***/ }),
 
 /***/ 4:

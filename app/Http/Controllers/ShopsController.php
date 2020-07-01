@@ -40,9 +40,17 @@ class ShopsController extends Controller
                             ->get();
     }
 
+    private function categorySort($category) {
+        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
+        ->select('products.*', 'users.name', 'users.id as userId')
+        ->where('category', ucwords($category))
+        ->orderByDesc('updated_at')
+        ->get();
+    }
+
     public function shop(Request $request) 
     {
-        $min = $max = $priceSort = '';
+        $min = $max = $priceSort = $category =  '';
 
         $data = [
             'title' => 'Shop',
@@ -77,6 +85,24 @@ class ShopsController extends Controller
                 $data['sortClass'] = 'high';
             } else {
                 $data['products'] = $this->productResults();
+            }
+        }
+
+        if($request->input('category_sort')) {
+            $category = $request->input('category_sort');
+
+            if($category == 'women') {
+                $data['products'] = $this->categorySort($category);
+                $data['category'] = $category;
+            } elseif($category == 'men') {
+                $data['products'] = $this->categorySort($category);
+                $data['category'] = $category;
+            } elseif($category == 'kids') {
+                $data['products'] = $this->categorySort($category);
+                $data['category'] = $category;
+            } else {
+                $data['products'] = $this->productResults();
+                $data['category'] = $category;
             }
         }
 
