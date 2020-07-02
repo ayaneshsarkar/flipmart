@@ -54,43 +54,43 @@
 			<div class="row">
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-50">
 					<div class="leftbar p-r-20 p-r-0-sm">
-						<!--  -->
+						<!-- Categories -->
 						<h4 class="m-text14 p-b-7">
 							Categories
 						</h4>
 
 						<ul class="p-b-54">
 							<li class="p-t-4">
-								<a href="#" id="categoryAll" class="s-text13 {{ ($category == 'all') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category_sort=all') }}" class="s-text13 {{ ($category == 'all') ? 'active1' : '' }}">
 									All
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" id="categoryWomen" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category_sort=women') }}" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
 									Women
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" id="categoryMen" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category_sort=men') }}" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
 									Men
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="#" id="categoryKids"  class="s-text13 {{ ($category == 'kids') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category_sort=kids') }}" id="categoryKids"  class="s-text13 {{ ($category == 'kids') ? 'active1' : '' }}">
 									Kids
 								</a>
 							</li>
 
 						</ul>
 
-						<div style="display: none">
+						{{-- <div style="display: none">
 							{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET', 'id' => 'categoryForm']) }}
 								<input type="text" id="categoryResult" name="category_sort" hidden="hidden">
 							{{ Form::close() }}
-						</div>
+						</div> --}}
 
 
 						<!--  -->
@@ -259,7 +259,7 @@
 										</div>
 
 										<div class="block2-txt p-t-20">
-											<a href="#" class="block2-name dis-block s-text3 p-b-5">
+											<a href="{{ URL::to("/shop/$product->product_slug") }}" class="block2-name dis-block s-text3 p-b-5">
 												{{ $product->title }}
 											</a>
 

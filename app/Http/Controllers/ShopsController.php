@@ -108,5 +108,24 @@ class ShopsController extends Controller
 
         return view('pages.shop')->with($data);
     }
+
+    private function productDetail($slug) {
+        return DB::table('products')->where('product_slug', strtoupper($slug))->first();
+    }
+
+
+
+    public function product($slug) 
+    {
+        $data = [
+            'title' => 'Product',
+            'page' => 'shop',
+            'product' => $this->productDetail($slug),
+            'login' => FALSE,
+            'register' => FALSE
+        ];
+
+        return view('pages.product')->with($data);
+    }
     
 }

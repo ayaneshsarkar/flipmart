@@ -19,6 +19,7 @@ Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 
 Route::get('/shop', 'ShopsController@shop')->name('shop');
+Route::get('/product/{slug}', 'ShopsController@product')->name('product');
 
 Route::get('/signup', 'AuthController@signup');
 Route::get('/register', 'AuthController@signup');
@@ -33,19 +34,18 @@ Route::get('/orders', function() {
 });
 
 Route::get('/addproduct', 'ProductController@addProduct');
-
 Route::get('/addcategory', 'ProductController@addCategory');
 
 Route::post('storemessage', 'PagesController@storeMessage')->name('contact.message');
 
 Route::post('register', 'AuthController@register')->name('auth.register');
 Route::post('login', 'AuthController@login')->name('auth.login');
+
 Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
 Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');
 
 
 Route::resource('auth', 'AuthController');
-
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
