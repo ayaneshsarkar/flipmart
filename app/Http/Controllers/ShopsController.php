@@ -18,8 +18,8 @@ class ShopsController extends Controller
     private function productResults() {
         return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
                             ->select('products.*', 'users.name', 'users.id as userId')
-                            ->orderByDesc('updated_at')
-                            ->paginate(10);
+                            ->orderBy('updated_at')
+                            ->paginate(3);
     }
 
     private function rangeResults($min, $max) {
