@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use App\Product;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Str;
+
 class ShopsController extends Controller
 {
 
@@ -112,7 +114,10 @@ class ShopsController extends Controller
     }
 
     private function productDetail($slugText) {
-        return DB::table('products')->where('product_slug', strtoupper($slugText))->first();
+        return DB::table('products')->where('product_slug', strtoupper($slugText))
+                                    ->join('users', 'products.user_id', '=', 'users.id')
+                                    ->select('products.*', 'users.name', 'users.id as userId')
+                                    ->first();
     }
 
     /**
@@ -127,11 +132,14 @@ class ShopsController extends Controller
             'title' => 'Product',
             'page' => 'shop',
             'product' => $this->productDetail($slug),
+            'random' => Str::random(10),
             'login' => FALSE,
             'register' => FALSE
         ];
 
         return view('pages.product')->with($data);
     }
+
+    
     
 }

@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
+use Illuminate\Support\Str;
+
 use App\Category;
 
 class ProductController extends Controller
@@ -164,7 +166,7 @@ class ProductController extends Controller
         DB::table('products')->insert(
             [
                 'user_id'      => session('userId'),
-                'product_slug' => strtoupper($this->randomStrings(12)),
+                'product_slug' => Str::random(12),
                 'title'        => $request->input('title'),
                 'price'        => $request->input('price'),
                 'discount'     => $discount,

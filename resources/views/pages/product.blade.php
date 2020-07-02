@@ -7,6 +7,14 @@
 	@include('layouts.pages.modalSignIn')
 	@include('layouts.pages.modalSignUp')
 
+	@php
+		function defineImagePath($name, $userId, $image) {
+      return "/storage/myimages/$name$userId/$image";
+		}
+
+		$images = explode(', ', $product->images);
+	@endphp
+
   <!-- Breadcrumb -->
 	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
 		<a href="{{ URL::to('/') }}" class="s-text16">
@@ -37,23 +45,20 @@
 					<div class="wrap-slick3-dots"></div>
 
 					<div class="slick3">
-						<div class="item-slick3" data-thumb="{{ asset('images/thumb-item-01.jpg') }}">
+						<div class="item-slick3" data-thumb="{{ asset(defineImagePath($product->name, $product->userId, $product->main_image)) }}">
 							<div class="wrap-pic-w">
-								<img src="{{ asset('images/product-detail-01.jpg') }}" alt="IMG-PRODUCT">
+								<img src="{{ asset(defineImagePath($product->name, $product->userId, $product->main_image)) }}" alt="IMG-PRODUCT">
 							</div>
 						</div>
 
-						<div class="item-slick3" data-thumb="{{ asset('images/thumb-item-02.jpg') }}">
-							<div class="wrap-pic-w">
-								<img src="{{ asset('images/product-detail-02.jpg') }}" alt="IMG-PRODUCT">
+						@foreach ($images as $image)
+							<div class="item-slick3" data-thumb="{{ asset(defineImagePath($product->name, $product->userId, $image)) }}">
+								<div class="wrap-pic-w">
+									<img src="{{ asset(defineImagePath($product->name, $product->userId, $image)) }}" alt="IMG-PRODUCT">
+								</div>
 							</div>
-						</div>
+						@endforeach
 
-						<div class="item-slick3" data-thumb="{{ asset('images/thumb-item-03.jpg') }}">
-							<div class="wrap-pic-w">
-								<img src="{{ asset('images/product-detail-03.jpg') }}" alt="IMG-PRODUCT">
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -67,9 +72,9 @@
 					${{ $product->price }}
 				</span>
 
-				{{-- <p class="s-text8 p-t-10">
-					Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
-				</p> --}}
+				<p class="s-text8 p-t-10">
+					{{ $product->description }}
+				</p>
 
 				<!--  -->
 				<div class="p-t-33 p-b-60">
@@ -187,7 +192,4 @@
 		</div>
   </div>
   
-
-
-
   @include('layouts.includes.productFooter')
