@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,10 @@ Route::get('/', 'PagesController@index')->name('home');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 
+Route::get("shop/{slug}", "ShopsController@product");
+
 Route::get('/shop', 'ShopsController@shop')->name('shop');
-Route::get('/product/{slug}', 'ShopsController@product')->name('product');
+
 
 Route::get('/signup', 'AuthController@signup');
 Route::get('/register', 'AuthController@signup');

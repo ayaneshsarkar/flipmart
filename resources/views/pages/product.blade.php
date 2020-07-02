@@ -1,11 +1,11 @@
 @include('layouts.includes.header')
 
-<!-- Nav -->
-@include('layouts.pages.nav')
+	<!-- Nav -->
+	@include('layouts.pages.nav')
 
-{{-- Modal --}}
-@include('layouts.pages.modalSignIn')
-@include('layouts.pages.modalSignUp')
+	{{-- Modal --}}
+	@include('layouts.pages.modalSignIn')
+	@include('layouts.pages.modalSignUp')
 
   <!-- Breadcrumb -->
 	<div class="bread-crumb bgwhite flex-w p-l-52 p-r-15 p-t-30 p-l-15-sm">
@@ -37,21 +37,21 @@
 					<div class="wrap-slick3-dots"></div>
 
 					<div class="slick3">
-						<div class="item-slick3" data-thumb="images/thumb-item-01.jpg">
+						<div class="item-slick3" data-thumb="{{ asset('images/thumb-item-01.jpg') }}">
 							<div class="wrap-pic-w">
-								<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+								<img src="{{ asset('images/product-detail-01.jpg') }}" alt="IMG-PRODUCT">
 							</div>
 						</div>
 
-						<div class="item-slick3" data-thumb="images/thumb-item-02.jpg">
+						<div class="item-slick3" data-thumb="{{ asset('images/thumb-item-02.jpg') }}">
 							<div class="wrap-pic-w">
-								<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+								<img src="{{ asset('images/product-detail-02.jpg') }}" alt="IMG-PRODUCT">
 							</div>
 						</div>
 
-						<div class="item-slick3" data-thumb="images/thumb-item-03.jpg">
+						<div class="item-slick3" data-thumb="{{ asset('images/thumb-item-03.jpg') }}">
 							<div class="wrap-pic-w">
-								<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
+								<img src="{{ asset('images/product-detail-03.jpg') }}" alt="IMG-PRODUCT">
 							</div>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 				</h4>
 
 				<span class="m-text17">
-					{{ $product->price }}
+					${{ $product->price }}
 				</span>
 
 				{{-- <p class="s-text8 p-t-10">
@@ -190,4 +190,4 @@
 
 
 
-  @include('layouts.includes.footer')
+  @include('layouts.includes.productFooter')

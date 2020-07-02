@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -109,11 +111,15 @@ class ShopsController extends Controller
         return view('pages.shop')->with($data);
     }
 
-    private function productDetail($slug) {
-        return DB::table('products')->where('product_slug', strtoupper($slug))->first();
+    private function productDetail($slugText) {
+        return DB::table('products')->where('product_slug', strtoupper($slugText))->first();
     }
 
-
+    /**
+     * Show the profile for the given user.
+     * @param string $slug
+     * @return View
+    */
 
     public function product($slug) 
     {

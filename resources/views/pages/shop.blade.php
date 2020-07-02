@@ -259,7 +259,7 @@
 										</div>
 
 										<div class="block2-txt p-t-20">
-											<a href="{{ URL::to("/shop/$product->product_slug") }}" class="block2-name dis-block s-text3 p-b-5">
+											<a href="{{ URL::to("/shop/" . strtolower($product->product_slug)) }}" class="block2-name dis-block s-text3 p-b-5">
 												{{ $product->title }}
 											</a>
 
