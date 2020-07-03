@@ -140,6 +140,10 @@ class ShopsController extends Controller
         return view('pages.product')->with($data);
     }
 
+    public function storeCart(Request $request) {
+        return $request->input('productSlug');
+    }
+
     
     
 }

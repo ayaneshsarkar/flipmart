@@ -49,6 +49,8 @@ Route::post('logout', 'AuthController@logout')->name('auth.logout');
 Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
 Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');
 
+Route::post('cart', 'ShopsController@storeCart')->name('cart');
+
 
 Route::resource('auth', 'AuthController');
 // Auth::routes();
