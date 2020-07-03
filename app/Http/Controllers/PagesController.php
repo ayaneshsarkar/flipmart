@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Redirect;
 
 class PagesController extends Controller
 {
+
+  private function cartResponse($currentUser) {
+    return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
+            ->where('carts.user_id', $currentUser)
+            ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
+            ->orderBy('products.title')
+            ->get();
+  }
+
   public function index() 
   {
-
-    // if(session('loggedIn') == TRUE) {
-    //   return redirect('/admin');
-    // }
 
     $data = [
       'title' => 'Welcome To FlipMart',
@@ -27,6 +32,12 @@ class PagesController extends Controller
       'login' => FALSE,
       'register' => FALSE
     ];
+
+    if(session('loggedIn') == TRUE) {
+      $data['cartResults'] = $this->cartResponse(session('userId'));
+    }
+
+
     return  view('pages/index')->with($data);
   }
 
@@ -38,6 +49,11 @@ class PagesController extends Controller
       'login' => FALSE,
       'register' => FALSE
     ];
+
+    if(session('loggedIn') == TRUE) {
+      $data['cartResults'] = $this->cartResponse(session('userId'));
+    }
+
     return  view('pages.about')->with($data);
   }
 
@@ -49,6 +65,11 @@ class PagesController extends Controller
       'login' => FALSE,
       'register' => FALSE
     ];
+
+    if(session('loggedIn') == TRUE) {
+      $data['cartResults'] = $this->cartResponse(session('userId'));
+    }
+
     return  view('pages.contact')->with($data);
   }
 

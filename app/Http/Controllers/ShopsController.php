@@ -110,6 +110,10 @@ class ShopsController extends Controller
             }
         }
 
+        if(session('loggedIn') == TRUE) {
+            $data['cartResults'] = $this->productResponse(session('userId'));
+        }
+
         return view('pages.shop')->with($data);
     }
 
@@ -140,12 +144,46 @@ class ShopsController extends Controller
         return view('pages.product')->with($data);
     }
 
+    private function productResponse($currentUser) {
+        return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
+                ->where('carts.user_id', $currentUser)
+                ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
+                ->orderBy('products.title')
+                ->get();
+    }
+
     public function storeCart(Request $request) {
 
         $productSlug =  $request->input('productSlug');
 
+        $productId = DB::table('products')->where('product_slug', $productSlug)->first()->id;
+        $productExists = DB::table('carts')->where('product_id', $productId)->get();
+
+        $quantity = DB::table('carts')->where('product_id', $productId)->first();
+        $price = DB::table('products')->where('product_slug', $productSlug)->first()->price;
+
+        $currentUser = session('userId');
+
+        if(count($productExists) == 0) {
+
+            DB::table('carts')->insert([
+                'user_id' => session('userId'),
+                'product_id' => $productId,
+                'quantity' => 1,
+                'price' => $price,
+                'total' => 1 * $price
+            ]);
+
+        } else {
+
+            DB::table('carts')->where('product_id', $productId)->update([
+                'quantity' => $quantity->quantity + 1,
+                'total' => ($quantity->quantity + 1) * $price
+            ]);
+        }
+
         $data = [
-            'productSlug' => $productSlug
+            'product' => $this->productResponse($currentUser)
         ];
 
         return response()->json($data, 200);

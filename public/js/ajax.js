@@ -94,6 +94,8 @@
 /***/ (function(module, exports) {
 
 var cartButton = document.querySelectorAll('.ajaxCart');
+var cartDropdown = document.getElementById('cartDropdown');
+var cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
 var csrfMeta = document.getElementsByTagName("META")[2].content;
 cartButton.forEach(function (cartButton) {
   cartButton.addEventListener('click', function (e) {
@@ -110,14 +112,21 @@ cartButton.forEach(function (cartButton) {
       dataType: 'json',
       url: "/cart",
       success: function success(data) {
-        console.log(data);
+        var product = data.product;
+        console.log(product);
+
+        if (cartDropdown) {
+          cartDropdownItem.forEach(function (item) {
+            $('.cartDropdownItem').remove();
+          });
+          product.forEach(function (prod) {
+            cartDropdown.insertAdjacentHTML("afterbegin", "\n              <ul class=\"header-cart-wrapitem\">\n                <li class=\"header-cart-item\">\n                  <div class=\"header-cart-item-img\">\n                    <img src=\"images/item-cart-01.jpg\" alt=\"IMG\">\n                  </div>\n            \n                  <div class=\"header-cart-item-txt\">\n                    <a href=\"#\" class=\"header-cart-item-name\">\n                      ".concat(prod.title, "\n                    </a>\n            \n                    <span class=\"header-cart-item-info\">\n                      ").concat(prod.quantity, " x ").concat(prod.cartPrice, "\n                    </span>\n                  </div>\n                </li>\n              </ul>\n              \n              "));
+          });
+        }
       }
     });
   });
-}); // $('.ajaxCart').click(function(e) {
-//   e.preventDefault();
-//   const productSlug = $('.productSlug').val();
-// });
+});
 
 /***/ }),
 
