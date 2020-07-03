@@ -13,6 +13,12 @@ id | user_id | product_id | gender | type | brand | info
 
 
 
+=====CART=====
+
+id | user_id | product_id
+
+
+
 
 
 

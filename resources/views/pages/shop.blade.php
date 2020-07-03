@@ -32,6 +32,13 @@
 		if(!empty($max)) {
 			$maxRange = $max;
 		}
+
+
+		$cartClass = 'errorCart';
+
+		if(session('loggedIn') == TRUE) {
+			$cartClass = 'successCart';
+		}
   @endphp
 
 	<!-- Title Page -->
@@ -85,12 +92,6 @@
 							</li>
 
 						</ul>
-
-						{{-- <div style="display: none">
-							{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET', 'id' => 'categoryForm']) }}
-								<input type="text" id="categoryResult" name="category_sort" hidden="hidden">
-							{{ Form::close() }}
-						</div> --}}
 
 
 						<!--  -->
@@ -167,20 +168,12 @@
 								</li>
 							</ul>
 						</div> --}}
-
-						{{-- <div class="search-product pos-relative bo4 of-hidden">
-							<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products...">
-
-							<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
-								<i class="fs-12 fa fa-search" aria-hidden="true"></i>
-							</button>
-						</div> --}}
 					</div>
 				</div>
 
 				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
+
 					<!-- Sort By Price -->
-					
 					<div class="flex-sb-m flex-w p-b-35">
 						<div class="flex-w" style="align-items: center">
 							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
@@ -221,7 +214,7 @@
 						</div>
 
 						<span class="s-text8 p-t-5 p-b-5">
-							Showing 1–12 of 16 results
+							Showing 1–3 of 5 results
 						</span>
 					</div>
 
@@ -249,7 +242,7 @@
 													<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
 												</a>
 
-												<div class="block2-btn-addcart w-size1 trans-0-4">
+												<div class="block2-btn-addcart w-size1 trans-0-4" id="{{ $cartClass }}">
 													<!-- Button -->
 													<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
 														Add to Cart

@@ -210,19 +210,32 @@
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/sweetalert/sweetalert.min.js"></script>
 <script type="text/javascript">
+
+if(document.getElementById('successCart')) {
   $('.block2-btn-addcart').each(function(){
     var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
     $(this).on('click', function(){
       swal(nameProduct, "is added to cart !", "success");
     });
   });
+}
 
-  $('.block2-btn-addwishlist').each(function(){
+if(document.getElementById('errorCart')) {
+  $('.block2-btn-addcart').each(function(){
     var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
     $(this).on('click', function(){
-      swal(nameProduct, "is added to wishlist !", "success");
+      swal(nameProduct, "cannot add to cart, please Sign In!", "error");
     });
   });
+}
+  
+
+$('.block2-btn-addwishlist').each(function(){
+  var nameProduct = $(this).parent().parent().parent().find('.block2-name').html();
+  $(this).on('click', function(){
+    swal(nameProduct, "is added to wishlist !", "success");
+  });
+});
 </script>
 
 <!--===============================================================================================-->

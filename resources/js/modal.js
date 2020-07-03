@@ -131,3 +131,23 @@ categoryKids.addEventListener('click', function() {
   categoryResult.value = 'kids';
   categoryForm.submit();
 });
+
+
+const account = document.getElementById('account');
+const accountDropdown = document.querySelector('.header-account-dropdown');
+
+if(account && accountDropdown) {
+  account.addEventListener('click', function() {
+    accountDropdown.classList.toggle('show-header-account-dropdown');
+  });
+}
+
+
+const logoutText = document.getElementById('logoutText');
+const logoutForm = document.getElementById('logoutForm');
+
+if(logoutText && logoutForm) {
+  logoutText.addEventListener('click', function() {
+    logoutForm.submit();
+  });
+}
