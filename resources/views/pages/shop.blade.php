@@ -244,9 +244,10 @@
 
 												<div class="block2-btn-addcart w-size1 trans-0-4" id="{{ $cartClass }}">
 													<!-- Button -->
-													<button id="ajaxCart" class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
+													<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 ajaxCart">
 														Add to Cart
 													</button>
+													<input type="hidden" name="productSlug" class="productSlug" value="{{ strtolower($product->product_slug) }}">
 												</div>
 											</div>
 										</div>
@@ -259,8 +260,6 @@
 											<span class="block2-price m-text6 p-r-5">
 												${{ $product->price }}
 											</span>
-
-											<input type="hidden" name="productSlug" id="productSlug" value="{{ $product->product_slug }}">
 										</div>
 									</div>
 								</div>

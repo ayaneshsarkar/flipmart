@@ -93,20 +93,31 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var cartButton = document.getElementById('ajaxCart');
-var productSlug = document.getElementById('productSlug');
-cartButton.addEventListener('click', function () {
-  var xmlHttp = new XMLHttpRequest();
-
-  xmlHttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-    }
-  };
-
-  xmlHttp.open("POST", "/cart");
-  xmlHttp.send(productSlug);
-});
+var cartButton = document.querySelectorAll('.ajaxCart');
+var csrfMeta = document.getElementsByTagName("META")[2].content;
+cartButton.forEach(function (cartButton) {
+  cartButton.addEventListener('click', function (e) {
+    e.preventDefault();
+    var productSlug = this.nextElementSibling.value;
+    $.ajax({
+      headers: {
+        'X-CSRF-TOKEN': csrfMeta
+      },
+      type: 'post',
+      data: {
+        productSlug: productSlug
+      },
+      dataType: 'json',
+      url: "/cart",
+      success: function success(data) {
+        console.log(data);
+      }
+    });
+  });
+}); // $('.ajaxCart').click(function(e) {
+//   e.preventDefault();
+//   const productSlug = $('.productSlug').val();
+// });
 
 /***/ }),
 

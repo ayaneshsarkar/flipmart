@@ -141,7 +141,15 @@ class ShopsController extends Controller
     }
 
     public function storeCart(Request $request) {
-        return $request->input('productSlug');
+
+        $productSlug =  $request->input('productSlug');
+
+        $data = [
+            'productSlug' => $productSlug
+        ];
+
+        return response()->json($data, 200);
+        
     }
 
     

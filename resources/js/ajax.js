@@ -1,17 +1,44 @@
-const cartButton = document.getElementById('ajaxCart');
-const productSlug = document.getElementById('productSlug');
+const cartButton = document.querySelectorAll('.ajaxCart');
 
+const csrfMeta = document.getElementsByTagName("META")[2].content;
 
-cartButton.addEventListener('click', function() {
+cartButton.forEach(cartButton => {
 
-  const xmlHttp = new XMLHttpRequest();
-  xmlHttp.onreadystatechange = function() {
-    if(this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-    }
-  }
+  cartButton.addEventListener('click', function(e){
 
-  xmlHttp.open("POST", "/cart");
-  xmlHttp.send(productSlug);
+    e.preventDefault();
+  
+    const productSlug = this.nextElementSibling.value;
+    
+    $.ajax({
+
+      headers: {
+        'X-CSRF-TOKEN': csrfMeta
+      },
+
+      type: 'post',
+      data: {
+        productSlug: productSlug
+      },
+      dataType: 'json',
+      url: `/cart`,
+
+      success: function(data) {
+        console.log(data);
+      }
+
+    });
+
+  });
 
 });
+
+  // $('.ajaxCart').click(function(e) {
+  //   e.preventDefault();
+    
+  //   const productSlug = $('.productSlug').val();
+
+    
+
+  // });
+

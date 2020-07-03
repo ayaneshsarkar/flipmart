@@ -311,12 +311,7 @@ $('.block2-btn-addwishlist').each(function(){
   
 </script>
 
-
-{{-- <script
-  src="https://code.jquery.com/jquery-3.5.1.js">
-</script> --}}
-
-@include('layouts.includes.ajax.cartAjax')
+<script src="{{ asset('js/ajax.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 
