@@ -30,6 +30,7 @@ Route::get('/signin', 'AuthController@signin');
 Route::get('/login', 'AuthController@signin');
 Route::get('/verify/{hashParam}', 'AuthController@verify');
 Route::get('/admin', 'ProductController@admin');
+Route::get('/logout', 'PagesController@index');
 
 Route::get('/orders', function() {
   $data['title'] = 'Orders';
@@ -43,6 +44,7 @@ Route::post('storemessage', 'PagesController@storeMessage')->name('contact.messa
 
 Route::post('register', 'AuthController@register')->name('auth.register');
 Route::post('login', 'AuthController@login')->name('auth.login');
+Route::post('logout', 'AuthController@logout')->name('auth.logout');
 
 Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
 Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');

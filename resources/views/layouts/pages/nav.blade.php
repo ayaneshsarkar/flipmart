@@ -18,13 +18,6 @@
 					<span class="topbar-email">
 						ayaneshofficial@gmail.com
 					</span>
-
-					{{-- <div class="topbar-language rs1-select2">
-						<select class="selection-1" name="time">
-							<option>USD</option>
-							<option>INR</option>
-						</select>
-					</div> --}}
 				</div>
 			</div>
 
@@ -76,9 +69,12 @@
 				<div class="header-icons">
 
 					@if(session('loggedIn') == TRUE)
-						<a href="#" class="header-wrapicon1 dis-block">
+					<div style="position: relative">
+						<a href="#" id="account" class="header-wrapicon1 dis-block">
 							<img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
 						</a>
+						@include('layouts.includes.accountDropdown')
+					</div>
 
 						<span class="linedivide1"></span>
 

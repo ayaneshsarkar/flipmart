@@ -208,6 +208,26 @@
 
 <!--===============================================================================================-->
 	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> --}}
+	<script>
+		const account = document.getElementById('account');
+		const accountDropdown = document.querySelector('.header-account-dropdown');
+
+		if(account && accountDropdown) {
+			account.addEventListener('click', function() {
+				accountDropdown.classList.toggle('show-header-account-dropdown');
+			});
+		}
+		
+
+		const logoutText = document.getElementById('logoutText');
+		const logoutForm = document.getElementById('logoutForm');
+
+		if(logoutText && logoutForm) {
+			logoutText.addEventListener('click', function() {
+				logoutForm.submit();
+			});
+		}
+	</script>
 	<script src="{{ asset('js/modal.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
 

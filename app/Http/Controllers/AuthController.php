@@ -220,4 +220,15 @@ class AuthController extends Controller
 
     }
 
+    public function logout(Request $request) 
+    {
+        if(session('loggedIn') == TRUE && $request->input('logout')) {
+            session()->forget(['loggedIn', 'userId', 'flash']);
+        } else {
+            return redirect('/');
+        }
+
+        return redirect('/');
+    }
+
 }

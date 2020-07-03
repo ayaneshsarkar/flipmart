@@ -353,6 +353,71 @@ iframe {
 
 
 
+/*[ ACCOUNT ]
+///////////////////////////////////////////////////////////
+*/
+
+.header-account {
+  position: absolute;
+  z-index: 1200;
+  top: 190%;
+  right: 0;
+  /* //padding: 20px; */
+  width: 250px;
+  border-top: 3px solid #e6e6e6;
+  background-color: #fff;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+  transform-origin: top right;
+  transform: scale(0);
+}
+
+.header-account-dropdown.show-header-account-dropdown {
+  transform: scale(1);
+}
+
+.header-account .header-account-wrapItem {
+  height: auto;
+  overflow: auto;
+  padding: 10px 0;
+}
+
+.header-account .header-account-wrapItem .header-account-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 10px 20px;
+  color: #555555;
+  border-bottom: 0.5px solid #e6e6e6;
+  transition: all 0.3s linear;
+}
+
+.header-account .header-account-wrapItem .header-account-item:hover {
+  background-color: #FF5722;
+  color: #fff !important;
+  transition: all 0.3s linear;
+}
+
+.header-account .header-account-wrapItem .header-account-item .header-account-text {
+  display: block;
+  font-size: 15px;
+  line-height: 1.3;
+  color: #555 !important;
+  transition: all 0.3s linear;
+}
+
+.header-account .header-account-wrapItem .header-account-item:hover .header-account-text {
+  color: #fff !important;
+  transition: all 0.3s linear;
+}
+
+
+
+
+
+
 /*[ SHOP ]
 ///////////////////////////////////////////////////////////
 */
