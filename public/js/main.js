@@ -286,7 +286,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/flipmart/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! D:\Apps\xampp\htdocs\flipmart\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

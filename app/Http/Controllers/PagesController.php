@@ -19,7 +19,7 @@ class PagesController extends Controller
     return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
             ->where('carts.user_id', $currentUser)
             ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
-            ->orderBy('products.title')
+            ->orderByDesc('carts.updated_at')
             ->get();
   }
 

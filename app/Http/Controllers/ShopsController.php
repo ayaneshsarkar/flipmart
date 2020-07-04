@@ -52,6 +52,14 @@ class ShopsController extends Controller
         ->paginate(10);
     }
 
+    private function cartResponse($currentUser) {
+        return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
+                ->where('carts.user_id', $currentUser)
+                ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
+                ->orderByDesc('carts.updated_at')
+                ->get();
+    }
+
     public function shop(Request $request) 
     {
         $min = $max = $priceSort = $category =  '';
@@ -111,7 +119,9 @@ class ShopsController extends Controller
         }
 
         if(session('loggedIn') == TRUE) {
-            $data['cartResults'] = $this->productResponse(session('userId'));
+            if(count($this->cartResponse(session('userId'))) !== 0) {
+                $data['cartResults'] = $this->cartResponse(session('userId'));
+            }
         }
 
         return view('pages.shop')->with($data);
@@ -148,7 +158,7 @@ class ShopsController extends Controller
         return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
                 ->where('carts.user_id', $currentUser)
                 ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
-                ->orderBy('products.title')
+                ->orderBy('carts.updated_at')
                 ->get();
     }
 
