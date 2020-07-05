@@ -77,7 +77,7 @@ class ProductController extends Controller
         }
 
         if($request->input('type') == NULL && $request->input('brand') == NULL) {
-            return redirect('/admin');
+            return redirect('/admin')->with(['success' => "It's okay, you don't have to add category all the time."]);
         }
 
         // Create Category
@@ -89,7 +89,7 @@ class ProductController extends Controller
             ]
         );
 
-        return redirect('/admin');
+        return redirect('/admin')->with(['success' => 'Successfully created category.']);
 
     }
 
@@ -183,7 +183,7 @@ class ProductController extends Controller
             ]
         );
 
-        return redirect('/admin');
+        return redirect('/admin')->with(['success' => 'Product created successfully']);
 
     }
 

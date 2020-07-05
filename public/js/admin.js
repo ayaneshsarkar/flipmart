@@ -11023,67 +11023,96 @@ $(document).ready(function () {
     $('#brandText').text(selectedText);
     $('#brandInput').val(selectedText);
   });
-  var categoryText = document.getElementById('categoryText').innerHTML;
-  var typeText = document.getElementById('typeText').innerHTML;
-  var brandText = document.getElementById('brandText').innerHTML;
 
-  if (!categoryText.match(/Choose.*/)) {
-    $('#categoryInput').val($('#categoryText').text());
+  if (document.getElementById('categoryText')) {
+    var categoryText = document.getElementById('categoryText').innerHTML;
+
+    if (!categoryText.match(/Choose.*/)) {
+      $('#categoryInput').val($('#categoryText').text());
+    }
   }
 
-  if (!typeText.match(/Choose.*/)) {
-    $('#typeInput').val($('#typeText').text());
+  if (document.getElementById('typeText')) {
+    var typeText = document.getElementById('typeText').innerHTML;
+
+    if (!typeText.match(/Choose.*/)) {
+      $('#typeInput').val($('#typeText').text());
+    }
   }
 
-  if (!brandText.match(/Choose.*/)) {
-    $('#brandInput').val($('#brandText').text());
+  if (document.getElementById('brandText')) {
+    var brandText = document.getElementById('brandText').innerHTML;
+
+    if (!brandText.match(/Choose.*/)) {
+      $('#brandInput').val($('#brandText').text());
+    }
   }
 });
 var mainInput = document.getElementById('productFile');
 var mainButton = document.getElementById('productButton');
 var mainText = document.getElementById('productText');
 var filebox = document.getElementById('filebox');
-mainButton.addEventListener('click', function () {
-  mainInput.click();
-  filebox.style.border = '1px solid #333';
-  filebox.style.transition = 'all 0.3s linear';
-});
-mainInput.addEventListener('change', function () {
-  if (mainInput.value) {
-    mainText.innerHTML = mainInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
-  } else {
-    mainText.innerHTML = 'CHOOSE MAIN FILE [NO FILE CHOSEN YET]';
-  }
-});
+
+if (mainButton) {
+  mainButton.addEventListener('click', function () {
+    mainInput.click();
+    filebox.style.border = '1px solid #333';
+    filebox.style.transition = 'all 0.3s linear';
+  });
+}
+
+if (mainInput) {
+  mainInput.addEventListener('change', function () {
+    if (mainInput.value) {
+      mainText.innerHTML = mainInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+    } else {
+      mainText.innerHTML = 'CHOOSE MAIN FILE [NO FILE CHOSEN YET]';
+    }
+  });
+}
+
 var input = document.getElementById('productFiles');
 var button = document.getElementById('productButtons');
 var text = document.getElementById('productTexts');
 var fileboxes = document.getElementById('fileboxes');
-button.addEventListener('click', function () {
-  input.click();
-  fileboxes.style.border = '1px solid #333';
-  fileboxes.style.transition = 'all 0.3s linear';
-});
-input.addEventListener('change', function () {
-  var fileLength = input.files.length;
-  var files = input.files;
-  var fileList = [];
 
-  if (fileLength) {
-    Array.prototype.map.call(files, function (file) {
-      return fileList.push(file);
-    });
-    var fileNameList = fileList.map(function (file) {
-      return file.name;
-    });
-    text.innerHTML = fileNameList.join(', ');
-  } else {
-    text.innerHTML = 'Choose Files [No File(s) Chosen Yet]';
-  }
-}); // const focusedNumberInput =  document.getElementById('size').focus();
+if (button) {
+  button.addEventListener('click', function () {
+    input.click();
+    fileboxes.style.border = '1px solid #333';
+    fileboxes.style.transition = 'all 0.3s linear';
+  });
+}
+
+if (input) {
+  input.addEventListener('change', function () {
+    var fileLength = input.files.length;
+    var files = input.files;
+    var fileList = [];
+
+    if (fileLength) {
+      Array.prototype.map.call(files, function (file) {
+        return fileList.push(file);
+      });
+      var fileNameList = fileList.map(function (file) {
+        return file.name;
+      });
+      text.innerHTML = fileNameList.join(', ');
+    } else {
+      text.innerHTML = 'Choose Files [No File(s) Chosen Yet]';
+    }
+  });
+} // const focusedNumberInput =  document.getElementById('size').focus();
 // if(focusedNumberInput) {
 //   document.querySelectorAll('.product__inputbox_number').style.border = '1px solid $textColor !important';
 // }
+
+
+if (document.getElementById('adminCross')) {
+  document.getElementById('adminCross').addEventListener('click', function () {
+    document.querySelector('.adminSession').style.display = 'none';
+  });
+}
 
 /***/ }),
 

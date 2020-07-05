@@ -2,6 +2,17 @@
 
   <div class="item_wrap" id="mainItems">
     <div class="row">
+      <div class="col-12">
+        @if(Session::get('success'))
+          <div class="adminSession {{ (Session::get('success')) ? 'success' : '' }}">
+            <div class="adminSession__inner">
+              <p>{{ Session::get('success') }}</p>
+              <p id="adminCross">x</p>
+            </div>
+          </div>
+        @endif
+      </div>
+
       <div class="col-lg-4 col-md-6 col-sm-12">
         <div class="widget widget-tile">
           <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
@@ -52,8 +63,28 @@
     </div>
 
     <div class="row">
-      <div class="col-12">
+      <div class="col-lg-6 col-md-12">
+        <div class="product_link product">
+          <div class="product_link__inner">
+            <p>
+              <a href="{{ URL::to('/addproduct') }}">
+                <span class="icon"><i class="fa fa-cart-plus"></i></span> Add Product
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
 
+      <div class="col-lg-6 col-md-12">
+        <div class="product_link category">
+          <div class="product_link__inner">
+            <p>
+              <a href="{{ URL::to('/addcategory') }}">
+                <span class="icon"><i class="fa fa-plus-square"></i></span> Add Category
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
