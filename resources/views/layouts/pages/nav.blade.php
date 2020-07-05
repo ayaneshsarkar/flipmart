@@ -39,7 +39,7 @@
 								<a href="{{ URL::to('/shop') }}">Shop</a>
               </li>
               
-              <li>
+              <li class="{{ (!empty($page) && $page == 'category') ? 'sale-noti' : '' }}">
                 <a href="#" id="categoryAll">Categories</a>
                 <ul class="sub_menu">
 									<li><a href="#" id="categoryMen">Menz Footear</a></li>

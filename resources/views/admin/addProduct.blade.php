@@ -51,6 +51,21 @@
           </div>
         </div>
 
+        {{-- Delivery Days --}}
+
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('delivery_days')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Delivery Days</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="delivery_days" 
+              value="{{ old('delivery_days') }}">
+            </div>
+            @error('delivery_days')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
 
         {{-- Sizes --}}
 

@@ -108,6 +108,7 @@ class ShopsController extends Controller
 
         if($request->input('category_sort')) {
             $category = $request->input('category_sort');
+            $data['page'] = 'category';
 
             if($category == 'women') {
                 $data['products'] = $this->categorySort($category);

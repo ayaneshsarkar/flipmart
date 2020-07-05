@@ -308,6 +308,14 @@ $('.block2-btn-addwishlist').each(function(){
       sortForm.submit();
     }
   }
+
+  const accountDropdown = document.querySelector('.header-account-dropdown');
+
+  if(accountDropdown) {
+    $('#account').click(function() {
+      $('.header-account-dropdown').toggleClass('show-header-account-dropdown');
+    });
+  }
   
 </script>
 

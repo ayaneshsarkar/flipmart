@@ -388,6 +388,12 @@ iframe {
   background-color: #F44336 !important;
 }
 
+.contactTitleBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 

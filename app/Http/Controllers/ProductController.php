@@ -103,19 +103,20 @@ class ProductController extends Controller
     public function storeProduct(Request $request) 
     {
         $validator = Validator::make($request->all(), [
-            'title'       => 'required|string|max:255',
-            'price'       => 'required|integer',
-            'discount'    => 'nullable|integer',
-            'min_size'    => 'required|integer',
-            'max_size'    => 'required|integer',
-            'main_image'  => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
-            'images'      => 'required',
-            'images.*'    => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
-            'category'    => 'required|string|max:255',
-            'type'        => 'required|string|max:255',
-            'brand'       => 'required|string|max:255',
-            'description' => 'required|string',
-            'info'        => 'nullable|string'
+            'title'         => 'required|string|max:255',
+            'price'         => 'required|integer',
+            'discount'      => 'nullable|integer',
+            'delivery_days' => 'required|integer',
+            'min_size'      => 'required|integer',
+            'max_size'      => 'required|integer',
+            'main_image'    => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'images'        => 'required',
+            'images.*'      => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'category'      => 'required|string|max:255',
+            'type'          => 'required|string|max:255',
+            'brand'         => 'required|string|max:255',
+            'description'   => 'required|string',
+            'info'          => 'nullable|string'
         ]);
 
         if($validator->fails()) {
@@ -128,7 +129,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('main_image')) {
             $ext = $request->file('main_image')->getClientOriginalExtension();
-            $mainImage = $this->randomStrings(10) . '.' . $ext;
+            $mainImage = Str::random(10) . '.' . $ext;
 
             $folderName = DB::table('users')->where('id', session('userId'))->first()->name . session('userId');
 
@@ -147,7 +148,7 @@ class ProductController extends Controller
             $i = 0;
             foreach($request->file('images') as $image) {
                 $ext = $image->getClientOriginalExtension();
-                $imageName = $this->randomStrings(10) . time() . $i++ . '.' . $ext;
+                $imageName = Str::random(10) . time() . $i++ . '.' . $ext;
 
                 $folderName = DB::table('users')->where('id', session('userId'))->first()->name . session('userId');
 
@@ -165,20 +166,21 @@ class ProductController extends Controller
 
         DB::table('products')->insert(
             [
-                'user_id'      => session('userId'),
-                'product_slug' => Str::random(12),
-                'title'        => $request->input('title'),
-                'price'        => $request->input('price'),
-                'discount'     => $discount,
-                'description'  => $request->input('description'),
-                'category'     => $request->input('category'),
-                'type'         => $request->input('type'),
-                'brand'        => $request->input('brand'),
-                'main_image'   => $mainImage,
-                'images'       => implode(', ', $imagesDB),
-                'min_size'     => $request->input('min_size'),
-                'max_size'     => $request->input('max_size'),
-                'info'         => $info
+                'user_id'       => session('userId'),
+                'product_slug'  => Str::random(12),
+                'title'         => $request->input('title'),
+                'price'         => $request->input('price'),
+                'delivery_days' => $request->input('delivery_days'),
+                'discount'      => $discount,
+                'description'   => $request->input('description'),
+                'category'      => $request->input('category'),
+                'type'          => $request->input('type'),
+                'brand'         => $request->input('brand'),
+                'main_image'    => $mainImage,
+                'images'        => implode(', ', $imagesDB),
+                'min_size'      => $request->input('min_size'),
+                'max_size'      => $request->input('max_size'),
+                'info'          => $info
 
             ]
         );
