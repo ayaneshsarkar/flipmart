@@ -6,7 +6,7 @@
       <ul class="header-cart-wrapitem cartDropdownItem">
         <li class="header-cart-item">
           <div class="header-cart-item-img">
-            <img src="images/item-cart-01.jpg" alt="IMG">
+            <img src="{{ asset('images/item-cart-01.jpg') }}" alt="IMG">
           </div>
     
           <div class="header-cart-item-txt">

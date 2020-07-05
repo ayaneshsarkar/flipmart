@@ -1,3 +1,15 @@
+@php
+  $sessionClass = 'success';
+
+  if(Session::get('mailFailure')) {
+    $sessionClass = 'error';
+  } elseif(Session::get('signupWarning') || Session::get('verifyWarning')) {
+    $sessionClass = 'warning';
+  } else {
+    $sessionClass = 'success';
+  }
+@endphp
+
 
 <div id="modalSignUp" class="my-modal-body {{ ($register == TRUE) ? 'registerModal' : '' }}">
 
@@ -6,6 +18,20 @@
       <span class="closeBtn">&times;</span>
       <h4 class="m-text-26 p-t-20 p-b-30" id="modalTitle">SIGN UP</h4>
 
+      @if(Session::get('mailFailure') || Session::get('signupWarning') || Session::get('verifyWarning'))
+
+      <div class="modalSession {{ $sessionClass }} m-b-30">
+        <div class="modalSessionInner">
+          <p class="modalSessionText">
+            {{  (!empty(Session::get('mailFailure'))) ? Session::get('mailFailure') : '' }}
+            {{  (!empty(Session::get('signupWarning'))) ? Session::get('signupWarning') : '' }}
+            {{  (!empty(Session::get('verifyWarning'))) ? Session::get('verifyWarning') : '' }}
+          </p>
+          <p class="modalSessionText modalCross">x</p>
+        </div>
+      </div>
+
+      @endif
       
       <div id="name" class="bo4 of-hidden {{ ($errors->has('name')) ? '' : 'm-b-30' }} size15 m-b-5">
         <input type="text" class="sizefull s-text-7 p-r-20 p-l-20 modal-input{{ ($errors->has('name')) ? '-danger' : '' }}" 

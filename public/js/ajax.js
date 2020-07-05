@@ -96,6 +96,7 @@
 var cartButton = document.querySelectorAll('.ajaxCart');
 var cartDropdown = document.getElementById('cartDropdown');
 var cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
+var cartDropdownItemAjax = document.querySelectorAll('.cartDropdownItemAjax');
 var csrfMeta = document.getElementsByTagName("META")[2].content;
 cartButton.forEach(function (cartButton) {
   cartButton.addEventListener('click', function (e) {
@@ -120,7 +121,7 @@ cartButton.forEach(function (cartButton) {
             $('.cartDropdownItem').remove();
           });
           product.forEach(function (prod) {
-            cartDropdown.insertAdjacentHTML("afterbegin", "\n              <ul class=\"header-cart-wrapitem\">\n                <li class=\"header-cart-item\">\n                  <div class=\"header-cart-item-img\">\n                    <img src=\"images/item-cart-01.jpg\" alt=\"IMG\">\n                  </div>\n            \n                  <div class=\"header-cart-item-txt\">\n                    <a href=\"#\" class=\"header-cart-item-name\">\n                      ".concat(prod.title, "\n                    </a>\n            \n                    <span class=\"header-cart-item-info\">\n                      ").concat(prod.quantity, " x ").concat(prod.cartPrice, "\n                    </span>\n                  </div>\n                </li>\n              </ul>\n              \n              "));
+            cartDropdown.insertAdjacentHTML("afterbegin", "\n              <ul class=\"header-cart-wrapitem cartDropdownItem\">\n                <li class=\"header-cart-item\">\n                  <div class=\"header-cart-item-img\">\n                    <img src=\"images/item-cart-01.jpg\" alt=\"IMG\">\n                  </div>\n            \n                  <div class=\"header-cart-item-txt\">\n                    <a href=\"#\" class=\"header-cart-item-name\">\n                      ".concat(prod.title, "\n                    </a>\n            \n                    <span class=\"header-cart-item-info\">\n                      ").concat(prod.quantity, " x ").concat(prod.cartPrice, "\n                    </span>\n                  </div>\n                </li>\n              </ul>\n              \n              "));
           });
         }
       }

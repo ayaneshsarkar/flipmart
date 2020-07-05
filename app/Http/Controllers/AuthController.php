@@ -127,10 +127,10 @@ class AuthController extends Controller
         });
 
         if(Mail::failures()) {
-            return redirect('/signup');
+            return redirect('/signup')->with(['mailFailure' => 'Sorry, could not send mail.']);
         } 
 
-        return redirect('/signin');
+        return redirect('/signin')->with(['verify' => 'You need to verify before you Sign In.']);
 
         
     }
@@ -147,18 +147,16 @@ class AuthController extends Controller
         $user = DB::table('users')->where('remember_token', $hashParam)->first();
 
         if($user == NULL) {
-            return redirect('/signup');
+            return redirect('/signup')->with(['signupWarning' => 'Please register to Sign In.']);
         } else {
             $id = $user->id;
             $verifyStatus = $user->verified;
 
             if($verifyStatus == 0) {
                 DB::table('users')->where('id', $id)->update(['verified' => 1]);
-                session(['verifyStatus' => 'success']);
-                return redirect('/signin');
+                return redirect('/signin')->with(['verifySuccess' => 'Successfully verified, you may now Sign In.']);
             } else {
-                session(['verifyStatus' => 'exists']);
-                return redirect('/signup');
+                return redirect('/signup')->with(['verifyWarnning' => 'Hey, you are already verified!']);
             }
         }
     }
@@ -197,8 +195,7 @@ class AuthController extends Controller
                 $verifyStatus = DB::table('users')->where('id', $userId)->first();
 
                 if($verifyStatus->verified == 0) {
-                    session(['verifyStatus' => 'pending']);
-                    return redirect('/signup');
+                    return redirect('/signup')->with(['signupWarning' => 'Please verify before you Sign In.']);
                 } else {
                     $sessionData = [
                         'userId' => $userId,
@@ -208,12 +205,11 @@ class AuthController extends Controller
     
                     session($sessionData);
     
-                    return redirect('/');
+                    return redirect('/')->with(['signinSuccess' => 'You have successfully logged in.']);
                 }
 
             } else {
-                session(['verifyStatus' => 'failed']);
-                return redirect('/signin');
+                return redirect('/signin')->with(['signinError' => 'Email or Password is wrong.']);
             }
             
         }

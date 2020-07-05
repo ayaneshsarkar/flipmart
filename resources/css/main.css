@@ -262,6 +262,46 @@ iframe {
 }
 
 
+.modalSession {
+  display: block;
+  width: 100%;
+  height: 50px;
+  background-color: #4CAF50;
+  transform-origin: top;
+  transition: display 0.3s linear;
+}
+
+.modalSession .modalSessionInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.modalSession .modalSessionInner .modalSessionText {
+  color: #fff;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.modalSession .modalSessionInner .modalCross:hover {
+  cursor: pointer;
+  transition: all 0.3s linear;
+}
+
+.modalSession.error {
+  background-color: #F44336;
+}
+
+.modalSession.warning {
+  background-color: #FFA000;
+}
+
+
+
+
+
+
 /*[ MODAL INPUT ]
 ///////////////////////////////////////////////////////////
 */

@@ -11098,7 +11098,7 @@ var account = document.getElementById('account');
 var accountDropdown = document.querySelector('.header-account-dropdown');
 
 if (account && accountDropdown) {
-  account.addEventListener('click', function () {
+  accountDropdown.addEventListener('click', function () {
     accountDropdown.classList.toggle('show-header-account-dropdown');
   });
 }
@@ -11109,6 +11109,12 @@ var logoutForm = document.getElementById('logoutForm');
 if (logoutText && logoutForm) {
   logoutText.addEventListener('click', function () {
     logoutForm.submit();
+  });
+}
+
+if (document.querySelector('.modalCross')) {
+  document.querySelector('.modalCross').addEventListener('click', function () {
+    document.querySelector('.modalSession').style.display = 'none';
   });
 }
 

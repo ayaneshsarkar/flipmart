@@ -1,6 +1,7 @@
 const cartButton = document.querySelectorAll('.ajaxCart');
 const cartDropdown = document.getElementById('cartDropdown');
 const cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
+const cartDropdownItemAjax = document.querySelectorAll('.cartDropdownItemAjax');
 
 const csrfMeta = document.getElementsByTagName("META")[2].content;
 
@@ -38,7 +39,7 @@ cartButton.forEach(cartButton => {
 
             cartDropdown.insertAdjacentHTML("afterbegin", 
               `
-              <ul class="header-cart-wrapitem">
+              <ul class="header-cart-wrapitem cartDropdownItem">
                 <li class="header-cart-item">
                   <div class="header-cart-item-img">
                     <img src="images/item-cart-01.jpg" alt="IMG">

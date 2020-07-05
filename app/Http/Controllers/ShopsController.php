@@ -76,6 +76,12 @@ class ShopsController extends Controller
             'register' => FALSE
         ];
 
+        if(session('loggedIn') == TRUE) {
+            if(count($this->cartResponse(session('userId'))) !== 0) {
+                $data['cartResults'] = $this->cartResponse(session('userId'));
+            }
+        }
+
         if($request->input('min') && $request->input('max')) {
             $min = $request->input('min');
             $max = $request->input('max');
@@ -118,12 +124,6 @@ class ShopsController extends Controller
             }
         }
 
-        if(session('loggedIn') == TRUE) {
-            if(count($this->cartResponse(session('userId'))) !== 0) {
-                $data['cartResults'] = $this->cartResponse(session('userId'));
-            }
-        }
-
         return view('pages.shop')->with($data);
     }
 
@@ -150,6 +150,12 @@ class ShopsController extends Controller
             'login' => FALSE,
             'register' => FALSE
         ];
+
+        if(session('loggedIn') == TRUE) {
+            if(count($this->cartResponse(session('userId'))) !== 0) {
+                $data['cartResults'] = $this->cartResponse(session('userId'));
+            }
+        }
 
         return view('pages.product')->with($data);
     }

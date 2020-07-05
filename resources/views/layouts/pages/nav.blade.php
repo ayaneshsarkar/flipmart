@@ -42,9 +42,9 @@
               <li>
                 <a href="#" id="categoryAll">Categories</a>
                 <ul class="sub_menu">
-									<li><a href="#" id="categoryMen">Menz Wear</a></li>
-									<li><a href="#" id="categoryWomen">Womenz Wear</a></li>
-									<li><a href="#" id="categoryKids">Kidz Wear</a></li>
+									<li><a href="#" id="categoryMen">Menz Footear</a></li>
+									<li><a href="#" id="categoryWomen">Womenz Footwear</a></li>
+									<li><a href="#" id="categoryKids">Kidz Footear</a></li>
 								</ul>
 
 								<div style="display: none">
