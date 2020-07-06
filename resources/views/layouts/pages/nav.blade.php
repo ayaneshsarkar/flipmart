@@ -104,7 +104,7 @@
 		<div class="wrap_header_mobile">
 			<!-- Logo moblie -->
 			<a href="index.html" class="logo-mobile">
-				<img src="images/icons/logo.png" alt="IMG-LOGO">
+				<img src="{{ asset('images/icons/logo.png') }}" alt="IMG-LOGO">
 			</a>
 
 			<!-- Button show menu -->
