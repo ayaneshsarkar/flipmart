@@ -50,6 +50,7 @@ Route::post('storecategory', 'ProductController@storeCategory')->name('product.s
 Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');
 
 Route::post('cart', 'ShopsController@storeCart')->name('cart');
+Route::post('cartdelete', 'ShopsController@deleteCart')->name('cartdelete');
 
 
 Route::resource('auth', 'AuthController');

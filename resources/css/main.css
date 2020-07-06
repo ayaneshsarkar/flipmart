@@ -1146,6 +1146,8 @@ li.sale-noti > a {
 .header-cart-wrapitem {
   max-height: 270px;
   overflow: auto;
+  opacity: 1;
+  transition: all 0.3s linear;
 }
 
 .header-cart-item {

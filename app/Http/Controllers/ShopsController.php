@@ -11,6 +11,7 @@ use App\Product;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\URL;
 
 class ShopsController extends Controller
 {
@@ -55,9 +56,14 @@ class ShopsController extends Controller
     private function cartResponse($currentUser) {
         return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
                 ->where('carts.user_id', $currentUser)
-                ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
+                ->join('users', 'products.user_id', '=', 'users.id')
+                ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*', 'users.name as name', 'users.id as userId', 'carts.id as cartId')
                 ->orderByDesc('carts.updated_at')
                 ->get();
+    }
+
+    private function cartTotal() {
+        return DB::table('carts')->where('user_id', session('userId'))->sum('total');
     }
 
     public function shop(Request $request) 
@@ -77,8 +83,11 @@ class ShopsController extends Controller
         ];
 
         if(session('loggedIn') == TRUE) {
-            if(count($this->cartResponse(session('userId'))) !== 0) {
+            if($this->cartResponse(session('userId')) != NULL) {
                 $data['cartResults'] = $this->cartResponse(session('userId'));
+                $data['cartTotal'] = $this->cartTotal();
+            } else {
+                $data['cartResults'] = '';
             }
         }
 
@@ -164,7 +173,8 @@ class ShopsController extends Controller
     private function productResponse($currentUser) {
         return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
                 ->where('carts.user_id', $currentUser)
-                ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
+                ->join('users', 'products.user_id', '=', 'users.id')
+                ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*', 'users.name as name', 'users.id as userId', 'carts.id as cartId')
                 ->orderBy('carts.updated_at')
                 ->get();
     }
@@ -200,12 +210,26 @@ class ShopsController extends Controller
         }
 
         $data = [
-            'product' => $this->productResponse($currentUser)
+            'product' => $this->productResponse($currentUser),
+            'url' => URL::to('/'),
+            'total' => $this->cartTotal()
         ];
 
         return response()->json($data, 200);
         
     }
+
+    public function deleteCart(Request $request) {
+
+        $cartId = $request->input('cartId');
+
+        DB::table('carts')->where('id', $cartId)->delete();
+        
+        $total = DB::table('carts')->sum('total');
+
+        return response()->json(['status' => 'Deleted!', 'total' => $total]);
+
+    } 
 
     
     

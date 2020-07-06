@@ -18,7 +18,8 @@ class PagesController extends Controller
   private function cartResponse($currentUser) {
     return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
             ->where('carts.user_id', $currentUser)
-            ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*')
+            ->join('users', 'products.user_id', '=', 'users.id')
+            ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*', 'users.name as name', 'users.id as userId', 'carts.id as cartId')
             ->orderByDesc('carts.updated_at')
             ->get();
   }
