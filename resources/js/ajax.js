@@ -110,6 +110,32 @@ cartImageCross.forEach(cartImage => {
 
 
 
+if(document.getElementById('singleCartButton')) {
+  const singleCartButton = document.getElementById('singleCartButton')
 
+  singleCartButton.addEventListener("click", cartFunction);
+
+  async function cartFunction(e) {
+    e.preventDefault();
+
+    const singleProductSlug = document.getElementById('singleProductSlug').value;
+    const singleProductQuantity = document.getElementById('singleProductQuantity').value;
+    const singleProductSize = document.getElementById('singleProductSize').value;
+
+    const productData = {
+      productSlug: singleProductSlug,
+      productQuantity: singleProductQuantity,
+      productSize: singleProductSize
+    };
+
+    const response = await axios.post('/mycart', productData);
+    const data = response.data;
+
+    console.log(data.url);
+
+    window.location.href = data.url;
+
+  }
+}
 
 

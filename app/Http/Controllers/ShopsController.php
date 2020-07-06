@@ -185,10 +185,11 @@ class ShopsController extends Controller
         $productSlug =  $request->input('productSlug');
 
         $productId = DB::table('products')->where('product_slug', $productSlug)->first()->id;
-        $productExists = DB::table('carts')->where('product_id', $productId)->get();
+        $productExists = DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))
+        ->get();
 
-        $quantity = DB::table('carts')->where('product_id', $productId)->first();
         $price = DB::table('products')->where('product_slug', $productSlug)->first()->price;
+        $size = DB::table('products')->where('product_slug', $productSlug)->first()->max_size;
 
         $currentUser = session('userId');
 
@@ -199,12 +200,16 @@ class ShopsController extends Controller
                 'product_id' => $productId,
                 'quantity' => 1,
                 'price' => $price,
-                'total' => 1 * $price
+                'total' => 1 * $price,
+                'size' => $size
             ]);
 
         } else {
 
-            DB::table('carts')->where('product_id', $productId)->update([
+            $quantity = DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))
+            ->first();
+
+            DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))->update([
                 'quantity' => $quantity->quantity + 1,
                 'total' => ($quantity->quantity + 1) * $price
             ]);
@@ -231,6 +236,56 @@ class ShopsController extends Controller
         return response()->json(['status' => 'Deleted!', 'total' => $total]);
 
     } 
+
+    public function storeSingleCart(Request $request) {
+
+        $productSlug = $request->input('productSlug');
+        $productQuantity = $request->input('productQuantity');
+        $productSize = $request->input('productSize');
+
+        $productId = DB::table('products')->where('product_slug', $productSlug)->first()->id;
+        $productPrice = DB::table('products')->where('product_slug', $productSlug)->first()->price;
+        
+        if($productSize == 'null') {
+            $productSize = DB::table('products')->where('product_slug', $productSlug)->first()->max_size;
+        }
+
+        $productExists = DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))
+        ->get();
+
+        if(count($productExists) == 0) {
+
+            $insertData = [
+                'user_id' => session('userId'),
+                'product_id' => $productId,
+                'quantity' => $productQuantity,
+                'price' => $productPrice,
+                'total' => $productQuantity * $productPrice,
+                'size' => $productSize
+            ];
+
+            DB::table('carts')->insert($insertData);
+
+        } else {
+
+            $cartQuantity = DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))
+            ->first()->quantity;
+
+            $updateData = [
+                'quantity' => $cartQuantity + $productQuantity,
+                'total' => ($cartQuantity + $productQuantity) * $productPrice,
+                'size' => $productSize
+            ];
+
+            DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))
+            ->update($updateData);
+
+        }
+
+
+        return response()->json(['url' => URL::to('/shop')]);
+
+    }
 
     
     

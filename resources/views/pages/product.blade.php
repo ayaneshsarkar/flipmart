@@ -76,7 +76,7 @@
 					{{ $product->description }}
 				</p>
 
-				<!--  -->
+				<!-- Size -->
 				<div class="p-t-33 p-b-60">
 					<div class="flex-m flex-w p-b-10">
 						<div class="s-text15 w-size15 t-center">
@@ -84,8 +84,8 @@
 						</div>
 
 						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-							<select class="selection-2" name="size">
-                <option value=''>Choose an option</option>
+							<select class="selection-2" id="singleProductSize" name="size">
+                <option value="null">Choose an option</option>
                 @php
                   $minSize = $product->min_size;
                   $maxSize = $product->max_size;
@@ -120,19 +120,19 @@
 									<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 								</button>
 
-								<input class="size8 m-text18 t-center num-product" type="number" name="num-product" value="1">
+								<input class="size8 m-text18 t-center num-product" id="singleProductQuantity" type="number" name="num-product" value="1">
 
 								<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
 									<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
 								</button>
 							</div>
 
-							<div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
+							<a href="#"  id="singleCartButton" class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
 								<!-- Button -->
-								<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+								<button type="submit" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
 									Add to Cart
 								</button>
-							</div>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -190,6 +190,7 @@
 				</div> --}}
 			</div>
 		</div>
-  </div>
+	</div>
+	<input type="hidden" name="productSlug" id="singleProductSlug" value="{{ $product->product_slug }}">
   
   @include('layouts.includes.productFooter')

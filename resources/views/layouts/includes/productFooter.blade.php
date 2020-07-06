@@ -221,12 +221,14 @@
     });
   });
 
-  $('.btn-addcart-product-detail').each(function(){
-    var nameProduct = $('.product-detail-name').html();
-    $(this).on('click', function(){
-      swal(nameProduct, "is added to wishlist !", "success");
-    });
-  });
+  // $('.btn-addcart-product-detail').each(function(){
+  //   var nameProduct = $('.product-detail-name').html();
+  //   $(this).on('click', function(){
+  //     swal(nameProduct, "is added to wishlist !", "success");
+  //   });
+  // });
+
+  //console.log(document.getElementById('sizeSelect').value)
 </script>
 
 <!--===============================================================================================-->
