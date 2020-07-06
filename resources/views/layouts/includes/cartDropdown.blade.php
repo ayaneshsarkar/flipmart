@@ -1,7 +1,7 @@
 <div class="header-cart header-dropdown" id="cartDropdown">
 
   @if(session('loggedIn') == TRUE)
-    @if($cartResults != NULL)
+    @if(!empty($cartResults))
       @foreach ($cartResults as $cartResult)
         <ul class="header-cart-wrapitem cartDropdownItem">
           <li class="header-cart-item">
@@ -24,35 +24,18 @@
           </li>
         </ul>
       @endforeach
-    @endif
-
-  @else
+    @else
 
     <p>Nothing Here</p>
 
+    @endif
+
   @endif
 
-  {{-- <ul class="header-cart-wrapitem" id="cartDropdownItem">
-    <li class="header-cart-item">
-      <div class="header-cart-item-img">
-        <img src="images/item-cart-01.jpg" alt="IMG">
-      </div>
 
-      <div class="header-cart-item-txt">
-        <a href="#" class="header-cart-item-name">
-          White Shirt With Pleat Detail Back
-        </a>
-
-        <span class="header-cart-item-info">
-          1 x $19.00
-        </span>
-      </div>
-    </li>
-  </ul> --}}
-
-  
+  {{-- @if((!empty($cartTotal)) && $cartTotal > 0) --}}
     <div class="header-cart-total" id="cartTotal">
-      Total: ${{ ($cartTotal > 0) ? $cartTotal : 0 }}
+      Total: ${{ ((!empty($cartTotal)) && $cartTotal > 0) ? $cartTotal : 0 }}
     </div>
 
     <div class="header-cart-buttons">
@@ -70,5 +53,5 @@
         </a>
       </div>
     </div>
-
+  {{-- @endif --}}
 </div>

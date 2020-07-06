@@ -164,6 +164,7 @@ class ShopsController extends Controller
         if(session('loggedIn') == TRUE) {
             if(count($this->cartResponse(session('userId'))) !== 0) {
                 $data['cartResults'] = $this->cartResponse(session('userId'));
+                $data['cartTotal'] = $this->cartTotal();
             }
         }
 

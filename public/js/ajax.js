@@ -2869,9 +2869,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var cartButton = document.querySelectorAll('.ajaxCart');
 var cartDropdown = document.getElementById('cartDropdown');
 var cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
-var cartDropdownItemAjax = document.querySelectorAll('.cartDropdownItemAjax');
 var cartImageCross = document.querySelectorAll('.cartImage');
 var csrfMeta = document.getElementsByTagName("META")[2].content;
+
+function myFunction() {
+  console.log('yes');
+}
+
 cartButton.forEach(function (cartButton) {
   cartButton.addEventListener('click', function (e) {
     e.preventDefault();
@@ -2895,7 +2899,7 @@ cartButton.forEach(function (cartButton) {
             $('.cartDropdownItem').remove();
           });
           product.forEach(function (prod) {
-            cartDropdown.insertAdjacentHTML("afterbegin", "\n              <ul class=\"header-cart-wrapitem cartDropdownItem\">\n                <li class=\"header-cart-item\">\n                  <a href=\"#\" class=\"cartImage\">\n                    <div class=\"header-cart-item-img\">\n                      <img src=\"".concat(data.url, "/storage/myimages/").concat(prod.name).concat(prod.userId, "/").concat(prod.main_image, "\" alt=\"").concat(prod.title, "\">\n                      <input type=\"hidden\" name=\"cartId\" id=\"cartId\" value=\"").concat(prod.cartId, "\">\n                    </div>\n                  </a>\n\n                  <div class=\"header-cart-item-txt\">\n                    <a href=\"#\" class=\"header-cart-item-name\">\n                      ").concat(prod.title, "\n                    </a>\n            \n                    <span class=\"header-cart-item-info\">\n                      ").concat(prod.quantity, " x ").concat(prod.cartPrice, "\n                    </span>\n                  </div>\n                </li>\n              </ul>\n              \n              "));
+            cartDropdown.insertAdjacentHTML("afterbegin", "\n              <ul class=\"header-cart-wrapitem cartDropdownItem\">\n                <li class=\"header-cart-item\">\n                  <a href=\"#\" onclick=\"javascript:cartDelete(this); return false;\" class=\"cartImage\">\n                    <div class=\"header-cart-item-img\">\n                      <img src=\"".concat(data.url, "/storage/myimages/").concat(prod.name).concat(prod.userId, "/").concat(prod.main_image, "\" alt=\"").concat(prod.title, "\">\n                      <input type=\"hidden\" name=\"cartId\" id=\"cartId\" value=\"").concat(prod.cartId, "\">\n                    </div>\n                  </a>\n\n                  <div class=\"header-cart-item-txt\">\n                    <a href=\"#\" class=\"header-cart-item-name\">\n                      ").concat(prod.title, "\n                    </a>\n            \n                    <span class=\"header-cart-item-info\">\n                      ").concat(prod.quantity, " x ").concat(prod.cartPrice, "\n                    </span>\n                  </div>\n                </li>\n              </ul>\n              \n              "));
           });
         }
       }
@@ -2903,7 +2907,6 @@ cartButton.forEach(function (cartButton) {
   });
 });
 cartImageCross.forEach(function (cartImage) {
-  console.log(cartImage);
   $(cartImage).on("click", /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
       var cartId, mainParent, response, data;
@@ -2914,21 +2917,19 @@ cartImageCross.forEach(function (cartImage) {
               e.preventDefault();
               cartId = this.getElementsByTagName('input')[0].value;
               mainParent = this.parentElement.parentElement;
-              console.log(mainParent);
-              _context.next = 6;
+              _context.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/cartdelete', {
                 cartId: cartId
               });
 
-            case 6:
+            case 5:
               response = _context.sent;
               data = response.data;
-              console.log(data);
               document.getElementById('cartTotal').innerHTML = "Total: $ ".concat(data.total);
               mainParent.style.opacity = '0';
               mainParent.style.height = '0';
 
-            case 12:
+            case 10:
             case "end":
               return _context.stop();
           }

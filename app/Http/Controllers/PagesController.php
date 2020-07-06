@@ -36,6 +36,7 @@ class PagesController extends Controller
 
     if(session('loggedIn') == TRUE) {
       $data['cartResults'] = $this->cartResponse(session('userId'));
+      $data['cartTotal'] = DB::table('carts')->sum('total');
     }
 
 
@@ -53,6 +54,7 @@ class PagesController extends Controller
 
     if(session('loggedIn') == TRUE) {
       $data['cartResults'] = $this->cartResponse(session('userId'));
+      $data['cartTotal'] = DB::table('carts')->sum('total');
     }
 
     return  view('pages.about')->with($data);
@@ -69,6 +71,7 @@ class PagesController extends Controller
 
     if(session('loggedIn') == TRUE) {
       $data['cartResults'] = $this->cartResponse(session('userId'));
+      $data['cartTotal'] = DB::table('carts')->sum('total');
     }
 
     return  view('pages.contact')->with($data);

@@ -42,6 +42,30 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/util.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js" integrity="sha512-VGxuOMLdTe8EmBucQ5vYNoYDTGijqUsStF6eM7P3vA/cM1pqOwSBv/uxw94PhhJJn795NlOeKBkECQZ1gIzp6A==" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="{{ asset('vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+
+	<script>
+		if(document.querySelectorAll('.cartImage')) {
+			function cartDelete(el) {
+				const cartId = el.getElementsByTagName('input')[0].value;
+				const mainParent = el.parentElement.parentElement;
+
+				axios.post('/cartdelete', {
+					cartId: cartId
+				}).then(function(res) {
+					document.getElementById('cartTotal').innerHTML = `Total: $ ${res.data.total}`;
+					mainParent.style.opacity = '0';
+					mainParent.style.height = '0';
+				}).catch(function(err) {
+					console.log(err);
+				});
+
+			}
+		}
+		
+	</script>
 <!--===============================================================================================-->
 </head>
 <body class="animsition">

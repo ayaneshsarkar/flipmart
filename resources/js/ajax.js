@@ -3,11 +3,14 @@ import axios from 'axios';
 const cartButton = document.querySelectorAll('.ajaxCart');
 const cartDropdown = document.getElementById('cartDropdown');
 const cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
-const cartDropdownItemAjax = document.querySelectorAll('.cartDropdownItemAjax');
 
 const cartImageCross = document.querySelectorAll('.cartImage');
 
 const csrfMeta = document.getElementsByTagName("META")[2].content;
+
+function myFunction() {
+  console.log('yes');
+}
 
 cartButton.forEach(cartButton => {
 
@@ -47,7 +50,7 @@ cartButton.forEach(cartButton => {
               `
               <ul class="header-cart-wrapitem cartDropdownItem">
                 <li class="header-cart-item">
-                  <a href="#" class="cartImage">
+                  <a href="#" onclick="javascript:cartDelete(this); return false;" class="cartImage">
                     <div class="header-cart-item-img">
                       <img src="${data.url}/storage/myimages/${prod.name}${prod.userId}/${prod.main_image}" alt="${prod.title}">
                       <input type="hidden" name="cartId" id="cartId" value="${prod.cartId}">
@@ -82,8 +85,6 @@ cartButton.forEach(cartButton => {
 
 cartImageCross.forEach(cartImage => {
 
-  console.log(cartImage);
-
   $(cartImage).on("click", async function(e) {
 
     e.preventDefault();
@@ -91,7 +92,6 @@ cartImageCross.forEach(cartImage => {
     const cartId = this.getElementsByTagName('input')[0].value;
 
     const mainParent = this.parentElement.parentElement;
-    console.log(mainParent);
 
     const response = await axios.post('/cartdelete', {
       cartId: cartId
@@ -99,7 +99,6 @@ cartImageCross.forEach(cartImage => {
 
     const data = response.data;
 
-    console.log(data);
     document.getElementById('cartTotal').innerHTML = `Total: $ ${data.total}`;
     mainParent.style.opacity = '0';
     mainParent.style.height = '0';
@@ -107,6 +106,10 @@ cartImageCross.forEach(cartImage => {
   });
 
 });
+
+
+
+
 
 
 

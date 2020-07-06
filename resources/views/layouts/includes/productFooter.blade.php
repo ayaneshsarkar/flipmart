@@ -230,6 +230,7 @@
 </script>
 
 <!--===============================================================================================-->
+<script src="{{ asset('js/ajax.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 
