@@ -2903,14 +2903,9 @@ cartButton.forEach(function (cartButton) {
   });
 });
 cartImageCross.forEach(function (cartImage) {
-  $('.cartImage').on('click', '.header-cart-item-img', cartDelete);
-
-  function cartDelete(_x) {
-    return _cartDelete.apply(this, arguments);
-  }
-
-  function _cartDelete() {
-    _cartDelete = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+  console.log(cartImage);
+  $(cartImage).on("click", /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
       var cartId, mainParent, response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
@@ -2918,7 +2913,7 @@ cartImageCross.forEach(function (cartImage) {
             case 0:
               e.preventDefault();
               cartId = this.getElementsByTagName('input')[0].value;
-              mainParent = this.parentElement.parentElement.parentElement;
+              mainParent = this.parentElement.parentElement;
               console.log(mainParent);
               _context.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/cartdelete', {
@@ -2940,8 +2935,11 @@ cartImageCross.forEach(function (cartImage) {
         }
       }, _callee, this);
     }));
-    return _cartDelete.apply(this, arguments);
-  }
+
+    return function (_x) {
+      return _ref.apply(this, arguments);
+    };
+  }());
 });
 
 /***/ }),

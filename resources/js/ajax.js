@@ -82,16 +82,15 @@ cartButton.forEach(cartButton => {
 
 cartImageCross.forEach(cartImage => {
 
-  $('.cartImage').on('click', '.header-cart-item-img', cartDelete);
+  console.log(cartImage);
 
-    
-  async function cartDelete(e) {
+  $(cartImage).on("click", async function(e) {
 
     e.preventDefault();
 
     const cartId = this.getElementsByTagName('input')[0].value;
 
-    const mainParent = this.parentElement.parentElement.parentElement;
+    const mainParent = this.parentElement.parentElement;
     console.log(mainParent);
 
     const response = await axios.post('/cartdelete', {
@@ -105,7 +104,7 @@ cartImageCross.forEach(cartImage => {
     mainParent.style.opacity = '0';
     mainParent.style.height = '0';
 
-  }
+  });
 
 });
 
