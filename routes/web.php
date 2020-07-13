@@ -53,6 +53,7 @@ Route::post('storeproduct', 'ProductController@storeProduct')->name('product.sto
 Route::post('cart', 'ShopsController@storeCart')->name('cart');
 Route::post('mycart', 'ShopsController@storeSingleCart')->name('mycart');
 Route::post('cartdelete', 'ShopsController@deleteCart')->name('cartdelete');
+Route::post('cartupdate', 'ShopsController@updateCart')->name('cartupdate');
 
 
 Route::resource('auth', 'AuthController');

@@ -233,9 +233,33 @@ class ShopsController extends Controller
         
         $total = DB::table('carts')->sum('total');
 
-        return response()->json(['status' => 'Deleted!', 'total' => $total]);
+        $count = DB::table('carts')->count();
 
-    } 
+        return response()->json(['status' => 'Deleted!', 'total' => $total, 'count' => $count]);
+
+    }
+
+    public function updateCart(Request $request) {
+
+        $quantities = $request->input('quantities');
+        $ids = $request->input('ids');
+        //$prices = DB::table('carts')->select('price')->get()->price;
+
+
+        // foreach($quantities as $quantity) {
+
+        //     foreach($prices as $price) {
+        //         DB::table('carts')->update([
+        //             'quantity' => $quantity,
+        //             'total' => $price
+        //         ]);
+        //     }
+
+        // }
+
+        return response()->json(['quantities' => $quantities, 'ids' => $ids]);
+
+    }
 
     public function storeSingleCart(Request $request) {
 

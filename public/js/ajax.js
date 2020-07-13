@@ -2870,6 +2870,7 @@ var cartButton = document.querySelectorAll('.ajaxCart');
 var cartDropdown = document.getElementById('cartDropdown');
 var cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
 var cartImageCross = document.querySelectorAll('.cartImage');
+var singleCartImageCross = document.querySelectorAll('.singleCartImage');
 var csrfMeta = document.getElementsByTagName("META")[2].content;
 
 function myFunction() {
@@ -2943,13 +2944,60 @@ cartImageCross.forEach(function (cartImage) {
   }());
 });
 
+if (singleCartImageCross) {
+  singleCartImageCross.forEach(function (singleImage) {
+    singleImage.addEventListener('click', /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+        var cartId, mainParent, response, data, quantityInput;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                cartId = this.getElementsByTagName('input')[0].value;
+                mainParent = this.parentElement.parentElement;
+                _context2.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/cartdelete', {
+                  cartId: cartId
+                });
+
+              case 5:
+                response = _context2.sent;
+                data = response.data;
+                document.getElementById('singleCartTotal').textContent = "$".concat(data.total, ".00");
+                quantityInput = this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.getElementsByTagName('input')[0];
+                quantityInput.remove();
+                mainParent.remove();
+
+                if (data.count == 0) {
+                  document.getElementById('updateButton').style.display = 'none';
+                  document.getElementById('cartTable').style.display = 'none';
+                  document.getElementById('noProduct').style.display = 'block';
+                  document.getElementById('checkoutButton').style.display = 'none';
+                }
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+  });
+}
+
 if (document.getElementById('singleCartButton')) {
   var cartFunction = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
       var singleProductSlug, singleProductQuantity, singleProductSize, productData, response, data;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context3.prev = _context3.next) {
             case 0:
               e.preventDefault();
               singleProductSlug = document.getElementById('singleProductSlug').value;
@@ -2960,25 +3008,25 @@ if (document.getElementById('singleCartButton')) {
                 productQuantity: singleProductQuantity,
                 productSize: singleProductSize
               };
-              _context2.next = 7;
+              _context3.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/mycart', productData);
 
             case 7:
-              response = _context2.sent;
+              response = _context3.sent;
               data = response.data;
               console.log(data.url);
               window.location.href = data.url;
 
             case 11:
             case "end":
-              return _context2.stop();
+              return _context3.stop();
           }
         }
-      }, _callee2);
+      }, _callee3);
     }));
 
-    return function cartFunction(_x2) {
-      return _ref2.apply(this, arguments);
+    return function cartFunction(_x3) {
+      return _ref3.apply(this, arguments);
     };
   }();
 

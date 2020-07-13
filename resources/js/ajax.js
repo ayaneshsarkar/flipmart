@@ -6,6 +6,8 @@ const cartDropdownItem = document.querySelectorAll('.cartDropdownItem');
 
 const cartImageCross = document.querySelectorAll('.cartImage');
 
+const singleCartImageCross = document.querySelectorAll('.singleCartImage');
+
 const csrfMeta = document.getElementsByTagName("META")[2].content;
 
 function myFunction() {
@@ -107,6 +109,50 @@ cartImageCross.forEach(cartImage => {
 
 });
 
+if(singleCartImageCross) {
+
+  singleCartImageCross.forEach(singleImage => {
+
+    singleImage.addEventListener('click', async function(e) {
+  
+      e.preventDefault();
+  
+      const cartId = this.getElementsByTagName('input')[0].value;
+  
+      const mainParent = this.parentElement.parentElement;
+  
+      const response = await axios.post('/cartdelete', {
+        cartId: cartId
+      });
+  
+      const data = response.data;
+  
+      document.getElementById('singleCartTotal').textContent = `$${data.total}.00`;
+  
+      
+
+      const quantityInput =  this.parentElement.nextElementSibling.nextElementSibling.nextElementSibling.firstElementChild.getElementsByTagName('input')[0];
+
+
+      quantityInput.remove();
+
+      mainParent.remove();
+  
+      if(data.count == 0) {
+        document.getElementById('updateButton').style.display = 'none';
+        document.getElementById('cartTable').style.display = 'none';
+        document.getElementById('noProduct').style.display = 'block';
+        document.getElementById('checkoutButton').style.display = 'none';
+      }
+  
+    });
+  
+  });
+
+}
+
+
+
 
 
 
@@ -137,5 +183,4 @@ if(document.getElementById('singleCartButton')) {
 
   }
 }
-
 

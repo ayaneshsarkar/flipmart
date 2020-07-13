@@ -6,6 +6,43 @@
 	{{-- Modal --}}
 	@include('layouts.pages.modalSignIn')
 	@include('layouts.pages.modalSignUp')
+
+	<script>
+
+		function singleCartUpdate() {
+			
+			var singleCartQuantity = document.querySelectorAll('.singleCartQuantity');
+			var singleCartId = document.querySelectorAll('.singleCartId');
+
+			var cartQuantityArray = [];
+			var cartIdArray = [];
+			
+
+			singleCartQuantity.forEach(function(cartQuantity) {
+				cartQuantityArray.push(cartQuantity.value);
+			});
+
+			singleCartId.forEach(function(cartId) {
+				cartIdArray.push(cartId.value);
+			});
+
+			var sortedCartQuantityArray = cartQuantityArray.reverse();
+			var sortedCartIdArray = cartIdArray.reverse();
+
+			axios.post('/cartupdate', {
+				quantities: sortedCartQuantityArray,
+				ids: sortedCartIdArray
+			}).then(function(res) {
+
+				console.log(res.data);
+
+			}).catch(function(err) {
+				console.log(err);
+			});
+
+		}
+
+	</script>
 	
 	@php
 		function defineImagePath($name, $userId, $image) {
@@ -24,8 +61,9 @@
 	<!-- Cart -->
 	<section class="cart bgwhite p-t-70 p-b-100">
 		<div class="container">
+			<div id="noProduct" style="display: none; font-size: 20px">Currently we have nothing for you.</div>
 			<!-- Cart item -->
-			<div class="container-table-cart pos-relative">
+			<div class="container-table-cart pos-relative" id="cartTable">
 				<div class="wrap-table-shopping-cart bgwhite">
 					<table class="table-shopping-cart">
 						<tr class="table-head">
@@ -47,6 +85,7 @@
 											<div class="cart-img-product b-rad-4 o-f-hidden singleCartImage">
 												<img src="{{ asset(defineImagePath($cart->name, $cart->userId, $cart->main_image)) }}" 
 												alt="{{ $cart->title }}">
+												<input type="hidden" class="singleCartId" name="singleCartId" value={{ $cart->cartId }} readonly="readonly">
 											</div>
 										</td>
 										<td class="column-2">{{ $cart->title }}</td>
@@ -57,7 +96,7 @@
 													<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 												</button>
 			
-												<input class="size8 m-text18 t-center num-product" type="number" name="num-product1" 
+												<input class="size8 m-text18 t-center num-product singleCartQuantity" type="number" name="num-product" 
 												value="{{ $cart->quantity }}">
 			
 												<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
@@ -103,7 +142,7 @@
 				</div>
 			</div>
 
-			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm" style="justify-content: flex-end">
+			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm" id="updateButton" style="justify-content: flex-end">
 				{{-- <div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">
 						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="coupon-code" placeholder="Coupon Code">
@@ -119,7 +158,8 @@
 
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="updateCart"
+					onclick="javascript:singleCartUpdate(); return false;" >
 						Update Cart
 					</button>
 				</div>
@@ -189,14 +229,14 @@
 						Total:
 					</span>
 
-					<span class="m-text21 w-size20 w-full-sm">
+					<span class="m-text21 w-size20 w-full-sm" id="singleCartTotal">
 						${{ $cartTotal }}.00
 					</span>
 				</div>
 
 				<div class="size15 trans-0-4">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="checkoutButton">
 						Proceed to Checkout
 					</button>
 				</div>
@@ -204,13 +244,15 @@
 		</div>
 	</section>
 
-	<script>
-		const singleCartImage = document.querySelector('.singleCartImage');
-		singleCartImage.addEventListener('click', function() {
-			console.log('Yes!');
-		});
-	</script>
+	<pre style="font-size: 20px">
+		@php
+			$prices = DB::table('carts')->select('price')->get();
 
+			foreach ($prices as $price) {
+				var_dump($price->price);
+			}
+		@endphp
+	</pre>
 
 
 
