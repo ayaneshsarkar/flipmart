@@ -62,6 +62,10 @@
 							<li class="{{ (!empty($page) && $page == 'contact') ? 'sale-noti' : '' }}">
 								<a href="{{ URL::to('/contact') }}">Contact</a>
 							</li>
+
+							<li class="{{ (!empty($page) && $page == 'cart') ? 'sale-noti' : '' }}">
+								<a href="{{ URL::to('/cart') }}">Cart</a>
+              </li>
 						</ul>
 					</nav>
 				</div>
@@ -77,6 +81,8 @@
 						@include('layouts.includes.accountDropdown')
 					</div>
 
+						@if(!empty($page) && $page != 'cart')
+
 						<span class="linedivide1"></span>
 
 						<div class="header-wrapicon2">
@@ -86,6 +92,9 @@
 							{{-- Header Cart Noti --}}
 							@include('layouts.includes.cartDropdown')
 						</div>
+
+						@endif
+						
 					@else
 
 					<a href="#" id="modalBtnSignUp" class="modalBtn header-wrapicon1 dis-block">

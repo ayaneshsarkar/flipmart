@@ -44,8 +44,9 @@
 
 									<tr class="table-row">
 										<td class="column-1">
-											<div class="cart-img-product b-rad-4 o-f-hidden">
-												<img src="{{ asset(defineImagePath($cart->name, $cart->userId, $cart->main_image)) }}" alt="{{ $cart->title }}">
+											<div class="cart-img-product b-rad-4 o-f-hidden singleCartImage">
+												<img src="{{ asset(defineImagePath($cart->name, $cart->userId, $cart->main_image)) }}" 
+												alt="{{ $cart->title }}">
 											</div>
 										</td>
 										<td class="column-2">{{ $cart->title }}</td>
@@ -204,7 +205,10 @@
 	</section>
 
 	<script>
-		console.log(document.querySelector('.num-product'));
+		const singleCartImage = document.querySelector('.singleCartImage');
+		singleCartImage.addEventListener('click', function() {
+			console.log('Yes!');
+		});
 	</script>
 
 

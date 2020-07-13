@@ -81,7 +81,7 @@ class PagesController extends Controller
 
     $data = [
       'title' => 'Cart',
-      'page' => 'shop',
+      'page' => 'cart',
       'login' => FALSE,
       'register' => FALSE
     ];
