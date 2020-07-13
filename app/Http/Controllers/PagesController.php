@@ -77,6 +77,24 @@ class PagesController extends Controller
     return  view('pages.contact')->with($data);
   }
 
+  public function cart() {
+
+    $data = [
+      'title' => 'Cart',
+      'page' => 'shop',
+      'login' => FALSE,
+      'register' => FALSE
+    ];
+
+    if(session('loggedIn') == TRUE) {
+      $data['cartResults'] = $this->cartResponse(session('userId'));
+      $data['cartTotal'] = DB::table('carts')->sum('total');
+    }
+
+    return  view('pages.cart')->with($data);
+
+  }
+
 
 
   /**

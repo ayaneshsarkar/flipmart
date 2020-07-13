@@ -23,8 +23,9 @@
 
 			<div class="wrap_header">
 				<!-- Logo -->
-				<a href="{{ URL::to('/') }}" class="logo">
-					<img src="{{ asset('images/icons/logo.png') }}" alt="IMG-LOGO">
+				<a href="{{ URL::to('/') }}" class="logo logoText">
+					{{-- <img src="{{ asset('images/icons/logo.png') }}" alt="IMG-LOGO"> --}}
+					FLIPMART
 				</a>
 
 				<!-- Menu -->

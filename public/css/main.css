@@ -2644,3 +2644,12 @@ input.num-product::-webkit-inner-spin-button {
 }
 
 
+.logoText {
+
+  font-size: 25px;
+  letter-spacing: 5px;
+  font-weight: 600;
+  color: #E65540;
+
+}
+

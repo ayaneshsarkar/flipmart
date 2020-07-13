@@ -22,6 +22,7 @@ Route::get('/contact', 'PagesController@contact')->name('contact');
 Route::get("shop/{slug}", "ShopsController@product");
 
 Route::get('/shop', 'ShopsController@shop')->name('shop');
+Route::get('/cart', 'PagesController@cart')->name('cart');
 
 
 Route::get('/signup', 'AuthController@signup');
