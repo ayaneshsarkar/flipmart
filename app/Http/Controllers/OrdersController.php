@@ -30,6 +30,6 @@ class OrdersController extends Controller
 
         }
 
-        return redirect('/orders')->with(['success', 'Order Created Successfully!']);
+        return redirect('/orders')->with(['success' => 'Order Created Successfully!']);
     }
 }

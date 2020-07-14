@@ -28,9 +28,39 @@ $danger: #F44336;
 
 }
 
+.order__session {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: $shadowMd;
+  margin-bottom: 50px;
+  padding: 20px 40px;
+
+  &.success {
+    background-color: $success;
+  }
+
+  &.danger {
+    background-color: $danger;
+  }
+
+  &_content {
+    font-weight: 500;
+    font-size: 20px;
+    color: #fff;
+
+    &.cross {
+      cursor: pointer;
+    }
+  }
+
+}
+
 .orderbox {
   box-shadow: $shadowMedium;
   margin-bottom: 45px;
+  overflow: hidden !important;
   transition: all 0.3s linear;
 
   &:hover {
@@ -55,7 +85,7 @@ $danger: #F44336;
 
       &-title {
         .title {
-          font-size: 19px;
+          font-size: 16px;
           font-weight: 500;
           color: $textColor;
         }

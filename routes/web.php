@@ -33,10 +33,7 @@ Route::get('/verify/{hashParam}', 'AuthController@verify');
 Route::get('/admin', 'ProductController@admin');
 Route::get('/logout', 'PagesController@index');
 
-Route::get('/orders', function() {
-  $data['title'] = 'Orders';
-  return view('admin.orders')->with($data);
-});
+Route::get('/orders', 'ProductController@orders');
 
 Route::get('/addproduct', 'ProductController@addProduct');
 Route::get('/addcategory', 'ProductController@addCategory');

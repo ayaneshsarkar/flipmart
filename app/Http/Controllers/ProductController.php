@@ -18,13 +18,66 @@ class ProductController extends Controller
 {
 
     public function admin() {
+        $orderCount = DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
+        ->where('products.user_id', session('userId'))
+        ->join('users', 'products.user_id', '=', 'users.id')
+        ->select('orders.order_slug')
+        ->groupBy('order_slug')
+        ->get();
+
         $data = [
             'title' => 'Admin',
-            'orderCount' => DB::table('orders')->where('user_id', session('userId'))->count(),
+            'orderCount' => count($orderCount),
             'productCount' => DB::table('products')->where('user_id', session('userId'))->count(),
             'categoryCount' => DB::table('categories')->where('user_id', session('userId'))->count()
         ];
         return view('admin.dashboard')->with($data);
+    }
+
+    protected function orderItems() {
+
+        return DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
+        ->where('products.user_id', session('userId'))
+        ->join('users', 'products.user_id', '=', 'users.id')
+        ->select('orders.quantity as orderQuantity', 'orders.total as orderTotal', 'products.*', 'users.name as name', 'users.id as userId', 'orders.id as orderId', 'orders.status as orderStatus')
+        ->orderBy('orders.updated_at')
+        ->get();
+        
+    }
+
+    protected function orderCount() {
+
+        return DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
+        ->where('products.user_id', session('userId'))
+        ->join('users', 'products.user_id', '=', 'users.id')
+        ->select('orders.order_slug')
+        ->groupBy('order_slug')
+        ->get();
+        
+    }
+
+    protected function orderTotal() {
+
+        return DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
+        ->where('products.user_id', session('userId'))
+        ->join('users', 'products.user_id', '=', 'users.id')
+        ->select('orders.total')
+        ->sum('orders.total');
+        
+    }
+
+    public function orders() {
+
+        $data['title'] = 'Orders';
+
+        $data['items'] = $this->orderItems();
+
+        $data['count'] = $this->orderCount();
+
+        $data['total'] = $this->orderTotal();
+
+        return view('admin.orders')->with($data);
+
     }
 
     public function addProduct() 

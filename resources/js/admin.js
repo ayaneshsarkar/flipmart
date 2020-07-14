@@ -149,6 +149,13 @@ if(document.getElementById('adminCross')) {
   });
 }
 
+if(document.getElementById('orderSession')) {
+  document.getElementById('orderSessionCross').addEventListener('click', function() {
+    this.parentElement.parentElement.style.display = 'none';
+    
+  })
+}
+
 
 
 
