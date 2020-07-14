@@ -7,42 +7,57 @@
 	@include('layouts.pages.modalSignIn')
 	@include('layouts.pages.modalSignUp')
 
-	<script>
+<script>
+	function cartPlus(el) {
 
-		function singleCartUpdate() {
-			
-			var singleCartQuantity = document.querySelectorAll('.singleCartQuantity');
-			var singleCartId = document.querySelectorAll('.singleCartId');
+		var quantity = parseInt(el.previousElementSibling.value) + 1;
+		var cartId = el.parentElement.getElementsByTagName('input')[1].value;
+		var cartTotal = el.parentElement.parentElement.nextElementSibling;
 
-			var cartQuantityArray = [];
-			var cartIdArray = [];
-			
+		axios.post('/cartupdate', {
+			quantity: quantity,
+			cartId: cartId
+		}).then(function(res) {
 
-			singleCartQuantity.forEach(function(cartQuantity) {
-				cartQuantityArray.push(cartQuantity.value);
-			});
+			console.log(res.data);
 
-			singleCartId.forEach(function(cartId) {
-				cartIdArray.push(cartId.value);
-			});
+			cartTotal.textContent = `$${res.data.singleTotal}.00`;
+			document.getElementById('singleCartTotal').textContent = `$${res.data.total}.00`;
 
-			var sortedCartQuantityArray = cartQuantityArray.reverse();
-			var sortedCartIdArray = cartIdArray.reverse();
+		}).catch(function(err) {
+			console.log(err);
+		});
 
-			axios.post('/cartupdate', {
-				quantities: sortedCartQuantityArray,
-				ids: sortedCartIdArray
-			}).then(function(res) {
+		
 
-				console.log(res.data);
+	}
 
-			}).catch(function(err) {
-				console.log(err);
-			});
-
+	function cartMinus(el) {
+		var quantity = parseInt(el.nextElementSibling.value) - 1;
+		
+		if((parseInt(el.nextElementSibling.value) - 1) == 0) {
+			var quantity = 1;
 		}
 
-	</script>
+		var cartId = el.parentElement.getElementsByTagName('input')[1].value;
+		var cartTotal = el.parentElement.parentElement.nextElementSibling;
+
+		axios.post('/cartupdate', {
+			quantity: quantity,
+			cartId: cartId
+		}).then(function(res) {
+
+			console.log(res.data);
+
+			cartTotal.textContent = `$${res.data.singleTotal}.00`;
+			document.getElementById('singleCartTotal').textContent = `$${res.data.total}.00`;
+
+		}).catch(function(err) {
+			console.log(err);
+		});
+
+	}
+</script>
 	
 	@php
 		function defineImagePath($name, $userId, $image) {
@@ -92,16 +107,19 @@
 										<td class="column-3">${{ $cart->price }}.00</td>
 										<td class="column-4">
 											<div class="flex-w bo5 of-hidden w-size17">
-												<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+												<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2" 
+												onclick="cartMinus(this);">
 													<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
 												</button>
-			
+
 												<input class="size8 m-text18 t-center num-product singleCartQuantity" type="number" name="num-product" 
 												value="{{ $cart->quantity }}">
 			
-												<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+												<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2" onclick="cartPlus(this);">
 													<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
 												</button>
+
+												<input type="hidden" class="singleCartId" name="singleCartId" value={{ $cart->cartId }} readonly="readonly">
 											</div>
 										</td>
 										<td class="column-5">${{ $cart->total }}.00</td>
@@ -142,6 +160,7 @@
 				</div>
 			</div>
 
+			{{-- Update Button --}}
 			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm" id="updateButton" style="justify-content: flex-end">
 				{{-- <div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">
@@ -158,8 +177,7 @@
 
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="updateCart"
-					onclick="javascript:singleCartUpdate(); return false;" >
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="updateCart">
 						Update Cart
 					</button>
 				</div>
@@ -239,21 +257,14 @@
 					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="checkoutButton">
 						Proceed to Checkout
 					</button>
+
+					{{ Form::open(['action' => 'OrdersController@createOrder', 'method' => 'POST', 'id' => "order"]) }}
+						<input type="hidden" name="order">
+					{{ Form::close() }}
 				</div>
 			</div>
 		</div>
 	</section>
-
-	<pre style="font-size: 20px">
-		@php
-			$prices = DB::table('carts')->select('price')->get();
-
-			foreach ($prices as $price) {
-				var_dump($price->price);
-			}
-		@endphp
-	</pre>
-
 
 
   @include('layouts.includes.cartFooter')

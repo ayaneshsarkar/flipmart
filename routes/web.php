@@ -55,6 +55,8 @@ Route::post('mycart', 'ShopsController@storeSingleCart')->name('mycart');
 Route::post('cartdelete', 'ShopsController@deleteCart')->name('cartdelete');
 Route::post('cartupdate', 'ShopsController@updateCart')->name('cartupdate');
 
+Route::post('ordercreate', 'OrdersController@createOrder')->name('ordercreate');
+
 
 Route::resource('auth', 'AuthController');
 // Auth::routes();

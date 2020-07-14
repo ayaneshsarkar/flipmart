@@ -241,23 +241,21 @@ class ShopsController extends Controller
 
     public function updateCart(Request $request) {
 
-        $quantities = $request->input('quantities');
-        $ids = $request->input('ids');
-        //$prices = DB::table('carts')->select('price')->get()->price;
+        $quantity = $request->input('quantity');
+        $cartId = $request->input('cartId');
+        $price = DB::table('carts')->where('id', $cartId)->first()->price;
 
+        $updateCartData = [
+            'quantity' => $quantity,
+            'total' => $quantity * $price
+        ];
 
-        // foreach($quantities as $quantity) {
+        DB::table('carts')->where('id', $cartId)->update($updateCartData);
 
-        //     foreach($prices as $price) {
-        //         DB::table('carts')->update([
-        //             'quantity' => $quantity,
-        //             'total' => $price
-        //         ]);
-        //     }
+        $singletotal = DB::table('carts')->where('id', $cartId)->first()->total;
+        $total = DB::table('carts')->sum('total');
 
-        // }
-
-        return response()->json(['quantities' => $quantities, 'ids' => $ids]);
+        return response()->json(['singleTotal' => $singletotal, 'total' => $total]);
 
     }
 

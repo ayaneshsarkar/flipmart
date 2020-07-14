@@ -219,6 +219,12 @@
       logoutForm.submit();
     });
   }
+
+  document.getElementById('updateButton').style.display = 'none';
+
+  document.getElementById('checkoutButton').addEventListener('click', function() {
+    document.getElementById('order').submit();
+  });
 </script>
 
 <!--===============================================================================================-->
