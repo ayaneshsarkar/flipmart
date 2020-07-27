@@ -88,7 +88,7 @@ if(mainButton) {
   mainButton.addEventListener('click', () => {
     mainInput.click();
   
-    filebox.style.border = '1px solid #333';
+    filebox.style.border = '1px solid #212121';
     filebox.style.transition = 'all 0.3s linear';
   });
 }
