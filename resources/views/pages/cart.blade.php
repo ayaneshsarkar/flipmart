@@ -248,7 +248,7 @@
 					</span>
 
 					<span class="m-text21 w-size20 w-full-sm" id="singleCartTotal">
-						${{ $cartTotal }}.00
+						${{ $cartTotal ?? 0 }}.00
 					</span>
 				</div>
 

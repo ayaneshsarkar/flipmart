@@ -1,4 +1,7 @@
 <IfModule mod_rewrite.c>
+    # AddOutputFilterByType SUBSTITUTE text/html
+    # Substitute "s|flipmart.local|d5e90671d13d.ngrok.io|in"
+
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>

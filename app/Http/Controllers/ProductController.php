@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Str;
 
 use App\Category;
+
+use function GuzzleHttp\json_encode;
 
 class ProductController extends Controller
 {
@@ -99,11 +102,6 @@ class ProductController extends Controller
         return view('admin.addCategory')->with($data);
     }
 
-    private function randomStrings($strLength) 
-    { 
-        return substr(md5(time() . session('userId')), 0, $strLength);
-    } 
-
 
 
     /**
@@ -153,7 +151,7 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function storeProduct(Request $request) 
+    public function storeProductPrevious(Request $request) 
     {
         $validator = Validator::make($request->all(), [
             'title'         => 'required|string|max:255',
@@ -240,6 +238,62 @@ class ProductController extends Controller
 
         return redirect('/admin')->with(['success' => 'Product created successfully']);
 
+    }
+
+    public function storeProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'discount' => 'nullable|integer',
+            'delivery_days' => 'required|integer',
+            'min_size' => 'required|integer',
+            'max_size' => 'required|integer',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'images' => 'nullable',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'category' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'description' => 'required|string',
+            'info' => 'nullable|string'
+        ]);
+
+        if($validator->fails()) {
+            return redirect('/addproduct')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->post(env('SHOPIFY_URL') . '/products.json', [
+            'product' => [
+                'body_html' => $request->input('description'),
+                'handle' => Str::slug($request->input('title')),
+                'product_type' => $request->input('type'),
+                'status' => 'active',
+                'title' => $request->input('title'),
+                'vendor' => $request->input('brand'),
+                'variants' => [
+                    'min_size' => $request->input('min_size'),
+                    'max_size' => $request->input('max_size'),
+                    'category' => $request->input('category'),
+                    'info' => $request->input('info') ?? NULL,
+                    'delivery_days' => $request->input('delivery_days'),
+                    'discount' => $request->input('discount') ?? NULL,
+                    'presentment_prices' => [
+                        'price' => [
+                            'currency_code' => 'INR',
+                            'amount' => $request->input('price')
+                        ]
+                    ]
+                ]
+            ]
+        ])->json();
+
+        echo json_encode($response);
     }
 
 }

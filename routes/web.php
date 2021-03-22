@@ -56,6 +56,9 @@ Route::post('ordercreate', 'OrdersController@createOrder')->name('ordercreate');
 
 
 Route::resource('auth', 'AuthController');
+
+Route::get('/install-shopify/{shop?}', 'ShopifyController@installShopify');
+Route::get('/generate-token', 'ShopifyController@generateToken');
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
