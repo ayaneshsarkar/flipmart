@@ -22,7 +22,6 @@ class ProductController extends Controller
 
     public function admin() {
         $orderCount = DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
-        ->where('products.user_id', session('userId'))
         ->join('users', 'products.user_id', '=', 'users.id')
         ->select('orders.order_slug')
         ->groupBy('order_slug')
@@ -30,9 +29,10 @@ class ProductController extends Controller
 
         $data = [
             'title' => 'Admin',
+            'type' => 'admin',
             'orderCount' => count($orderCount),
-            'productCount' => DB::table('products')->where('user_id', session('userId'))->count(),
-            'categoryCount' => DB::table('categories')->where('user_id', session('userId'))->count()
+            'productCount' => DB::table('products')->count(),
+            'categoryCount' => DB::table('categories')->count()
         ];
         return view('admin.dashboard')->with($data);
     }
@@ -72,6 +72,7 @@ class ProductController extends Controller
     public function orders() {
 
         $data['title'] = 'Orders';
+        $data['type'] = 'orders';
 
         $data['items'] = $this->orderItems();
 
@@ -88,8 +89,9 @@ class ProductController extends Controller
         $category = new Category();
 
         $data = [
-            'title'      => 'Add Product',
-            'categories' => $category::where('user_id', session('userId'))->orderBy('type', 'desc')->get()
+            'title' => 'Add Product',
+            'type' => 'addproduct',
+            'categories' => $category::orderBy('type', 'desc')->get()
         ];
 
         return view('admin.addProduct')->with($data);
@@ -99,6 +101,7 @@ class ProductController extends Controller
 
     public function addCategory() {
         $data['title'] = 'Add Category';
+        $data['type'] = 'addcategory';
         return view('admin.addCategory')->with($data);
     }
 

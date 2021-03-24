@@ -130,16 +130,15 @@
         {{-- Category --}}
         <div class="col-12">
           <div class="product__inputbox">
-            <div class="product__inputbox_option {{ $errors->has('category') ? 'danger' : '' }}" id="categoryOptions">
-              <input type="text" name="category" id="categoryInput" hidden="hidden">
-              <p id="categoryText">{{ old('category') ?? 'Choose Category (Required)' }}</p>
-              <span class="icon"><i class="fa fa-angle-down select_arrow" aria-hidden="true"></i></span>
-            </div>
-
-            <div class="product__inputbox_option optionbox">Men</div>
-            <div class="product__inputbox_option optionbox">Women</div>
-            <div class="product__inputbox_option optionbox">Kids</div>
-            @error('category')<span class="invalid-text">{{$message}}</span>@enderror
+            <select name="category" 
+            class="product__inputbox__newoption{{ $errors->has('category') ? ' danger' : '' }}" 
+            required>
+              <option disabled selected value="">Choose Category (Required)</option>
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Kids">Kids</option>
+            </select>
+            @error('category')<span class="invalid-text">{{$message}}</span>@enderror   
           </div>
         </div>
 
@@ -147,18 +146,17 @@
 
         <div class="col-12">
           <div class="product__inputbox">
-            <div class="product__inputbox_option {{ $errors->has('type') ? 'danger' : '' }}" id="typeOptions">
-              <input type="text" name="type" id="typeInput" style="display: none">
-              <p id="typeText">{{ old('type') ?? 'Choose Type (Required)' }}</p>
-              <span class="icon"><i class="fa fa-angle-down select_arrow" aria-hidden="true"></i></span>
-            </div>
-
-            @if(!empty($categories))
-              @foreach ($categories as $category)
-                <div class="product__inputbox_option optionbox">{{ $category->type }}</div>
-              @endforeach
-              @error('type')<span class="invalid-text">{{$message}}</span>@enderror
-            @endif
+            <select name="type" 
+            class="product__inputbox__newoption{{ $errors->has('type') ? ' danger' : '' }}" 
+            required>
+              <option disabled selected value="">Choose Type (Required)</option>
+              @if(!empty($categories))
+                @foreach ($categories as $category)
+                  <option value="{{ $category->type }}">{{ $category->type }}</option>
+                @endforeach
+              @endif
+            </select>
+            @error('type')<span class="invalid-text">{{$message}}</span>@enderror        
           </div>
         </div>
 
@@ -166,18 +164,15 @@
 
         <div class="col-12">
           <div class="product__inputbox">
-            <div class="product__inputbox_option {{ $errors->has('brand') ? 'danger' : '' }}" id="brandOptions">
-              <input type="text" name="brand" id="brandInput" hidden="hidden">
-              <p id="brandText">{{ old('brand') ?? 'Choose Brand (Required)' }}</p>
-              <span class="icon"><i class="fa fa-angle-down select_arrow" aria-hidden="true"></i></span>
-            </div>
-
-            @if(!empty($categories))
-              @foreach ($categories as $category)
-                <div class="product__inputbox_option optionbox">{{ $category->brand }}</div>
-              @endforeach
-              @error('brand')<span class="invalid-text">{{$message}}</span>@enderror
-            @endif
+            <select name="brand" class="product__inputbox__newoption" required>
+              <option disabled selected value="">Choose Brand (Selected)</option>
+              @if(!empty($categories))
+                @foreach ($categories as $category)
+                  <option value="{{ $category->brand }}">{{ $category->brand }}</option>
+                @endforeach
+              @endif
+            </select>
+            @error('brand')<span class="invalid-text">{{$message}}</span>@enderror
           </div>
         </div>
 
