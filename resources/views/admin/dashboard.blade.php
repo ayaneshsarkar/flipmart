@@ -20,7 +20,7 @@
             <div class="desc">Orders</div>
             <div class="value">
               <span class="icon" style="color: #2196F3"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-              <span class="number">{{ $orderCount }}</span>
+              <span class="number">{{ 0 }}</span>
             </div>
           </div>
         </div>

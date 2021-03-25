@@ -69,7 +69,7 @@
 
         {{-- Sizes --}}
 
-        <div class="col-12">
+        <div class="col-md-12">
           <div class="product__inputbox">
             <div class="product__inputbox_number {{ ($errors->has('min_size')) ? 'danger' : 'm-b-30' }}">
               <div class="labelbox">
@@ -82,7 +82,7 @@
           </div>
         </div>
 
-        <div class="col-12">
+        <div class="col-md-12">
           <div class="product__inputbox">
             <div class="product__inputbox_number {{ ($errors->has('max_size')) ? 'danger' : 'm-b-30' }}">
               <div class="labelbox">
@@ -185,17 +185,6 @@
               <textarea placeholder="Description" name="description">{{ old('description') }}</textarea>
             </div>
             @error('description')<span class="invalid-text">{{$message}}</span>@enderror
-          </div>
-        </div>
-
-        {{-- Info --}}
-
-        <div class="col-12">
-          <div class="product__inputbox">
-            <div class="product__inputbox_text{{ ($errors->has('info')) ? '-danger' : ' m-b-30' }}">
-              <textarea placeholder="Additional Info (Optional)" name="info">{{ old('info') }}</textarea>
-            </div>
-            @error('info')<span class="invalid-text">{{$message}}</span>@enderror
           </div>
         </div>
 

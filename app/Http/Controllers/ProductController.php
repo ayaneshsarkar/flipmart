@@ -21,16 +21,10 @@ class ProductController extends Controller
 {
 
     public function admin() {
-        $orderCount = DB::table('orders')->join('products', 'orders.product_id', '=', 'products.id')
-        ->join('users', 'products.user_id', '=', 'users.id')
-        ->select('orders.order_slug')
-        ->groupBy('order_slug')
-        ->get();
-
         $data = [
             'title' => 'Admin',
             'type' => 'admin',
-            'orderCount' => count($orderCount),
+            'orderCount' => 0,
             'productCount' => DB::table('products')->count(),
             'categoryCount' => DB::table('categories')->count()
         ];
@@ -74,11 +68,11 @@ class ProductController extends Controller
         $data['title'] = 'Orders';
         $data['type'] = 'orders';
 
-        $data['items'] = $this->orderItems();
+        $data['items'] = [];
 
-        $data['count'] = $this->orderCount();
+        $data['count'] = 0;
 
-        $data['total'] = $this->orderTotal();
+        $data['total'] = 0;
 
         return view('admin.orders')->with($data);
 
@@ -151,97 +145,8 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-
-    public function storeProductPrevious(Request $request) 
-    {
-        $validator = Validator::make($request->all(), [
-            'title'         => 'required|string|max:255',
-            'price'         => 'required|integer',
-            'discount'      => 'nullable|integer',
-            'delivery_days' => 'required|integer',
-            'min_size'      => 'required|integer',
-            'max_size'      => 'required|integer',
-            'main_image'    => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
-            'images'        => 'required',
-            'images.*'      => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
-            'category'      => 'required|string|max:255',
-            'type'          => 'required|string|max:255',
-            'brand'         => 'required|string|max:255',
-            'description'   => 'required|string',
-            'info'          => 'nullable|string'
-        ]);
-
-        if($validator->fails()) {
-            return redirect('/addproduct')
-                    ->withErrors($validator)
-                    ->withInput();
-        }
-
-        $mainImage = '';
-
-        if ($request->hasFile('main_image')) {
-            $ext = $request->file('main_image')->getClientOriginalExtension();
-            $mainImage = Str::random(10) . '.' . $ext;
-
-            $folderName = DB::table('users')->where('id', session('userId'))->first()->name . session('userId');
-
-            $path = \storage_path(). "/app/public/myimages/" . $folderName;
-
-            if(!File::isDirectory($path)) {
-                File::makeDirectory($path, 0777, true, true);
-            }
-
-            $request->file('main_image')->move($path, $mainImage);
-        }
-
-        $imagesDB = [];
-
-        if($request->file('images')) {
-            $i = 0;
-            foreach($request->file('images') as $image) {
-                $ext = $image->getClientOriginalExtension();
-                $imageName = Str::random(10) . time() . $i++ . '.' . $ext;
-
-                $folderName = DB::table('users')->where('id', session('userId'))->first()->name . session('userId');
-
-                $path = \storage_path() . "/app/public/myimages/" . $folderName;
-
-                $image->move($path, $imageName);
-                $imagesDB[] = $imageName;
-            }
-        }
-
-        $info = $discount = '';
-
-        (!empty($request->input('info'))) ? $info = $request->input('info') : $info = '';
-        (!empty($request->input('discount'))) ? $discount = $request->input('discount') : $discount = NULL;
-
-        DB::table('products')->insert(
-            [
-                'user_id'       => session('userId'),
-                'product_slug'  => Str::random(12),
-                'title'         => $request->input('title'),
-                'price'         => $request->input('price'),
-                'delivery_days' => $request->input('delivery_days'),
-                'discount'      => $discount,
-                'description'   => $request->input('description'),
-                'category'      => $request->input('category'),
-                'type'          => $request->input('type'),
-                'brand'         => $request->input('brand'),
-                'main_image'    => $mainImage,
-                'images'        => implode(', ', $imagesDB),
-                'min_size'      => $request->input('min_size'),
-                'max_size'      => $request->input('max_size'),
-                'info'          => $info
-
-            ]
-        );
-
-        return redirect('/admin')->with(['success' => 'Product created successfully']);
-
-    }
 
     public function storeProduct(Request $request)
     {
@@ -259,7 +164,6 @@ class ProductController extends Controller
             'type' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'description' => 'required|string',
-            'info' => 'nullable|string'
         ]);
 
         if($validator->fails()) {
@@ -280,23 +184,26 @@ class ProductController extends Controller
                 'title' => $request->input('title'),
                 'vendor' => $request->input('brand'),
                 'variants' => [
-                    'min_size' => $request->input('min_size'),
-                    'max_size' => $request->input('max_size'),
-                    'category' => $request->input('category'),
-                    'info' => $request->input('info') ?? NULL,
-                    'delivery_days' => $request->input('delivery_days'),
-                    'discount' => $request->input('discount') ?? NULL,
-                    'presentment_prices' => [
-                        'price' => [
-                            'currency_code' => 'INR',
-                            'amount' => $request->input('price')
-                        ]
+                    [
+                        'price' => $request->input('price'),
+                        'compare_at_price' => $request->input('price'),
+                        'option1' => $request->input('category')
                     ]
                 ]
             ]
         ])->json();
 
-        echo json_encode($response);
+        if($response['product'] && $response['product']['id']) {
+            DB::table('products')->insert([
+                'shopify_id' => $response['product']['id'],
+                'delivery_days' => $request->input('delivery_days'),
+                'min_size' => $request->input('min_size'),
+                'max_size' => $request->input('max_size'),
+                'discount' => $request->input('discount') ?? NULL
+            ]);
+        }
+
+        return redirect('/admin')->with(['success' => 'Product created successfully!']);
     }
 
 }

@@ -7,75 +7,6 @@ $(document).ready(function() {
   $('#toggleMenu').click(function() {
     $('.dropdown_mobile').toggleClass('toggled');
   });
-
-  $('#categoryOptions').click(function() {
-    $('#categoryOptions ~ .product__inputbox_option.optionbox').toggleClass('select');
-    $('#categoryoptions > #categoryText').toggleClass('textColor');
-    $('#categoryOptions > .icon > .select_arrow').toggleClass('rotateArrow');
-  });
-
-  $('#categoryOptions ~ .product__inputbox_option.optionbox').click(function() {
-    $('#categoryOptions ~ .product__inputbox_option.optionbox').removeClass('select');
-    $('#categoryOptions > .icon > .select_arrow').toggleClass('rotateArrow');
-    var selectedText = $(this).text();
-    $('#categoryText').text(selectedText);
-    $('#categoryInput').val(selectedText);
-  });
-
-
-
-  $('#typeOptions').click(function() {
-    $('#typeOptions ~ .product__inputbox_option.optionbox').toggleClass('select');
-    $('#typeoptions > #typeText').toggleClass('textColor');
-    $('#typeOptions > .icon > .select_arrow').toggleClass('rotateArrow');
-  });
-
-  $('#typeOptions ~ .product__inputbox_option.optionbox').click(function() {
-    $('#typeOptions ~ .product__inputbox_option.optionbox').removeClass('select');
-    $('#typeOptions > .icon > .select_arrow').toggleClass('rotateArrow');
-    var selectedText = $(this).text();
-    $('#typeText').text(selectedText);
-    $('#typeInput').val(selectedText);
-  });
-
-
-
-  $('#brandOptions').click(function() {
-    $('#brandOptions ~ .product__inputbox_option.optionbox').toggleClass('select');
-    $('#brandoptions > #brandText').toggleClass('textColor');
-    $('#brandOptions > .icon > .select_arrow').toggleClass('rotateArrow');
-  });
-
-  $('#brandOptions ~ .product__inputbox_option.optionbox').click(function() {
-    $('#brandOptions ~ .product__inputbox_option.optionbox').removeClass('select');
-    $('#brandOptions > .icon > .select_arrow').toggleClass('rotateArrow');
-    var selectedText = $(this).text();
-    $('#brandText').text(selectedText);
-    $('#brandInput').val(selectedText);
-  });
-  
-
-  if(document.getElementById('categoryText')) {
-    const categoryText = document.getElementById('categoryText').innerHTML;
-    if(!categoryText.match(/Choose.*/)) {
-      $('#categoryInput').val($('#categoryText').text());
-    }
-  }
-
-  if(document.getElementById('typeText')) {
-    const typeText = document.getElementById('typeText').innerHTML;
-    if(!typeText.match(/Choose.*/)) {
-      $('#typeInput').val($('#typeText').text());
-    }
-  }
-
-  if(document.getElementById('brandText')) {
-    const brandText = document.getElementById('brandText').innerHTML;
-    if(!brandText.match(/Choose.*/)) {
-      $('#brandInput').val($('#brandText').text());
-    }
-  }
-
 });
 
 const mainInput = document.getElementById('productFile');
@@ -96,7 +27,8 @@ if(mainButton) {
 if(mainInput) {
   mainInput.addEventListener('change', () => {
     if(mainInput.value) {
-      mainText.innerHTML = mainInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+      // mainText.innerHTML = mainInput.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/);
+      mainText.innerHTML = mainInput.files[0]['name'];
     } else {
       mainText.innerHTML = 'CHOOSE MAIN FILE [NO FILE CHOSEN YET]';
     }
@@ -136,12 +68,6 @@ if(input) {
   
   });
 }
-
-// const focusedNumberInput =  document.getElementById('size').focus();
-
-// if(focusedNumberInput) {
-//   document.querySelectorAll('.product__inputbox_number').style.border = '1px solid $textColor !important';
-// }
 
 if(document.getElementById('adminCross')) {
   document.getElementById('adminCross').addEventListener('click', function() {

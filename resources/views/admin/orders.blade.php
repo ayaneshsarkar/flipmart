@@ -36,7 +36,7 @@
         <div class="order__active">
           <div class="order__active_total">
             <h2 class="order__active_total-header">Active Orders &ndash; 
-              <span>{{ count($count) }} (${{ $total }})</span>
+              <span>{{ 0 }} (${{ 0 }})</span>
             </h2>
           </div>
         </div>
