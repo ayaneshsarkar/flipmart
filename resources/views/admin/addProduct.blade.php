@@ -142,24 +142,6 @@
           </div>
         </div>
 
-        {{-- Type --}}
-
-        <div class="col-12">
-          <div class="product__inputbox">
-            <select name="type" 
-            class="product__inputbox__newoption{{ $errors->has('type') ? ' danger' : '' }}" 
-            required>
-              <option disabled selected value="">Choose Type (Required)</option>
-              @if(!empty($categories))
-                @foreach ($categories as $category)
-                  <option value="{{ $category->type }}">{{ $category->type }}</option>
-                @endforeach
-              @endif
-            </select>
-            @error('type')<span class="invalid-text">{{$message}}</span>@enderror        
-          </div>
-        </div>
-
         {{-- Brand --}}
 
         <div class="col-12">

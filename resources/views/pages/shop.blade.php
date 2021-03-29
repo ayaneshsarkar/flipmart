@@ -1,3 +1,8 @@
+@php 
+	// var_dump(count($products)); exit; 
+	// var_dump($products['products']); exit;
+@endphp
+
 @include('layouts.includes.header')
 
 	<!-- Nav -->
@@ -8,10 +13,6 @@
   @include('layouts.pages.modalSignUp')
 
   @php
-    function defineImagePath($name, $userId, $mainImage) {
-      return "/storage/myimages/$name$userId/$mainImage";
-		}
-
 		function sortClass($class) {
 			if($class == 'low') {
 				return 'lowSort';
@@ -22,17 +23,8 @@
 			}
 		}
 
-		$minRange = 10;
-		$maxRange = 50;
-		
-		if(!empty($min)) {
-			$minRange = $min;
-		}
-
-		if(!empty($max)) {
-			$maxRange = $max;
-		}
-
+		$minRange = $min ?? 10;
+		$maxRange = $max ?? 50;
 
 		$cartClass = 'errorCart';
 
@@ -47,10 +39,10 @@
 			style="background-image: linear-gradient(to right bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
 			url(images/shoes-all.jpg);">
 		<h2 class="l-text2 t-center">
-			{{ ($category == 'all' || $category == 'men' || $category == 'women' || $category == 'kids') ? 'Welcome' : '' }}
+			{{ (in_array($category, ['all', 'men', 'women', 'kids'])) ? 'Welcome' : '' }}
 		</h2>
 		<p class="m-text13 t-center">
-			{{ ($category == 'all' || $category == 'men' || $category == 'women' || $category == 'kids') ? 
+			{{ (in_array($category, ['all', 'men', 'women', 'kids'])) ? 
 			"New Arrivals of " . date('Y') . ", Have a Look!" : '' }}
 		</p>
 	</section>
@@ -220,7 +212,7 @@
 
 					<!-- Product -->
 					<div class="row">
-						@if(count($products) == 0)
+						@if(count($products['products']) == 0)
 
 							<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 								<p>No Results Found</p>
@@ -228,38 +220,50 @@
 
 						@else
 
-							@foreach ($products as $product)				
+							@foreach ($products['products'] as $product)				
 
 								<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 									<!-- Block2 -->
 									<div class="block2">
 										<div class="block2-img wrap-pic-w of-hidden pos-relative">
-											<img src="{{ asset(defineImagePath($product->name, $product->userId, $product->main_image)) }}" alt="{{ $product->title }}">
+											<img src="{{ $product['image']['src'] }}" 
+											alt="{{ $product['title'] }}">
 
 											<div class="block2-overlay trans-0-4">
-												<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
+												{{-- <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 													<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 													<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-												</a>
+												</a> --}}
 
 												<div class="block2-btn-addcart w-size1 trans-0-4" id="{{ $cartClass }}">
 													<!-- Button -->
 													<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 ajaxCart">
 														Add to Cart
 													</button>
-													<input type="hidden" name="productSlug" class="productSlug" value="{{ strtolower($product->product_slug) }}">
+													<input type="hidden" name="productSlug" class="productSlug" value="{{ strtolower($product['id']) }}">
 												</div>
 											</div>
 										</div>
 
 										<div class="block2-txt p-t-20">
-											<a href="{{ URL::to("/shop/" . strtolower($product->product_slug)) }}" class="block2-name dis-block s-text3 p-b-5">
-												{{ $product->title }}
+											<a href="{{ URL::to("/shop/" . strtolower($product['id'])) }}" class="block2-name dis-block s-text3 p-b-5">
+												{{ $product['title'] }}
 											</a>
 
-											<span class="block2-price m-text6 p-r-5">
-												${{ $product->price }}
-											</span>
+											@if($product['variants'][0]['compare_at_price'] !== 
+											$product['variants'][0]['price'])
+												<span class="block2-oldprice m-text7 p-r-5">
+													${{ $product['variants'][0]['compare_at_price'] }}
+												</span>
+
+												<span class="block2-newprice m-text8 p-r-5">
+													${{ $product['variants'][0]['price'] }}
+												</span>
+											@else
+												<span class="block2-price m-text6 p-r-5">
+													${{ $product['variants'][0]['price'] }}
+												</span>
+											@endif
 										</div>
 									</div>
 								</div>
@@ -272,14 +276,11 @@
 
 					<!-- Pagination -->
 					<div class="pagination flex-m flex-w p-t-26">
-						{{ $products->links('vendor.pagination.custom') }}
+						{{-- {{ $products->links('vendor.pagination.custom') }} --}}
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-  
-  
-  
-  
+
   @include('layouts.includes.shopFooter')

@@ -319,6 +319,10 @@ $mainTransition: all 0.3s linear;
             background-color: $success;
           }
 
+          &.error {
+            background-color: $pink;
+          }
+
           @media(max-width: 768px) {
             margin-bottom: 20px;
           }

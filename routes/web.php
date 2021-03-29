@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +35,10 @@ Route::get('/orders', 'ProductController@orders');
 
 Route::get('/addproduct', 'ProductController@addProduct');
 Route::get('/addcategory', 'ProductController@addCategory');
+Route::get('/viewbrands', 'ProductController@viewBrands');
+Route::get('/deletebrand/{id}', 'ProductController@deleteBrand');
+Route::get('/editbrand', 'ProductController@editBrand')->name('editbrand');
+Route::post('updatebrand', 'ProductController@updateBrand')->name('updatebrand');
 
 Route::post('storemessage', 'PagesController@storeMessage')->name('contact.message');
 

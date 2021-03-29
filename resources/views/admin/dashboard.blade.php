@@ -10,6 +10,13 @@
               <p id="adminCross">x</p>
             </div>
           </div>
+        @else
+          <div class="adminSession {{ (Session::get('error')) ? 'error' : '' }}">
+            <div class="adminSession__inner">
+              <p>{{ Session::get('error') }}</p>
+              <p id="adminCross">x</p>
+            </div>
+          </div>
         @endif
       </div>
 
@@ -80,7 +87,7 @@
           <div class="product_link__inner">
             <p>
               <a href="{{ URL::to('/addcategory') }}">
-                <span class="icon"><i class="fa fa-plus-square"></i></span> Add Category
+                <span class="icon"><i class="fa fa-plus-square"></i></span> Add Brand
               </a>
             </p>
           </div>

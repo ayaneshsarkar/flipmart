@@ -90,7 +90,17 @@
               <span class="icon">
                 <i class="fa fa-desktop" aria-hidden="true"></i>
               </span>
-              <span class="list">Add Categories</span>
+              <span class="list">Add Brand</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{ URL::to('/viewbrands') }}"
+            class="{{ ($type && $type === 'viewbrands') ? 'active' : '' }}">
+              <span class="icon">
+                <i class="fa fa-desktop" aria-hidden="true"></i>
+              </span>
+              <span class="list">View Brands</span>
             </a>
           </li>
         </ul>

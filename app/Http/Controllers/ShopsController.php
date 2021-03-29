@@ -9,18 +9,31 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Product;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 
+use function GuzzleHttp\json_decode;
+
 class ShopsController extends Controller
 {
+    private function getProducts()
+    {
+        $products = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get(env('SHOPIFY_URL') . '/products.json');
+
+        return $products;
+    }
 
     private function productResults() {
-        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-                            ->select('products.*', 'users.name', 'users.id as userId')
-                            ->orderBy('updated_at')
-                            ->paginate(3);
+        // return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
+        //                     ->select('products.*', 'users.name', 'users.id as userId')
+        //                     ->orderBy('updated_at')
+        //                     ->paginate(3);
+
+        return DB::table('products')->orderBy('created_at')->get();
     }
 
     private function rangeResults($min, $max) {
@@ -73,7 +86,7 @@ class ShopsController extends Controller
         $data = [
             'title' => 'Shop',
             'page' => 'shop',
-            'products' => $this->productResults(),
+            'products' => $this->getProducts(),
             'category' => 'all',
             'min' => '',
             'max' => '',
@@ -83,12 +96,14 @@ class ShopsController extends Controller
         ];
 
         if(session('loggedIn') == TRUE) {
-            if($this->cartResponse(session('userId')) != NULL) {
-                $data['cartResults'] = $this->cartResponse(session('userId'));
-                $data['cartTotal'] = $this->cartTotal();
-            } else {
-                $data['cartResults'] = '';
-            }
+            // if($this->cartResponse(session('userId')) != NULL) {
+            //     $data['cartResults'] = $this->cartResponse(session('userId'));
+            //     $data['cartTotal'] = $this->cartTotal();
+            // } else {
+            //     $data['cartResults'] = '';
+            // }
+
+            $data['cartResults'] = '';
         }
 
         if($request->input('min') && $request->input('max')) {
@@ -137,36 +152,59 @@ class ShopsController extends Controller
         return view('pages.shop')->with($data);
     }
 
-    private function productDetail($slugText) {
-        return DB::table('products')->where('product_slug', strtoupper($slugText))
-                                    ->join('users', 'products.user_id', '=', 'users.id')
-                                    ->select('products.*', 'users.name', 'users.id as userId')
-                                    ->first();
+    private function productDetail($id) {
+        $url = env('SHOPIFY_URL') . "/products/$id.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        return \json_decode($response, true);
+    }
+
+    private function productImages($id)
+    {
+        $url = env('SHOPIFY_URL') . "/products/$id/images.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        return \json_decode($response, true);
+    }
+
+    private function productData($id)
+    {
+        return DB::table('products')->where('shopify_id', $id)->first();
     }
 
     /**
      * Show the profile for the given user.
-     * @param string $slug
+     * @param string $id
      * @return View
     */
 
-    public function product($slug) 
+    public function product($id) 
     {
         $data = [
             'title' => 'Product',
             'page' => 'shop',
-            'product' => $this->productDetail($slug),
+            'product' => $this->productDetail($id)['product'],
+            'productImages' => $this->productImages($id)['images'],
+            'productData' => $this->productData($id),
             'random' => Str::random(10),
             'login' => FALSE,
             'register' => FALSE
         ];
 
-        if(session('loggedIn') == TRUE) {
-            if(count($this->cartResponse(session('userId'))) !== 0) {
-                $data['cartResults'] = $this->cartResponse(session('userId'));
-                $data['cartTotal'] = $this->cartTotal();
-            }
-        }
+        // if(session('loggedIn') == TRUE) {
+        //     if(count($this->cartResponse(session('userId'))) !== 0) {
+        //         $data['cartResults'] = $this->cartResponse(session('userId'));
+        //         $data['cartTotal'] = $this->cartTotal();
+        //     }
+        // }
 
         return view('pages.product')->with($data);
     }
@@ -308,7 +346,4 @@ class ShopsController extends Controller
         return response()->json(['url' => URL::to('/shop')]);
 
     }
-
-    
-    
 }

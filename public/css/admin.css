@@ -1136,6 +1136,10 @@
   background-color: #4CAF50;
 }
 
+.wrapper .main_body .container .item_wrap .adminSession.error {
+  background-color: #E91E63;
+}
+
 @media (max-width: 768px) {
   .wrapper .main_body .container .item_wrap .adminSession {
     margin-bottom: 20px;
