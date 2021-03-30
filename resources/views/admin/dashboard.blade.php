@@ -10,7 +10,7 @@
               <p id="adminCross">x</p>
             </div>
           </div>
-        @else
+        @elseif(Session::get('error'))
           <div class="adminSession {{ (Session::get('error')) ? 'error' : '' }}">
             <div class="adminSession__inner">
               <p>{{ Session::get('error') }}</p>

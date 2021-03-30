@@ -3,8 +3,9 @@
 <div class="item_wrap" id="mainItems">
   <div class="row">
     <div class="col-12">
-      <div class="category__heading">
+      <div class="category__heading d-flex justify-content-between">
         <h2>View Brands</h2>
+        <h2><a href="/addcategory">Add Brand</a></h2>
       </div>
     </div>
 

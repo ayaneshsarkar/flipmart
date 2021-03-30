@@ -34,6 +34,11 @@ Route::get('/logout', 'PagesController@index');
 Route::get('/orders', 'ProductController@orders');
 
 Route::get('/addproduct', 'ProductController@addProduct');
+Route::get('/products', 'ProductController@products');
+Route::get('/deleteproduct/{id}', 'ProductController@deleteProduct');
+Route::get('/editproduct', 'ProductController@editProduct');
+Route::post('/updateproduct', 'ProductController@updateProduct');
+
 Route::get('/addcategory', 'ProductController@addCategory');
 Route::get('/viewbrands', 'ProductController@viewBrands');
 Route::get('/deletebrand/{id}', 'ProductController@deleteBrand');

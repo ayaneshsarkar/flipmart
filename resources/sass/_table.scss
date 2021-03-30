@@ -1,0 +1,75 @@
+.table {
+  td {
+    &.content {
+      min-width: 10rem;
+    }
+
+    &.center {
+      vertical-align: middle;
+    }
+  }
+
+
+
+  img {
+    border-radius: 0 !important;
+    // border-color: transparent !important;
+    height: 100px;
+    margin-right: 20px;
+  }
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  a {
+    font-size: 19px;
+    color: $themeHover;
+  }
+}
+
+.mainProductImage {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .imgBox {
+    position: relative;
+    height: 100px;
+    margin-bottom: 34px;
+    padding: 0 20px;
+  }
+
+  img {
+    height: 100%;
+    border-radius: 0 !important;
+  }
+
+  .cross {
+    position: absolute;
+    top: -10px;
+    right: 0;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $secondaryText;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 16px;
+    color: #fff;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

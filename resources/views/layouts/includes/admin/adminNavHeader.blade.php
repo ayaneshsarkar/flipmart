@@ -1,5 +1,5 @@
 @include('layouts.includes.header')
-<div class="wrapper mediaTab">
+<div class="wrapper mediaTab active">
   <div class="top_navbar">
     <div class="adminLogo">
       <a href="{{ URL::to('/') }}">FlipMart</a>
@@ -66,31 +66,12 @@
           </li>
 
           <li>
-            <a href="#">
+            <a href="{{ URL::to('/products') }}" 
+            class="{{ ($type && $type === 'products') ? 'active' : '' }}">
               <span class="icon">
-                <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               </span>
               <span class="list">View Products</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="{{ URL::to('/addproduct') }}" 
-            class="{{ ($type && $type === 'addproduct') ? 'active' : '' }}">
-              <span class="icon">
-                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-              </span>
-              <span class="list">Add Product</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="{{ URL::to('/addcategory') }}"
-            class="{{ ($type && $type === 'addcategory') ? 'active' : '' }}">
-              <span class="icon">
-                <i class="fa fa-desktop" aria-hidden="true"></i>
-              </span>
-              <span class="list">Add Brand</span>
             </a>
           </li>
 
@@ -105,7 +86,7 @@
           </li>
         </ul>
 
-        <div class="hamberger">
+        <div class="hamberger" style="cursor: pointer;">
           <div class="hamberger_inner">
             <span class="arrow">
               <i class="fa fa-long-arrow-left toggledLeft" aria-hidden="true"></i>

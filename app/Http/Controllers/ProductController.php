@@ -8,8 +8,51 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Category;
 
+use function GuzzleHttp\json_encode;
+
 class ProductController extends Controller
 {
+    private function getProducts()
+    {
+        $products = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get(env('SHOPIFY_URL') . '/products.json');
+
+        return $products;
+    }
+
+    private function productResults() {
+        // return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
+        //                     ->select('products.*', 'users.name', 'users.id as userId')
+        //                     ->orderBy('updated_at')
+        //                     ->paginate(3);
+
+        return DB::table('products')->orderBy('created_at')->get();
+    }
+
+    private function getProduct($id)
+    {
+        $url = env('SHOPIFY_URL') . "/products/$id.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        return \json_decode($response, true);
+    }
+
+    private function removeLetter(string $word, string $letter)
+    {
+        $position = \strpos($word, $letter);
+
+        if($position) {
+            return \substr($word, 0, $position);
+        }
+
+        return NULL;
+    }
 
     public function admin() {
         $data = [
@@ -200,7 +243,12 @@ class ProductController extends Controller
     private function getDiscount(int $price, int $discount)
     {
         $pointDiscount = $discount / 100;
-        return $pointDiscount * $price;
+        return $price - ($pointDiscount * $price);
+    }
+
+    private function getShopifyDiscount(int $price, int $comparePrice)
+    {
+        return round(100 - ((100 / $comparePrice) * $price));
     }
 
     /**
@@ -224,7 +272,7 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string'
         ]);
 
         if($validator->fails()) {
@@ -316,4 +364,233 @@ class ProductController extends Controller
         return redirect('/admin')->with(['success' => 'Product created successfully!']);
     }
 
+    public function products()
+    {
+        $data = [
+            'title' => 'View Products',
+            'type' => 'products',
+            'serial' => 1,
+            'products' => $this->getProducts()['products']
+        ];
+
+        return view('admin.products')->with($data);
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = $this->getProduct($id);
+
+        if(!empty($product['errors'])) {
+            return \redirect('/admin')->with([ 'error' => 'No such product exists!' ]);
+        }
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->delete(env('SHOPIFY_URL') . "/products/$id.json");
+
+        if($response->status() === 200) {
+            return \redirect('/admin')->with([ 'success' => 'Product Successfully Deleted!' ]);
+        } else {
+            return \redirect('/admin')->with([ 'error' => 'Something went wrong!' ]);
+        }
+    }
+
+    private function productImages($id)
+    {
+        $url = env('SHOPIFY_URL') . "/products/$id/images.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        return \json_decode($response, true);
+    }
+
+    private function productData($id)
+    {
+        return DB::table('products')->where('shopify_id', $id)->first();
+    }
+
+    private function getProductImages(array $images)
+    {
+        $imagesArr= [];
+
+        foreach($images as $image) {
+            if(!empty($image['position']) && $image['position'] !== 1) {
+                $imgArr = explode('/', $image['src']);
+                $imgString = $this->removeLetter(end($imgArr), '?');
+
+                array_push($imagesArr, $imgString);
+            }
+        }
+
+        if($imagesArr) return \implode(', ', $imagesArr);
+
+        return NULL;
+    }
+
+    public function editProduct(Request $request)
+    {
+        $id = $request->get('id') ?? NULL;
+        $product = $this->getProduct($id);
+
+        if(!empty($product['errors']) || !$id) {
+            return \redirect('/admin')->with([ 'error' => 'No such product exists!' ]);
+        }
+
+        $data = [
+            'title' => 'Edit Product',
+            'type' => 'editproduct',
+            'categories' => DB::table('categories')->orderBy('created_at')->get(),
+            'product' => $product['product'],
+            'productImages' => $this->productImages($id)['images'],
+            'productData' => $this->productData($id),
+            'productImageStrings' => 
+            $this->getProductImages($this->productImages($id)['images'])
+        ];
+
+        $imageArr = explode('/', $data['product']['image']['src']);
+        $imageString = end($imageArr);
+
+        $data['mainImage'] = $this->removeLetter($imageString, '?');
+
+        $data['productDiscount'] = $this->getShopifyDiscount(
+            $data['product']['variants'][0]['price'], 
+            $data['product']['variants'][0]['compare_at_price']
+        );
+
+        return view('admin.editProduct')->with($data);
+    }
+
+    private function moveProductImage($image, $productId, $imgId, $many = false)
+    {
+        if(!$many) {
+            $ext = $image->getClientOriginalExtension();
+            $mainImage = Str::random(50) . '.' . $ext;
+
+            $path = $image->storeAs('mainimages', $mainImage, 's3');
+            $awsUrl = $this->getAwsUrl() . $path;
+
+            // Delete Previous Image
+            Http::withHeaders([
+                'content-type' => 'application/json',
+                'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+            ])->delete(env('SHOPIFY_URL') . "/products/$productId/images/$imgId.json");
+
+            // Move New Image
+            Http::withHeaders([
+                'content-type' => 'application/json',
+                'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+            ])
+            ->post(env('SHOPIFY_URL') . "/products/$productId/images.json", [
+                'image' => [
+                    'position' => 1,
+                    'src' => $awsUrl,
+                    'filename' => $mainImage
+                ]
+            ])->json();
+
+        } else {
+            $i = 0;
+
+            foreach($image as $img) {
+                $ext = $img->getClientOriginalExtension();
+                $imageName = Str::random(50) . $i++ . '.' . $ext;
+
+                $path = $img->storeAs('images', $imageName, 's3');
+                $awsUrl = $this->getAwsUrl() . $path;
+
+                Http::withHeaders([
+                    'content-type' => 'application/json',
+                    'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+                ])
+                ->post(env('SHOPIFY_URL') . "/products/$productId/images.json", [
+                    'image' => [
+                        'src' => $awsUrl,
+                        'filename' => $imageName
+                    ]
+                ])->json();
+            }
+        }
+    }
+
+    public function updateProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
+            'title' => 'required|string|max:255',
+            'price' => 'required|integer',
+            'discount' => 'nullable|integer',
+            'delivery_days' => 'required|integer',
+            'min_size' => 'required|integer',
+            'max_size' => 'required|integer',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'images' => 'nullable',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
+            'category' => 'required|string|max:255',
+            'brand' => 'required|string|max:255',
+            'description' => 'required|string'
+        ]);
+
+        if($validator->fails()) {
+            return redirect('/editproduct/?id=' . $request->input('id'))
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+
+        $product = $this->getProduct($request->input('id'));
+
+        if(!empty($product['errors'])) {
+            return \redirect('/admin')->with([ 'error' => 'Something went wrong!' ]);
+        }
+
+        $product = $product['product'];
+
+        $discount = $request->input('discount') ?? 0;
+
+        $putFields = [
+            'id' => $request->input('id'),
+            'body_html' => $request->input('description'),
+            'handle' => Str::slug($request->input('title')),
+            'product_type' => $request->input('category'),
+            'status' => 'active',
+            'title' => $request->input('title'),
+            'vendor' => $request->input('brand'),
+            'variants' => [
+                [
+                    'price' => $this->getDiscount($request->input('price'), $discount),
+                    'compare_at_price' => $request->input('price'),
+                ]
+            ]
+        ];
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->put(env('SHOPIFY_URL') . "/products/".$request->input('id').".json", [
+            'product' => $putFields
+        ])->json();
+
+        if(!empty($response['product'])) {
+            if($request->hasFile('main_image')) {
+                $this->moveProductImage(
+                    $request->file('main_image'), $product['id'], $product['image']['id']
+                );
+            }
+
+            if($request->hasFile('images')) {
+                $this->moveProductImage(
+                    $request->file('images'), $product['id'], null, true
+                );
+            }
+
+            return \redirect('/admin')->with([ 
+                'success' => 'Product Successfully Updated!' 
+            ]);
+        } else {
+            return \redirect('/admin')->with([ 'error' => 'Something went wrong!' ]);
+        }
+    }
 }

@@ -17,6 +17,17 @@ $borderDanger: 1px solid #F44336 !important;
     font-size: 30px;
     font-weight: 500;
   }
+
+  a {
+    font-size: 25px;
+    font-weight: 400;
+    color: $theme;
+
+    &:hover {
+      color: $themeHover;
+      text-decoration: underline;
+    }
+  }
 }
 
 
