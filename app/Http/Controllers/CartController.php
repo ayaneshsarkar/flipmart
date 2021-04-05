@@ -72,6 +72,14 @@ class CartController extends Controller
             ]);
         }
 
-        return json_encode([ 'status' => TRUE, 'title' => $shopifyData['title'] ]);
+        return json_encode([ 
+            'status' => TRUE, 
+            'title' => $shopifyData['title'],
+            'shopifyData' => $shopifyData,
+            'productData' => [
+                'quantity' => $quantity,
+                'price' => $price
+            ]
+        ]);
     }
 }

@@ -3239,10 +3239,11 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
-/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert */ "./node_modules/sweetalert/dist/sweetalert.min.js");
+/* harmony import */ var sweetalert__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(sweetalert__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_product__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/product */ "./resources/js/components/product.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3251,7 +3252,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 var addToCart = document.getElementById('addToCart');
+var cartResults = document.getElementById('cartResults');
 
 if (addToCart) {
   addToCart.addEventListener('submit', /*#__PURE__*/function () {
@@ -3267,11 +3270,12 @@ if (addToCart) {
               formData = new FormData(addToCart); // Sending the Data
 
               _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/storecart', formData);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/storecart', formData);
 
             case 5:
               res = _context.sent;
-              console.log(res.data);
+              // Injecting Cart Data To DOM
+              if (res.data && cartResults) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageCart"])(cartResults, res.data.shopifyData, res.data.productData);
               _context.next = 12;
               break;
 
@@ -3293,6 +3297,150 @@ if (addToCart) {
     };
   }());
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/fetchHelper.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/fetchHelper.js ***!
+  \************************************************/
+/*! exports provided: fetchShopify */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchShopify", function() { return fetchShopify; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+var fetchShopify = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(method, host, body) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return fetch(host, {
+              method: method,
+              headers: new Headers({
+                'Content-Type': 'application/json',
+                'X-Shopify-Access-Token': _config__WEBPACK_IMPORTED_MODULE_1__["SHOPIFY_ACCESS_TOKEN"]
+              }),
+              body: body ? JSON.stringify(body) : null
+            });
+
+          case 2:
+            return _context.abrupt("return", _context.sent);
+
+          case 3:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function fetchShopify(_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+/***/ }),
+
+/***/ "./resources/js/components/product.js":
+/*!********************************************!*\
+  !*** ./resources/js/components/product.js ***!
+  \********************************************/
+/*! exports provided: deleteProductImage, manageCart */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteProductImage", function() { return deleteProductImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manageCart", function() { return manageCart; });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
+/* harmony import */ var _fetchHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./fetchHelper */ "./resources/js/components/fetchHelper.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+ // Cart HTML
+
+var insertCartHTML = function insertCartHTML(data, productData) {
+  var html = "\n  <li class=\"header-cart-item\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\">\n        <img src=\"".concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n        <input type=\"hidden\" name=\"cartId\" id=\"cartId\" value=\"\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"#\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(productData.price, "\n      </span>\n    </div>\n  </li>\n  ");
+  return html;
+};
+
+var deleteProductImage = /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(productId, imageId) {
+    var res;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.prev = 0;
+            _context.next = 3;
+            return Object(_fetchHelper__WEBPACK_IMPORTED_MODULE_2__["fetchShopify"])('DELETE', "".concat(_config__WEBPACK_IMPORTED_MODULE_1__["proxy"]).concat(_config__WEBPACK_IMPORTED_MODULE_1__["SHOPIFY_URL"], "/products/").concat(productId, "/images/").concat(imageId, ".json"));
+
+          case 3:
+            res = _context.sent;
+            _context.next = 6;
+            return res.status;
+
+          case 6:
+            return _context.abrupt("return", _context.sent);
+
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](0);
+            console.log(_context.t0);
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[0, 9]]);
+  }));
+
+  return function deleteProductImage(_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}();
+var manageCart = function manageCart(cartElement, data, productData) {
+  cartElement.innerHTML = '';
+  cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
+};
+
+/***/ }),
+
+/***/ "./resources/js/config.js":
+/*!********************************!*\
+  !*** ./resources/js/config.js ***!
+  \********************************/
+/*! exports provided: SHOPIFY_URL, SHOPIFY_ACCESS_TOKEN, proxy */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOPIFY_URL", function() { return SHOPIFY_URL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOPIFY_ACCESS_TOKEN", function() { return SHOPIFY_ACCESS_TOKEN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "proxy", function() { return proxy; });
+var SHOPIFY_URL = "https://sflipmart.myshopify.com/admin/api/2021-01";
+var SHOPIFY_ACCESS_TOKEN = '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';
+var proxy = "https://cors-anywhere.herokuapp.com/";
 
 /***/ }),
 

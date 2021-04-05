@@ -1,9 +1,8 @@
 <div class="header-cart header-dropdown" id="cartDropdown">
-
   @if(session('loggedIn') == TRUE)
-    @if(!empty($cartResults))
-      @foreach ($cartResults as $cartResult)
-        <ul class="header-cart-wrapitem cartDropdownItem">
+    <ul class="header-cart-wrapitem cartDropdownItem" id="cartResults">
+      @if(!empty($cartResults))
+        @foreach ($cartResults as $cartResult)
           <li class="header-cart-item">
             <a href="#" class="cartImage">
               <div class="header-cart-item-img">
@@ -22,16 +21,12 @@
               </span>
             </div>
           </li>
-        </ul>
-      @endforeach
-    @else
-
-    <p>Nothing Here</p>
-
-    @endif
-
+        @endforeach
+      @else
+        <p>Nothing Here</p>
+      @endif
+    </ul>
   @endif
-
 
   {{-- @if((!empty($cartTotal)) && $cartTotal > 0) --}}
     <div class="header-cart-total" id="cartTotal">
@@ -41,7 +36,7 @@
     <div class="header-cart-buttons">
       <div class="header-cart-wrapbtn">
         <!-- Button -->
-        <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+        <a href="/cart" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
           View Cart
         </a>
       </div>

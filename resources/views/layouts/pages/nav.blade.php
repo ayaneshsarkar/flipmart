@@ -74,24 +74,24 @@
 				<div class="header-icons">
 
 					@if(session('loggedIn') == TRUE)
-					<div style="position: relative">
-						<a id="account" class="header-wrapicon1 dis-block">
-							<img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
-						</a>
-						@include('layouts.includes.accountDropdown')
-					</div>
+						<div style="position: relative">
+							<a id="account" class="header-wrapicon1 dis-block">
+								<img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
+							</a>
+							@include('layouts.includes.accountDropdown')
+						</div>
 
 						@if(!empty($page) && $page != 'cart')
 
-						<span class="linedivide1"></span>
+							<span class="linedivide1"></span>
 
-						<div class="header-wrapicon2">
-							<img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
-							<span class="header-icons-noti">0</span>
+							<div class="header-wrapicon2">
+								<img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
+								<span class="header-icons-noti" id="cartCount">0</span>
 
-							{{-- Header Cart Noti --}}
-							@include('layouts.includes.cartDropdown')
-						</div>
+								{{-- Header Cart Noti --}}
+								@include('layouts.includes.cartDropdown')
+							</div>
 
 						@endif
 						

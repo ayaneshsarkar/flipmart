@@ -11934,12 +11934,13 @@ var fetchShopify = /*#__PURE__*/function () {
 /*!********************************************!*\
   !*** ./resources/js/components/product.js ***!
   \********************************************/
-/*! exports provided: deleteProductImage */
+/*! exports provided: deleteProductImage, manageCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteProductImage", function() { return deleteProductImage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manageCart", function() { return manageCart; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
@@ -11951,6 +11952,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+ // Cart HTML
+
+var insertCartHTML = function insertCartHTML(data, productData) {
+  var html = "\n  <li class=\"header-cart-item\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\">\n        <img src=\"".concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n        <input type=\"hidden\" name=\"cartId\" id=\"cartId\" value=\"\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"#\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(productData.price, "\n      </span>\n    </div>\n  </li>\n  ");
+  return html;
+};
 
 var deleteProductImage = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(productId, imageId) {
@@ -11988,6 +11995,10 @@ var deleteProductImage = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
+var manageCart = function manageCart(cartElement, data, productData) {
+  cartElement.innerHTML = '';
+  cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
+};
 
 /***/ }),
 
