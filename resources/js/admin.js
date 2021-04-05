@@ -1,4 +1,7 @@
+import { deleteProductImage } from './components/product';
+
 const { cssNumber } = require("jquery");
+
 $(document).ready(function() {  
   $('.hamberger').click(function() {
     $('.wrapper').toggleClass('active');
@@ -82,7 +85,23 @@ if(document.getElementById('orderSession')) {
   })
 }
 
+const productImageCross = document.querySelectorAll('.productImageCross');
 
+if(productImageCross) {
+  productImageCross.forEach(cross => {
+    cross.addEventListener('click', async () => {
+      const productId = cross.getAttribute('data-product') || null;
+      const imageId = cross.getAttribute('data-image') || null;
+      const id = document.getElementById(imageId);
+
+      const status = await deleteProductImage(productId, imageId);
+
+      if(status === 200 && id) {
+        id.remove();
+      }
+    });
+  })
+}
 
 
 

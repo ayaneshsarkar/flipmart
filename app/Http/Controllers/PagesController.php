@@ -35,8 +35,8 @@ class PagesController extends Controller
     ];
 
     if(session('loggedIn') == TRUE) {
-      $data['cartResults'] = $this->cartResponse(session('userId'));
-      $data['cartTotal'] = DB::table('carts')->sum('total');
+      $data['cartResults'] = [];
+      $data['cartTotal'] = 0;
     }
 
 

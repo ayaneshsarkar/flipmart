@@ -390,6 +390,7 @@ class ProductController extends Controller
         ])->delete(env('SHOPIFY_URL') . "/products/$id.json");
 
         if($response->status() === 200) {
+            DB::table('products')->where('shopify_id', $id)->delete();
             return \redirect('/admin')->with([ 'success' => 'Product Successfully Deleted!' ]);
         } else {
             return \redirect('/admin')->with([ 'error' => 'Something went wrong!' ]);

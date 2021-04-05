@@ -229,18 +229,13 @@
 											<img src="{{ $product['image']['src'] }}" 
 											alt="{{ $product['title'] }}">
 
-											<div class="block2-overlay trans-0-4">
-												{{-- <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
-													<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
-													<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
-												</a> --}}
-
-												<div class="block2-btn-addcart w-size1 trans-0-4" id="{{ $cartClass }}">
-													<!-- Button -->
-													<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 ajaxCart">
+											<div class="block2-overlay trans-0-4 no-cart">
+												<div class="block2-btn-addcart w-size1 trans-0-4">
+													<button 
+													class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 cartButton"
+													data-shopify={{ $product['id'] }}>
 														Add to Cart
 													</button>
-													<input type="hidden" name="productSlug" class="productSlug" value="{{ strtolower($product['id']) }}">
 												</div>
 											</div>
 										</div>

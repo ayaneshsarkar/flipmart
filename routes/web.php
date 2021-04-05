@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@index')->name('home');
+Route::get('/', 'PagesController@index')->name('home')->middleware('cors');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 
 Route::get("shop/{slug}", "ShopsController@product");
 
 Route::get('/shop', 'ShopsController@shop')->name('shop');
-Route::get('/cart', 'PagesController@cart')->name('cart');
 
 
 Route::get('/signup', 'AuthController@signup');
@@ -36,7 +36,7 @@ Route::get('/orders', 'ProductController@orders');
 Route::get('/addproduct', 'ProductController@addProduct');
 Route::get('/products', 'ProductController@products');
 Route::get('/deleteproduct/{id}', 'ProductController@deleteProduct');
-Route::get('/editproduct', 'ProductController@editProduct');
+Route::get('/editproduct', 'ProductController@editProduct')->middleware('cors');
 Route::post('/updateproduct', 'ProductController@updateProduct');
 
 Route::get('/addcategory', 'ProductController@addCategory');
@@ -54,11 +54,6 @@ Route::post('logout', 'AuthController@logout')->name('auth.logout');
 Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
 Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');
 
-Route::post('cart', 'ShopsController@storeCart')->name('cart');
-Route::post('mycart', 'ShopsController@storeSingleCart')->name('mycart');
-Route::post('cartdelete', 'ShopsController@deleteCart')->name('cartdelete');
-Route::post('cartupdate', 'ShopsController@updateCart')->name('cartupdate');
-
 Route::post('ordercreate', 'OrdersController@createOrder')->name('ordercreate');
 
 
@@ -66,6 +61,13 @@ Route::resource('auth', 'AuthController');
 
 Route::get('/install-shopify/{shop?}', 'ShopifyController@installShopify');
 Route::get('/generate-token', 'ShopifyController@generateToken');
+
+// Cart
+Route::post('storecart', 'CartController@storeCart');
+
 // Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/test', function() {
+    var_dump(session('userId'));
+});

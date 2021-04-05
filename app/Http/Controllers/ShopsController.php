@@ -204,6 +204,8 @@ class ShopsController extends Controller
         //     }
         // }
 
+        // var_dump($data['product']); exit;
+
         return view('pages.product')->with($data);
     }
 

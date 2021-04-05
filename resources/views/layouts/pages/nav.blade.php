@@ -75,7 +75,7 @@
 
 					@if(session('loggedIn') == TRUE)
 					<div style="position: relative">
-						<a href="#" id="account" class="header-wrapicon1 dis-block">
+						<a id="account" class="header-wrapicon1 dis-block">
 							<img src="{{ asset('images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
 						</a>
 						@include('layouts.includes.accountDropdown')

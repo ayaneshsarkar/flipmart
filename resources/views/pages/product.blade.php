@@ -69,58 +69,65 @@
 				<p class="s-text8 p-t-10">
 					{{ $product['body_html'] ?? '' }}
 				</p>
-
-				<!-- Size -->
+				
 				<div class="p-t-33 p-b-60">
-					<div class="flex-m flex-w p-b-10">
-						<div class="s-text15 w-size15 t-center">
-							Size
-						</div>
+					{{ Form::open(['action' => 'CartController@storeCart', 'method' => 'POST', 'id' => 'addToCart', 'data-title' => $product['title']]) }}
+						{{-- Shopify ID --}}
+						<input type="hidden" name="shopify_id" value="{{ $product['id'] }}">
 
-						<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-							<select class="selection-2" id="singleProductSize" name="size">
-                <option value="null">Choose an option</option>
-                @php
-                  $minSize = $productData->min_size;
-                  $maxSize = $productData->max_size;
-                  for($size = $minSize; $size <= $maxSize; $size++) {
-                    echo "<option>" . $size ."</option>";
-                  }
-                @endphp
-							</select>
-						</div>
-					</div>
-
-					<div class="flex-r-m flex-w p-t-10">
-						<div class="w-size16 flex-m flex-w">
-							<div class="flex-w bo5 of-hidden m-r-22 m-t-10 m-b-10">
-								<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-									<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-								</button>
-
-								<input class="size8 m-text18 t-center num-product" id="singleProductQuantity" type="number" name="num-product" value="1">
-
-								<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-									<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-								</button>
+						<!-- Size -->
+						<div class="flex-m flex-w p-b-10">
+							<div class="s-text15 w-size15 t-center">
+								Size
 							</div>
 
-							<a href="#"  id="singleCartButton" class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
-								<!-- Button -->
-								<button type="submit" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
-									Add to Cart
-								</button>
-							</a>
+							<div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
+								<select class="selection-2" id="singleProductSize" name="size" required>
+									<option value="">Choose an option</option>
+									@php
+										$minSize = $productData->min_size;
+										$maxSize = $productData->max_size;
+										for($size = $minSize; $size <= $maxSize; $size++) {
+											echo "<option>" . $size ."</option>";
+										}
+									@endphp
+								</select>
+							</div>
 						</div>
-					</div>
+
+						{{-- Add To Cart --}}
+						<div class="flex-r-m flex-w p-t-10">
+							<div class="w-size16 flex-m flex-w">
+								<div class="flex-w bo5 of-hidden m-r-22 m-t-10 m-b-10">
+									<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
+										<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+									</button>
+
+									<input class="size8 m-text18 t-center num-product" id="singleProductQuantity" type="number" name="num-product" value="1">
+
+									<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
+										<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+									</button>
+								</div>
+
+								<a href="#"  id="singleCartButton" class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
+									<!-- Button -->
+									<button type="submit" class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+										Add to Cart
+									</button>
+								</a>
+							</div>
+						</div>
+					{{ Form::close() }}
 				</div>
 
+				{{-- Category --}}
 				<div class="p-b-45">
 					{{-- <span class="s-text8 m-r-35">SKU: MUG-01</span> --}}
 					<span class="s-text8">Category: {{ $product['product_type'] }}</span>
 				</div>
 
-				<!--  -->
+				<!-- Description -->
 				<div class="wrap-dropdown-content bo6 p-t-15 p-b-14 active-dropdown-content">
 					<h5 class="js-toggle-dropdown-content flex-sb-m cs-pointer m-text19 color0-hov trans-0-4">
 						Description

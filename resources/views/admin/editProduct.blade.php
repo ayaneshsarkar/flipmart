@@ -118,14 +118,14 @@
 
         <div class="col-12">
           <div class="mainProductImage">
-            <div class="imgBox">
+            <div class="imgBox" id="{{ $product['image']['id'] }}">
               <img 
                 src="{{ $product['image']['src'] }}" 
                 alt="{{ $product['title'] }}" 
                 class="img-fluid img-thumbnail"
               >
 
-              <div class="cross productImageCross" id="{{ $product['image']['id'] }}"
+              <div class="cross productImageCross"
               data-product={{ $product['id'] }} data-image="{{ $product['image']['id'] }}">
                 <i class="fa fa-times" aria-hidden="true"></i>
               </div>
@@ -155,15 +155,14 @@
             <div class="mainProductImage">
               @foreach($productImages as $image)
                 @if($image['position'] !== 1)
-                  <div class="imgBox">
+                  <div class="imgBox" id="{{ $image['id'] }}">
                     <img 
                       src="{{ $image['src'] }}" 
                       alt="{{ $product['title'] }}" 
                       class="img-fluid img-thumbnail"
                     >
 
-                    <div class="cross productImageCross" id="{{ $image['id'] }}"
-                    data-product={{ $product['id'] }} data-image="{{ $image['id'] }}">
+                    <div class="cross productImageCross" data-product={{ $product['id'] }} data-image="{{ $image['id'] }}" data-name={{ $image['src'] }}>
                       <i class="fa fa-times" aria-hidden="true"></i>
                     </div>
                   </div>

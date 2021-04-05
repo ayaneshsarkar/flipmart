@@ -1,3 +1,0 @@
-const deleteProductImage = (productId, imageId) => {
-  
-}
