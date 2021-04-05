@@ -3255,6 +3255,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var addToCart = document.getElementById('addToCart');
 var cartResults = document.getElementById('cartResults');
+var cartCount = document.getElementById('cartCount');
+var cartTotal = document.getElementById('cartTotal');
 
 if (addToCart) {
   addToCart.addEventListener('submit', /*#__PURE__*/function () {
@@ -3274,8 +3276,18 @@ if (addToCart) {
 
             case 5:
               res = _context.sent;
+
               // Injecting Cart Data To DOM
-              if (res.data && cartResults) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageCart"])(cartResults, res.data.shopifyData, res.data.productData);
+              if (res.data.status) {
+                if (cartResults) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageCart"])(cartResults, res.data.shopifyData, res.data.productData);
+                if (cartCount) cartCount.innerHTML = res.data.cartCount;
+
+                if (cartTotal) {
+                  cartTotal.innerHTML = '';
+                  cartTotal.innerHTML = "Total: $".concat(parseFloat(res.data.cartTotal));
+                }
+              }
+
               _context.next = 12;
               break;
 

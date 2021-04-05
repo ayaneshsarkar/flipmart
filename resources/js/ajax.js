@@ -19,8 +19,14 @@ if(addToCart) {
       const res = await axios.post('/storecart', formData);
       
       // Injecting Cart Data To DOM
-      if(res.data.status && cartResults) 
-      manageCart(cartResults, res.data.shopifyData, res.data.productData);
+      if(res.data.status) {
+        if(cartResults) manageCart(cartResults, res.data.shopifyData, res.data.productData);
+        if(cartCount) cartCount.innerHTML = res.data.cartCount
+        if(cartTotal) {
+          cartTotal.innerHTML = '';
+          cartTotal.innerHTML = `Total: $${parseFloat(res.data.cartTotal)}`;
+        }
+      }
 
     } catch(err) {
       console.log(err);

@@ -79,7 +79,9 @@ class CartController extends Controller
             'productData' => [
                 'quantity' => $quantity,
                 'price' => $price
-            ]
+            ],
+            'cartCount' => DB::table('carts')->where('user_id', session('userId'))->count(),
+            'cartTotal' => DB::table('carts')->where('user_id', session('userId'))->sum('total')
         ]);
     }
 }
