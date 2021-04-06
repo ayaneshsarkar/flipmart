@@ -3266,20 +3266,26 @@ if (addToCart) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              e.preventDefault();
-              _context.prev = 1;
+              e.preventDefault(); // Swal Notification
+
+              sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
+                icon: 'success',
+                title: 'Add to the Cart!',
+                text: "".concat(addToCart.getAttribute('data-title'), " has been added to the cart.")
+              });
+              _context.prev = 2;
               // Assigning the FormData
               formData = new FormData(addToCart); // Sending the Data
 
-              _context.next = 5;
+              _context.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/storecart', formData);
 
-            case 5:
+            case 6:
               res = _context.sent;
 
               // Injecting Cart Data To DOM
               if (res.data.status) {
-                if (cartResults) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageCart"])(cartResults, res.data.shopifyData, res.data.productData);
+                if (cartResults) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageMultipleCart"])(cartResults, res.data.cart.cartData, res.data.cart.shopifyData);
                 if (cartCount) cartCount.innerHTML = res.data.cartCount;
 
                 if (cartTotal) {
@@ -3288,20 +3294,20 @@ if (addToCart) {
                 }
               }
 
-              _context.next = 12;
+              _context.next = 13;
               break;
 
-            case 9:
-              _context.prev = 9;
-              _context.t0 = _context["catch"](1);
+            case 10:
+              _context.prev = 10;
+              _context.t0 = _context["catch"](2);
               console.log(_context.t0);
 
-            case 12:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 9]]);
+      }, _callee, null, [[2, 10]]);
     }));
 
     return function (_x) {
@@ -3370,13 +3376,14 @@ var fetchShopify = /*#__PURE__*/function () {
 /*!********************************************!*\
   !*** ./resources/js/components/product.js ***!
   \********************************************/
-/*! exports provided: deleteProductImage, manageCart */
+/*! exports provided: deleteProductImage, manageCart, manageMultipleCart */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteProductImage", function() { return deleteProductImage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manageCart", function() { return manageCart; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "manageMultipleCart", function() { return manageMultipleCart; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../config */ "./resources/js/config.js");
@@ -3434,6 +3441,17 @@ var deleteProductImage = /*#__PURE__*/function () {
 var manageCart = function manageCart(cartElement, data, productData) {
   cartElement.innerHTML = '';
   cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
+};
+var manageMultipleCart = function manageMultipleCart(cartElement, cartData, shopifyData) {
+  cartElement.innerHTML = '';
+  var cartArray = [];
+  cartData.map(function (data) {
+    var shopify = shopifyData.find(function (sd) {
+      return sd.id === data.shopify_id;
+    });
+    cartArray.push(insertCartHTML(shopify, data));
+  });
+  cartElement.insertAdjacentHTML('beforeend', cartArray.join(''));
 };
 
 /***/ }),

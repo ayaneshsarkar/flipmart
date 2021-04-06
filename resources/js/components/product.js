@@ -45,3 +45,16 @@ export const manageCart = (cartElement, data, productData) => {
   cartElement.innerHTML = '';
   cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
 }
+
+export const manageMultipleCart = (cartElement, cartData, shopifyData) => {
+  cartElement.innerHTML = '';
+
+  const cartArray = [];
+
+  cartData.map(data => {
+    const shopify = shopifyData.find(sd => sd.id === data.shopify_id);
+    cartArray.push(insertCartHTML(shopify, data));
+  });
+
+  cartElement.insertAdjacentHTML('beforeend', cartArray.join(''));
+}

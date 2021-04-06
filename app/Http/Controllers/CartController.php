@@ -27,6 +27,36 @@ class CartController extends Controller
         return DB::table('carts')->where('product_id', $productId)->first();
     }
 
+    public function getCart()
+    {
+        // Authorize the User
+        if(empty(session('userId'))) return null;
+
+        // Initialize Shopify Data Array
+        $shopifyData = [];
+
+        // Get the Data
+        $cartData = DB::table('carts')
+                    ->join('products', 'carts.product_id', 'products.id')
+                    ->where('carts.user_id', session('userId'))
+                    ->select('carts.*', 'carts.total as price', 'products.*')
+        ->get();
+
+        // var_dump($cartData); exit;
+
+        // Get the Shopify Data
+        foreach($cartData as $data) {
+            if($data->shopify_id && !empty($this->getProduct($data->shopify_id)['product'])) {
+                array_push($shopifyData, $this->getProduct($data->shopify_id)['product']);
+            }
+        }
+
+        return [
+            'cartData' => $cartData,
+            'shopifyData' => $shopifyData
+        ];
+    }
+
     public function storeCart(Request $request)
     {
         // Authorization
@@ -75,13 +105,9 @@ class CartController extends Controller
         return json_encode([ 
             'status' => TRUE, 
             'title' => $shopifyData['title'],
-            'shopifyData' => $shopifyData,
-            'productData' => [
-                'quantity' => $quantity,
-                'price' => $price
-            ],
             'cartCount' => DB::table('carts')->where('user_id', session('userId'))->count(),
-            'cartTotal' => DB::table('carts')->where('user_id', session('userId'))->sum('total')
+            'cartTotal' => DB::table('carts')->where('user_id', session('userId'))->sum('total'),
+            'cart' => $this->getCart()
         ]);
     }
 }
