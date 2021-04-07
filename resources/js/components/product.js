@@ -5,11 +5,10 @@ import { fetchShopify } from './fetchHelper';
 const insertCartHTML = (data, productData) => {
   const html = 
   `
-  <li class="header-cart-item">
+  <li class="header-cart-item" id="cart-${productData.cartId}">
     <a class="cartImage">
-      <div class="header-cart-item-img">
+      <div class="header-cart-item-img" data-cart="${productData.cartId}">
         <img src="${data.image.src}" alt="${data.title}">
-        <input type="hidden" name="cartId" id="cartId" value="">
       </div>
     </a>
 
@@ -19,7 +18,7 @@ const insertCartHTML = (data, productData) => {
       </a>
 
       <span class="header-cart-item-info">
-        ${productData.quantity} x $${productData.price}
+        ${productData.quantity} x $${data.variants[0].price}
       </span>
     </div>
   </li>
@@ -57,4 +56,10 @@ export const manageMultipleCart = (cartElement, cartData, shopifyData) => {
   });
 
   cartElement.insertAdjacentHTML('beforeend', cartArray.join(''));
+}
+
+export const deleteCart = async (cartId = 0) => {
+  const res = await fetchShopify('GET', `/deletecart/?id=${cartId}`);
+  const data = await res.json();
+  return data;
 }
