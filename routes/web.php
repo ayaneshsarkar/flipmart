@@ -65,6 +65,7 @@ Route::get('/generate-token', 'ShopifyController@generateToken');
 // Cart
 Route::get('/cart', 'CartController@cart');
 Route::post('storecart', 'CartController@storeCart');
+Route::post('updatecart', 'CartController@updateCart');
 Route::get('/deletecart', 'CartController@deleteCart');
 
 // Auth::routes();

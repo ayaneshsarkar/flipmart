@@ -63,3 +63,9 @@ export const deleteCart = async (cartId = 0) => {
   const data = await res.json();
   return data;
 }
+
+export const formatNumber = (format, currency, number) => {
+  const formattedNumber = new Intl.NumberFormat(format, { style: 'currency', currency: currency }).format(number);
+
+  return formattedNumber;
+}

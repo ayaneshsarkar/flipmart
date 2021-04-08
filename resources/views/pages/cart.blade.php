@@ -20,8 +20,8 @@
 			<div id="noProduct" style="display: none; font-size: 20px">Currently we have nothing for you.</div>
 			<!-- Cart item -->
 			<div class="container-table-cart pos-relative" id="cartTable">
-				<div class="wrap-table-shopping-cart bgwhite">
-					<table class="table-shopping-cart">
+				<div class="wrap-table-shopping-cart bgwhite" id="cartTableBox">
+					<table class="table-shopping-cart" id="cartTable">
 						<thead>
 							<tr class="table-head">
 								<th class="column-1"></th>
@@ -42,29 +42,38 @@
 									$cart = DB::table('carts')->where('product_id', $productId)->first();
 								@endphp
 
-								<tr class="table-row">
+								<tr class="table-row" id="cart-{{ $cart->id }}">
 									<td class="column-1">
-										<div class="cart-img-product b-rad-4 o-f-hidden singleCartImage">
+										<div class="cart-img-product b-rad-4 o-f-hidden singleCartImage"
+										data-cart="{{ $cart->id }}" >
 											<img src="{{ $product['image']['src'] }}" alt="{{ $product['title'] }}">
 										</div>
 									</td>
 									<td class="column-2">{{ $product['title'] }}</td>
 									<td class="column-3">${{ $product['variants'][0]['price'] }}</td>
 									<td class="column-4">
-										<div class="flex-w bo5 of-hidden w-size17">
-											<button class="btn-num-product-down color1 flex-c-m size7 bg8 eff2">
-												<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
-											</button>
+										<form class="singleCartQuantity">
+											<div class="flex-w bo5 of-hidden w-size17">
+												<button type="submit" class="btn-num-product-down color1 flex-c-m size7 bg8 eff2 cart-minus"
+												data-product="{{ $cart->product_id }}" 
+												data-shopify="{{ $product['id'] }}">
+													<i class="fs-12 fa fa-minus" aria-hidden="true"></i>
+												</button>
 
-											<input class="size8 m-text18 t-center num-product singleCartQuantity" type="number" name="num-product" 
-											value="{{ $cart->quantity }}">
-		
-											<button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2">
-												<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
-											</button>
-										</div>
+												<input class="size8 m-text18 t-center num-product" type="number" name="quantity" 
+												value="{{ $cart->quantity }}">
+			
+												<button type="submit" class="btn-num-product-up color1 flex-c-m size7 bg8 eff2 cart-plus"
+												data-product="{{ $cart->product_id }}" 
+												data-shopify="{{ $product['id'] }}">
+													<i class="fs-12 fa fa-plus" aria-hidden="true"></i>
+												</button>
+											</div>
+										</form>
 									</td>
-									<td class="column-5">{{ $fmt->formatCurrency($cart->total, 'USD') }}</td>
+									<td class="column-5" id="cart-total-{{ $product['id'] }}">
+										{{ $fmt->formatCurrency($cart->total, 'USD') }}
+									</td>
 								</tr>
 							@endforeach
 						</tbody>
@@ -107,7 +116,7 @@
 						Total:
 					</span>
 
-					<span class="m-text21 w-size20 w-full-sm" id="singleCartTotal">
+					<span class="m-text21 w-size20 w-full-sm" id="cartTotal">
 						{{ $fmt->formatCurrency($cartTotal, 'USD') }}
 					</span>
 				</div>

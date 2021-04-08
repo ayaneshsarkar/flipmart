@@ -145,9 +145,19 @@ class CartController extends Controller
         $productId = $request->input('productId');
         $shopifyId = $request->input('shopifyId');
         $quantity = $request->input('quantity');
+        $quantityType = $request->input('quantityType');
 
         // Validate All Fields
-        if(!$productId || !$shopifyId || !$quantity) return null;
+        if(!$productId || !$shopifyId || !$quantity || !$quantityType) return null;
+
+        // Validating the Quantity
+        if($quantityType === 'minus') {
+            if($quantity != 1) {
+                $quantity -= 1;
+            }
+        } else if($quantityType === 'plus') {
+            $quantity += 1;
+        }
 
         // Check Valid Cart Item
         $cart = $this->checkCart($productId);
@@ -172,7 +182,8 @@ class CartController extends Controller
         return json_encode([ 
             'status' => TRUE, 
             'total' => $price,
-            'cartTotal' => DB::table('carts')->where('user_id', session('userId'))->sum('total')
+            'cartTotal' => 
+            (int)DB::table('carts')->where('user_id', session('userId'))->sum('total')
         ]);
     }
 

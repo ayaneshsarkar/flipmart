@@ -1,12 +1,16 @@
 import axios from 'axios';
 import swal from 'sweetalert';
-import { manageMultipleCart, deleteCart } from './components/product';
+import { manageMultipleCart, deleteCart, formatNumber } from './components/product';
 
 const addToCart = document.getElementById('addToCart');
 const cartResults = document.getElementById('cartResults');
 const cartCount = document.getElementById('cartCount');
 const cartTotal = document.getElementById('cartTotal');
 const cartDropdown = document.getElementById('cartDropdown');
+const cartMinus = document.querySelectorAll('.cart-minus');
+const cartPlus = document.querySelectorAll('.cart-plus');
+const mainCartImage = document.querySelectorAll('.singleCartImage');
+const cartTable = document.getElementById('cartTable');
 
 // Update Cart
 if(addToCart) {
@@ -75,4 +79,82 @@ if(cartDropdown) {
       }
     }
   });
+}
+
+// Update Cart Quantity
+if(cartMinus) {
+  cartMinus.forEach(minus => {
+    minus.addEventListener('click', async () => {
+      const cartForm = minus.form;
+      const productId = minus.getAttribute('data-product') || null;
+      const shopifyId = minus.getAttribute('data-shopify') || null;
+
+      if(cartForm) {
+        const formData = new FormData(cartForm);
+        formData.append('productId', productId);
+        formData.append('shopifyId', shopifyId);
+        formData.append('quantityType', 'minus');
+
+        const res = await axios.post('/updatecart', formData);
+        const singleCartTotal = document.getElementById(`cart-total-${shopifyId}`);
+
+        if(singleCartTotal)
+        singleCartTotal.textContent = formatNumber('en-US', 'USD', res.data.total);
+
+        if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', res.data.cartTotal);
+      }
+    });
+  });
+}
+
+if(cartPlus) {
+  cartPlus.forEach(plus => {
+    plus.addEventListener('click', async () => {
+      const cartForm = plus.form;
+      const productId = plus.getAttribute('data-product') || null;
+      const shopifyId = plus.getAttribute('data-shopify') || null;
+
+      if(cartForm) {
+        const formData = new FormData(cartForm);
+        formData.append('productId', productId);
+        formData.append('shopifyId', shopifyId);
+        formData.append('quantityType', 'plus');
+
+        const res = await axios.post('/updatecart', formData);
+        const singleCartTotal = document.getElementById(`cart-total-${shopifyId}`);
+
+        if(singleCartTotal)
+        singleCartTotal.textContent = formatNumber('en-US', 'USD', res.data.total);
+
+        if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', res.data.cartTotal);
+      }
+    });
+  });
+}
+
+// Delete Main Cart
+if(mainCartImage) {
+  mainCartImage.forEach(img => {
+    img.addEventListener('click', async () => {
+      const cartId = img.getAttribute('data-cart') || null;
+      const cartIdClass = 'cart-' + cartId;
+      const cartElement = document.getElementById(cartIdClass);
+
+      // Delete Cart
+      const data = await deleteCart(cartId);
+
+      if(data.status) {
+        if(cartElement) cartElement.remove();
+        if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', data.cartTotal);
+
+        if(data.cartCount === 0) {
+          if(cartTable) cartTable.remove();
+
+          if(document.getElementById('noProduct')) {
+            document.getElementById('noProduct').style.display = 'block';
+          }
+        }
+      }
+    });
+  })
 }
