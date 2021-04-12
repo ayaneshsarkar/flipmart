@@ -1,6 +1,7 @@
 import axios from 'axios';
 import swal from 'sweetalert';
 import { manageMultipleCart, deleteCart, formatNumber } from './components/product';
+import { getCartTotal, chargeApplication } from './components/order';
 
 const addToCart = document.getElementById('addToCart');
 const cartResults = document.getElementById('cartResults');
@@ -11,6 +12,7 @@ const cartMinus = document.querySelectorAll('.cart-minus');
 const cartPlus = document.querySelectorAll('.cart-plus');
 const mainCartImage = document.querySelectorAll('.singleCartImage');
 const cartTable = document.getElementById('cartTable');
+const checkoutButton = document.getElementById('checkoutOrderButton');
 
 // Update Cart
 if(addToCart) {
@@ -157,4 +159,18 @@ if(mainCartImage) {
       }
     });
   })
+}
+
+// Order
+if(checkoutButton) {
+  checkoutButton.addEventListener('click', async () => {
+    const res = await axios.get('/authorize-user');
+    
+    if(res.data === 1) {
+      const charge = await chargeApplication();
+
+      // console.log(charge); return false;
+      window.location = charge.recurring_application_charge.confirmation_url;
+    }
+  });
 }

@@ -122,8 +122,9 @@
 				</div>
 
 				<div class="size15 trans-0-4">
+					<div id="checkoutButton"></div>
 					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="checkoutButton">
+					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="checkoutOrderButton">
 						Proceed to Checkout
 					</button>
 				</div>

@@ -3,33 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\URL;
 
 class OrdersController extends Controller
 {
-    public function createOrder(Request $request) 
+    public function createCharge($amount)
     {
-        $cartItems = DB::table('carts')->select('*')->get();
-        $orderSlug = strtoupper(Str::random(12));
+        $url = env('SHOPIFY_URL') . '/recurring_application_charges.json';
 
-        foreach($cartItems as $cartItem) {
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->post($url, [
+            'recurring_application_charge' => [
+                'name' => 'Order Charge',
+                'price' => $amount,
+                'test' => true,
+                'return_url' => env('APP_URL') . '/cart'
+            ]
+        ])->json();
 
-            DB::table('orders')->insert([
-                'user_id' => session('userId'),
-                'product_id' => $cartItem->product_id,
-                'order_slug' => $orderSlug,
-                'quantity' => $cartItem->quantity,
-                'total' => $cartItem->total,
-                'status' => 'PENDING'
-            ]);
-
-            DB::table('carts')->delete();
-
-        }
-
-        return redirect('/orders')->with(['success' => 'Order Created Successfully!']);
+        return $response;
     }
 }

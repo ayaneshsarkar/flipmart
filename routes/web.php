@@ -30,6 +30,7 @@ Route::get('/login', 'AuthController@signin');
 Route::get('/verify/{hashParam}', 'AuthController@verify');
 Route::get('/admin', 'ProductController@admin');
 Route::get('/logout', 'PagesController@index');
+Route::get('/authorize-user', 'AuthController@authorizeUser');
 
 Route::get('/orders', 'ProductController@orders');
 
@@ -54,8 +55,6 @@ Route::post('logout', 'AuthController@logout')->name('auth.logout');
 Route::post('storecategory', 'ProductController@storeCategory')->name('product.storecategory');
 Route::post('storeproduct', 'ProductController@storeProduct')->name('product.storeproduct');
 
-Route::post('ordercreate', 'OrdersController@createOrder')->name('ordercreate');
-
 
 Route::resource('auth', 'AuthController');
 
@@ -67,6 +66,11 @@ Route::get('/cart', 'CartController@cart');
 Route::post('storecart', 'CartController@storeCart');
 Route::post('updatecart', 'CartController@updateCart');
 Route::get('/deletecart', 'CartController@deleteCart');
+Route::get('/get-cart-total', 'CartController@getCartTotal');
+
+//Orders
+Route::get('/create-charge/{amount}', 'OrdersController@createCharge');
+Route::post('create-order', 'OrdersController@createOrder')->name('ordercreate');
 
 // Auth::routes();
 

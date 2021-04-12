@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
-use App\AuthUser;
-use Symfony\Component\Console\Input\Input;
-
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 
@@ -225,6 +222,15 @@ class AuthController extends Controller
         }
 
         return redirect('/');
+    }
+
+    public function authorizeUser()
+    {
+        if(session('userId')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

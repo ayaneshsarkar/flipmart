@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use NumberFormatter;
 
+use function GuzzleHttp\json_encode;
+
 class CartController extends Controller
 {
     private function getProduct(int $id)
@@ -206,5 +208,15 @@ class CartController extends Controller
             'cartCount' => DB::table('carts')->where('user_id', session('userId'))->count(),
             'cartTotal' => DB::table('carts')->where('user_id', session('userId'))->sum('total')
         ]);
+    }
+
+    public function getCartTotal()
+    {
+        // Authorize the User
+        if(!session('userId')) return null;
+
+        $total = DB::table('carts')->where('user_id', session('userId'))->sum('total');
+
+        return $total;
     }
 }
