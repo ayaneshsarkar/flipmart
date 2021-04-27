@@ -294,6 +294,7 @@ class ProductController extends Controller
                 [
                     'price' => $this->getDiscount($request->input('price'), $discount),
                     'compare_at_price' => $request->input('price'),
+                    "inventory_quantity" => 1000
                 ]
             ]
         ];
@@ -563,6 +564,7 @@ class ProductController extends Controller
                 [
                     'price' => $this->getDiscount($request->input('price'), $discount),
                     'compare_at_price' => $request->input('price'),
+                    "inventory_quantity" => 1000
                 ]
             ]
         ];

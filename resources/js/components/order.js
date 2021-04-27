@@ -8,9 +8,8 @@ export const getCartTotal = async () => {
 }
 
 export const chargeApplication = async () => {
-  const total = await getCartTotal();
-  const charge = await fetchShopify('GET', `/create-charge/${total}`, null);
-  const data = await charge.json();
+  const order = await fetchShopify('GET', '/create-order', {});
+  const data = await order.json();
 
   return data;
 }

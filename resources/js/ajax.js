@@ -169,8 +169,7 @@ if(checkoutButton) {
     if(res.data === 1) {
       const charge = await chargeApplication();
 
-      // console.log(charge); return false;
-      window.location = charge.recurring_application_charge.confirmation_url;
+      console.log(charge);
     }
   });
 }

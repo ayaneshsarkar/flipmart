@@ -3526,8 +3526,7 @@ if (checkoutButton) {
 
           case 6:
             charge = _context6.sent;
-            // console.log(charge); return false;
-            window.location = charge.recurring_application_charge.confirmation_url;
+            console.log(charge);
 
           case 8:
           case "end":
@@ -3654,29 +3653,24 @@ var getCartTotal = /*#__PURE__*/function () {
 }();
 var chargeApplication = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-    var total, charge, data;
+    var order, data;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return getCartTotal();
+            return Object(_fetchHelper__WEBPACK_IMPORTED_MODULE_1__["fetchShopify"])('GET', '/create-order', {});
 
           case 2:
-            total = _context2.sent;
+            order = _context2.sent;
             _context2.next = 5;
-            return Object(_fetchHelper__WEBPACK_IMPORTED_MODULE_1__["fetchShopify"])('GET', "/create-charge/".concat(total), null);
+            return order.json();
 
           case 5:
-            charge = _context2.sent;
-            _context2.next = 8;
-            return charge.json();
-
-          case 8:
             data = _context2.sent;
             return _context2.abrupt("return", data);
 
-          case 10:
+          case 7:
           case "end":
             return _context2.stop();
         }

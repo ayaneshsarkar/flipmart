@@ -69,8 +69,7 @@ Route::get('/deletecart', 'CartController@deleteCart');
 Route::get('/get-cart-total', 'CartController@getCartTotal');
 
 //Orders
-Route::get('/create-charge/{amount}', 'OrdersController@createCharge');
-Route::post('create-order', 'OrdersController@createOrder')->name('ordercreate');
+Route::get('/create-order', 'OrdersController@createOrder');
 
 // Auth::routes();
 
