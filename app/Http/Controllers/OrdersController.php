@@ -9,11 +9,13 @@ use \ConvertApi\ConvertApi;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
+use function GuzzleHttp\json_encode;
+
 class OrdersController extends Controller
 {
-    private function getAwsUrl()
+    private function getCartTotal()
     {
-        return 'https://flipmart.s3.us-east-2.amazonaws.com/';
+        return DB::table('carts')->where('user_id', session('userId'))->sum('total');
     }
 
     private function getProduct(int $id)
@@ -28,10 +30,24 @@ class OrdersController extends Controller
         return \json_decode($response, true);
     }
 
+    private function storeOrderProducts($products, $orderId)
+    {
+        foreach($products as $item)
+        {
+            DB::table('order_products')->insert([
+                'order_id' => $orderId,
+                'shopify_id' => $item->shopify_id,
+                'size' => $item->size
+            ]);
+        }
+    }
+
     private function checkoutPostfields($cart)
     {
         $userData = DB::table('users')->where('id', session('userId'))->first();
         $userNameArr = \explode(' ', $userData->name);
+
+        // Setting Up PDF Converter for Invoicing
         $convertSecret = env('CONVERT_API_SECRET');
         ConvertApi::setApiSecret($convertSecret);
 
@@ -52,14 +68,13 @@ class OrdersController extends Controller
                 "zip" => $userData->pincode ? (string)$userData->pincode : null,
                 "country_code" => '91'
             ],
-            'fulfillment_status' => 'fulfilled',
+            'fulfillment_status' => null,
             'email' => $userData->email,
             'currency' => 'INR',
             'phone' => '7687843512',
             "send_receipt" => true,
             "send_fulfillment_receipt" => true
         ];
-
         $postFields['order']['shipping_address'] = $postFields['order']['billing_address'];
         $postFields['order']['line_items'] = [];
 
@@ -78,8 +93,6 @@ class OrdersController extends Controller
             ]);
         }
 
-        // echo json_encode($postFields); exit;
-
         // Creating Order on Shopify
         $url = env('SHOPIFY_URL') . "/orders.json";
 
@@ -88,17 +101,29 @@ class OrdersController extends Controller
             'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
         ])->post($url, $postFields)->json();
 
-        // return $response;
-
+        // Getting the Order Status URL for the Invoice
         $orderStatusUrl = $response['order']['order_status_url'];
 
+        // Saving the Invoice
         $pdf = ConvertApi::convert('pdf', 
             ['Url' => $orderStatusUrl], 'web'
-        )   ;
+        );
 
         $pdf = $pdf->getFile()->getContents();
         $pdfName = date('Y-m-d') . Str::random(52) . '.pdf';
         Storage::disk('s3')->put("pdfs/$pdfName", $pdf);
+
+        // Storing Order Details Locally
+        $orderId = DB::table('orders')->insertGetId([
+            'shopify_order_id' => $response['order']['id'],
+            'invoice_name' => $pdfName
+        ]);
+
+        // Storing Order Products
+        $this->storeOrderProducts($cart, $orderId);
+
+        // Deleting the Cart
+        DB::table('carts')->where('user_id', session('userId'))->delete();
 
         return $response;
     }
@@ -106,7 +131,7 @@ class OrdersController extends Controller
     public function createOrder()
     {
         // Authorization
-        if(!session('userId')) return null;
+        if(!session('userId')) return json_encode(['error' => 'Not Authorized!']);
 
         // Check Empty Cart
         $cart = DB::table('carts')
@@ -120,7 +145,10 @@ class OrdersController extends Controller
         ->get();
 
         // Check Empty Cart
-        if(empty($cart)) return null;
+        if(empty($cart)) return json_encode(['error' => 'Nothing in the Cart!']);
+
+        // Check Cart Total
+        if($this->getCartTotal() === 0) return json_encode(['error' => 'Nothing in the Cart!']);
 
         return json_encode($this->checkoutPostfields($cart));
     }

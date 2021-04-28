@@ -3526,7 +3526,10 @@ if (checkoutButton) {
 
           case 6:
             charge = _context6.sent;
-            console.log(charge);
+
+            if (charge && charge.order) {
+              window.location.href = '/orders';
+            }
 
           case 8:
           case "end":

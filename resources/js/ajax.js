@@ -169,7 +169,9 @@ if(checkoutButton) {
     if(res.data === 1) {
       const charge = await chargeApplication();
 
-      console.log(charge);
+      if(charge && charge.order) {
+        window.location.href = '/orders';
+      }
     }
   });
 }

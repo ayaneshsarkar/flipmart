@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyCartsTableAgain extends Migration
+class ModifyOrderProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class ModifyCartsTableAgain extends Migration
      */
     public function up()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->integer('price')->after('quantity');
+        Schema::table('order_products', function(Blueprint $table) {
+            $table->foreignId('order_id')->after('id')->constrained()->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

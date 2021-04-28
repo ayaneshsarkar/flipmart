@@ -8,16 +8,20 @@
 	@include('layouts.pages.modalSignUp')
 
 	<!-- Title Page -->
-	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url(images/heading-pages-01.jpg);">
+	<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" 
+	style="background-image: linear-gradient(to right bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
+	url(images/cart.jpg);">
 		<h2 class="l-text2 t-center">
 			Cart
 		</h2>
 	</section>
 
 	<!-- Cart -->
+	@if($cartTotal === 0)
+		<div id="noProduct" class="container" style="font-size: 20px; padding: 50px;">Currently we have nothing for you.</div>
+	@else
 	<section class="cart bgwhite p-t-70 p-b-100">
 		<div class="container">
-			<div id="noProduct" style="display: none; font-size: 20px">Currently we have nothing for you.</div>
 			<!-- Cart item -->
 			<div class="container-table-cart pos-relative" id="cartTable">
 				<div class="wrap-table-shopping-cart bgwhite" id="cartTableBox">
@@ -80,10 +84,11 @@
 					</table>
 				</div>
 			</div>
+			@endif
 
 			{{-- Update Button --}}
-			<div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm" id="updateButton" style="justify-content: flex-end">
-				{{-- <div class="flex-w flex-m w-full-sm">
+			{{-- <div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm" id="updateButton" style="justify-content: flex-end">
+				<div class="flex-w flex-m w-full-sm">
 					<div class="size11 bo4 m-r-10">
 						<input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="coupon-code" placeholder="Coupon Code">
 					</div>
@@ -94,7 +99,7 @@
 							Apply coupon
 						</button>
 					</div>
-				</div> --}}
+				</div>
 
 				<div class="size10 trans-0-4 m-t-10 m-b-10">
 					<!-- Button -->
@@ -102,33 +107,39 @@
 						Update Cart
 					</button>
 				</div>
-			</div>
+			</div> --}}
+
+			<div id="updateButton"></div>
 
 			<!-- Total -->
-			<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
-				<h5 class="m-text20 p-b-24">
-					Sub-Total
-				</h5>
+			@if($cartTotal !== 0)
+				<div class="bo9 w-size18 p-l-40 p-r-40 p-t-30 p-b-38 m-t-30 m-r-0 m-l-auto p-lr-15-sm">
+					<h5 class="m-text20 p-b-24">
+						Sub-Total
+					</h5>
 
-				<!-- Total -->
-				<div class="flex-w flex-sb-m p-t-26 p-b-30" style="border-top: 1px dashed #d9d9d9;">
-					<span class="m-text22 w-size19 w-full-sm">
-						Total:
-					</span>
+					<!-- Total -->
+					<div class="flex-w flex-sb-m p-t-26 p-b-30" style="border-top: 1px dashed #d9d9d9;">
+						<span class="m-text22 w-size19 w-full-sm">
+							Total:
+						</span>
 
-					<span class="m-text21 w-size20 w-full-sm" id="cartTotal">
-						{{ $fmt->formatCurrency($cartTotal, 'USD') }}
-					</span>
+						<span class="m-text21 w-size20 w-full-sm" id="cartTotal">
+							{{ $fmt->formatCurrency($cartTotal, 'USD') }}
+						</span>
+					</div>
+
+					<div class="size15 trans-0-4">
+						<div id="checkoutButton"></div>
+						<!-- Button -->
+						<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="checkoutOrderButton">
+							Proceed to Checkout
+						</button>
+					</div>
 				</div>
-
-				<div class="size15 trans-0-4">
-					<div id="checkoutButton"></div>
-					<!-- Button -->
-					<button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" id="checkoutOrderButton">
-						Proceed to Checkout
-					</button>
-				</div>
-			</div>
+			@else
+			<div id="checkoutButton"></div>
+			@endif
 		</div>
 	</section>
 
