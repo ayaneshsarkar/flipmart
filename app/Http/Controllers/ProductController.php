@@ -97,21 +97,6 @@ class ProductController extends Controller
         
     }
 
-    public function orders() {
-
-        $data['title'] = 'Orders';
-        $data['type'] = 'orders';
-
-        $data['items'] = [];
-
-        $data['count'] = 0;
-
-        $data['total'] = 0;
-
-        return view('admin.orders')->with($data);
-
-    }
-
     public function addProduct() 
     {
         $category = new Category();

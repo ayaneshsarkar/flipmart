@@ -32,7 +32,7 @@ Route::get('/admin', 'ProductController@admin');
 Route::get('/logout', 'PagesController@index');
 Route::get('/authorize-user', 'AuthController@authorizeUser');
 
-Route::get('/orders', 'ProductController@orders');
+Route::get('/orders', 'OrdersController@orders');
 
 Route::get('/addproduct', 'ProductController@addProduct');
 Route::get('/products', 'ProductController@products');

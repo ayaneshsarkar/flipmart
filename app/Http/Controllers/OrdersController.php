@@ -13,6 +13,69 @@ use function GuzzleHttp\json_encode;
 
 class OrdersController extends Controller
 {
+    private function getOrders()
+    {
+        $url = env('SHOPIFY_URL') . "/orders.json?status=any";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        return $response['orders'] ? $response['orders'] : null;
+    }
+
+    private function getUserType(int $userId)
+    {
+        $user = DB::table('users')->where('id', $userId)->first();
+
+        return !empty($user) ? $user->admin_type : null;
+    }
+
+    private function orderIdPerUser(int $userId)
+    {
+        $shopifyOrderIds = [];
+        $orders = DB::table('orders')->where('user_id', $userId)->get();
+
+        foreach($orders as $order) {
+            if($order->shopify_order_id) {
+                array_push($shopifyOrderIds, $order->shopify_order_id);
+            }
+        }
+
+        return $shopifyOrderIds;
+    }
+
+    private function getOrderCount()
+    {
+        if($this->getUserType(session('userId')) === 'admin') {
+            return DB::table('orders')->count();
+        } else {
+            return DB::table('orders')->where('user_id', session('user_id'))->count();
+        }
+    }
+
+    private function getOrderTotal(string $userType = 'normal')
+    {
+        $total = 0;
+        $orders = $this->getOrders();
+        $shopifyOrderIdsPerUser = $this->orderIdPerUser(session('userId'));
+
+        if($orders) {
+            foreach($orders as $order) {
+                if($userType === 'admin') {
+                    $total += $order['current_subtotal_price'];
+                } else {
+                    if(\in_array($order['id'], $shopifyOrderIdsPerUser)) {
+                        $total += $order['current_subtotal_price'];
+                    }
+                }
+            }
+        }
+
+        return $total;
+    }
+
     private function getCartTotal()
     {
         return DB::table('carts')->where('user_id', session('userId'))->sum('total');
@@ -151,5 +214,28 @@ class OrdersController extends Controller
         if($this->getCartTotal() === 0) return json_encode(['error' => 'Nothing in the Cart!']);
 
         return json_encode($this->checkoutPostfields($cart));
+    }
+
+    public function orders() {
+        if(!session('userId')) return redirect('/');
+
+        // return $this->getOrders();
+
+        $data = [
+            'title' => 'Orders',
+            'type' => 'orders',
+            'user' => $this->getUserType(session('userId')),
+            'items' => [],
+            'count' => $this->getOrderCount(),
+        ];
+
+        // Getting Order Total Per User Type
+        if($data['user'] == 'admin') {
+            $data['total'] = $this->getOrderTotal('admin');
+        } else {
+            $data['total'] = $this->getOrderTotal();
+        }
+
+        return view('admin.orders')->with($data);
     }
 }
