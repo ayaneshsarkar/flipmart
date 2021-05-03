@@ -1,6 +1,5 @@
+import swal from 'sweetalert';
 import { deleteProductImage } from './components/product';
-
-const { cssNumber } = require("jquery");
 
 $(document).ready(function() {  
   $('.hamberger').click(function() {
@@ -103,5 +102,24 @@ if(productImageCross) {
   })
 }
 
+const alerts = document.querySelectorAll('.alertswal');
 
+if(alerts) {
+  alerts.forEach(alert => {
+    alert.addEventListener('click', (e) => {
+      e.preventDefault();
 
+      swal({
+        title: "Are you sure?",
+        icon: "warning",
+        buttons: ['Cancel', 'Yes'],
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          const link = alert.getAttribute('href');
+          window.location.href = link;
+        }
+      });
+    })
+  });
+}

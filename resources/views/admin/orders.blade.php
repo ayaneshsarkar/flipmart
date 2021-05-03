@@ -9,7 +9,6 @@
   if(Session::get('danger')) {
     $class = 'danger';
   }
-
 @endphp
 
   <div class="item_wrap" id="mainItems">
@@ -37,46 +36,87 @@
           <div class="order__active_total">
             <h2 class="order__active_total-header">
               {{ $user == 'admin' ? 'All' : 'Your' }} Orders &ndash; 
-              <span>{{ $count }} (${{ $total }})</span>
+              <span>{{ $count }} (₹{{ $total }})</span>
             </h2>
           </div>
         </div>
       </div>
 
-      <div class="col-12">
+      @if($items)
+        <div class="col-12">
+          <div class="table-responsive-lg" style="padding: 0 20px;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Invoice</th>
+                  <th>Sub Total</th>
+                  <th>Status</th>
+                  <th></th>
+                  @if($user ==='admin')
+                    <th></th>
+                    <th></th>
+                  @endif
+                </tr>
+              </thead>
 
-        @foreach ($items as $item)
-            
-          <div class="orderbox">
-            <div class="orderbox__inner">
-              <div class="orderbox__inner_item">
-                <div class="orderbox__inner_item-title">
-                  <h4 class="heading">Title</h4>
-                  <p class="title">{{ $item->title }}</p>
-                </div>
-              </div>
+              <tbody>
+                @foreach($items as $item)
+                  @php 
+                    $deliveryStatus = DB::table('orders')
+                      ->where('shopify_order_id', $item['id'])
+                      ->first()->status;
+                  @endphp
 
-              <div class="orderbox__inner_item">
-                <div class="orderbox__inner_item-title">
-                  <p class="heading">Price</p>
-                  <h4 class="price">${{ $item->orderTotal }}</h4>
-                </div>
-              </div>
+                  <tr>
+                    <td>
+                      <a href="{{ $item['order_status_url'] }}" target="_blank">
+                        {{ $item['name'] }}
+                      </a>
+                    </td>
+                    <td>
+                      <a href="/download-invoice/{{ $item['id'] }}" target="_blank">
+                        Invoice
+                      </a>
+                    </td>
+                    <td>{{ $fmt->formatCurrency($item['current_subtotal_price'], 'INR') }}</td>
+                    <td>
+                      @if($deliveryStatus === 'delivered')
+                        {{ 'Delivered' }}
+                      @else
+                        {{ 'On The Way' }}
+                      @endif
+                    </td>
 
-              <div class="orderbox__inner_item">
-                <div class="orderbox__inner_item-title">
-                  <p class="heading">Delivery Time 
-                    <span class="m-l-3"><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                  </p>
-                  <h4 class="time">{{ $item->delivery_days }} day(s)</h4>
-                </div>
-              </div>
-            </div>
+                    <td>
+                      @if($deliveryStatus === 'cancelled')
+                        CANCELLED
+                      @elseif($deliveryStatus === 'open')
+                        <a href="/cancel-order/{{ $item['id'] }}" class="alertswal">
+                          Cancel Order
+                        </a>
+                      @endif
+                    </td>
+
+                    @if($user ==='admin')
+                      <td>
+                        @if($deliveryStatus === 'open')
+                          <a href="/close-order/{{ $item['id'] }}" class="alertswal">Close</a>
+                        @elseif($deliveryStatus === 'delivered')
+                          <a href="/open-order/{{ $item['id'] }}" class="alertswal">Reopen</a>
+                        @endif
+                      </td>
+                      <td>
+                        <a href="/delete-order/{{ $item['id'] }}" class="alertswal">Delete</a>
+                      </td>
+                    @endif
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
-
-        @endforeach
-
-      </div>
+        </div>
+      @endif
     </div>
   </div>
 

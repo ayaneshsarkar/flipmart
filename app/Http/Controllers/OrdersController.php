@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use \ConvertApi\ConvertApi;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use NumberFormatter;
 
 use function GuzzleHttp\json_encode;
 
@@ -46,12 +47,12 @@ class OrdersController extends Controller
         return $shopifyOrderIds;
     }
 
-    private function getOrderCount()
+    private function getOrderCount(int $userId)
     {
-        if($this->getUserType(session('userId')) === 'admin') {
+        if($this->getUserType($userId) === 'admin') {
             return DB::table('orders')->count();
         } else {
-            return DB::table('orders')->where('user_id', session('user_id'))->count();
+            return DB::table('orders')->where('user_id', $userId)->count();
         }
     }
 
@@ -74,6 +75,27 @@ class OrdersController extends Controller
         }
 
         return $total;
+    }
+
+    private function getOrderItems(int $userId)
+    {
+        $userSpecificOrders = [];
+
+        $userType = $this->getUserType($userId);
+        $orders = $this->getOrders();
+        $shopifyOrderIdsPerUser = $this->orderIdPerUser($userId);
+
+        if($userType === 'admin') return $orders;
+
+        if($orders) {
+            foreach($orders as $order) {
+                if(in_array($order['id'], $shopifyOrderIdsPerUser)) {
+                    array_push($userSpecificOrders, $order);
+                }
+            }
+        }
+
+        return $userSpecificOrders;
     }
 
     private function getCartTotal()
@@ -131,12 +153,13 @@ class OrdersController extends Controller
                 "zip" => $userData->pincode ? (string)$userData->pincode : null,
                 "country_code" => '91'
             ],
-            'fulfillment_status' => null,
+            'fulfillment_status' => 'fulfilled',
             'email' => $userData->email,
             'currency' => 'INR',
             'phone' => '7687843512',
             "send_receipt" => true,
-            "send_fulfillment_receipt" => true
+            "send_fulfillment_receipt" => true,
+            'closed_at' => null
         ];
         $postFields['order']['shipping_address'] = $postFields['order']['billing_address'];
         $postFields['order']['line_items'] = [];
@@ -179,7 +202,9 @@ class OrdersController extends Controller
         // Storing Order Details Locally
         $orderId = DB::table('orders')->insertGetId([
             'shopify_order_id' => $response['order']['id'],
-            'invoice_name' => $pdfName
+            'invoice_name' => $pdfName,
+            'user_id' => session('userId'),
+            'status' => 'open'
         ]);
 
         // Storing Order Products
@@ -216,17 +241,129 @@ class OrdersController extends Controller
         return json_encode($this->checkoutPostfields($cart));
     }
 
-    public function orders() {
+    public function deleteOrder(int $id)
+    {
+        // Authorization
         if(!session('userId')) return redirect('/');
 
-        // return $this->getOrders();
+        // Getting the Order
+        $order = DB::table('orders')->where('shopify_order_id', $id)->first();
+        if(!$order) return redirect('/orders');
+
+        // Geting the Invoice Name
+        $invoiceName = $order->invoice_name;
+        // Delete Url
+        $url = env('SHOPIFY_URL') . "/orders/$id.json";
+
+        // Deleting an Order
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->delete($url);
+
+        if($response->status() === 200) {
+            Storage::disk('s3')->delete('/pdfs/' . $invoiceName);
+            DB::table('orders')->where('shopify_order_id', $id)->delete();
+        }
+
+        return redirect('/orders');
+    }
+
+    public function closeOrder(int $id)
+    {
+        if(!session('userId')) return redirect('/');
+
+        $url = env('SHOPIFY_URL') . "/orders/$id/close.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->post($url);
+
+        if($response['order']) {
+            DB::table('orders')->where('shopify_order_id', $id)->update([
+                'status' => 'delivered'
+            ]);
+        }
+
+        return redirect('/orders');
+    }
+
+    public function openOrder(int $id)
+    {
+        if(!session('userId')) return redirect('/');
+
+        $url = env('SHOPIFY_URL') . "/orders/$id/open.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->post($url);
+
+        if($response['order']) {
+            DB::table('orders')->where('shopify_order_id', $id)->update([
+                'status' => 'open'
+            ]);
+        }
+
+        return redirect('/orders');
+    }
+
+    public function cancelOrder(int $id)
+    {
+        if(!session('userId')) return redirect('/');
+
+        $url = env('SHOPIFY_URL') . "/orders/$id/cancel.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->post($url);
+
+        if($response['order']) {
+            DB::table('orders')->where('shopify_order_id', $id)->update([
+                'status' => 'cancelled'
+            ]);
+        }
+
+        return redirect('/orders');
+    }
+
+    public function uncancelOrder(int $id)
+    {
+        if(!session('userId')) return redirect('/');
+
+        $url = env('SHOPIFY_URL') . "/orders/$id.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->put($url, [
+            'order' => [
+                'cancelled_at' => null,
+                'closed_at' => null
+            ]
+        ])->json();
+
+        if($response['order']) {
+            DB::table('orders')->where('shopify_order_id', $id)->update([
+                'status' => 'open'
+            ]);
+        }
+
+        return redirect('/orders');
+    }
+
+    public function orders() {
+        if(!session('userId')) return redirect('/');
 
         $data = [
             'title' => 'Orders',
             'type' => 'orders',
             'user' => $this->getUserType(session('userId')),
-            'items' => [],
-            'count' => $this->getOrderCount(),
+            'items' => $this->getOrderItems(session('userId')),
+            'count' => $this->getOrderCount(session('userId')),
+            'fmt' => new NumberFormatter('en_IN', NumberFormatter::CURRENCY)
         ];
 
         // Getting Order Total Per User Type
@@ -237,5 +374,28 @@ class OrdersController extends Controller
         }
 
         return view('admin.orders')->with($data);
+    }
+
+    public function order($id)
+    {
+        if(!session('userId')) return redirect('/');
+
+        $order = DB::table('orders')->where('shopify_order_id', $id)->first();
+        if(!$order) return redirect('/orders');
+    }
+
+    public function downloadInvoice(int $id)
+    {
+        if(!session('userId')) return redirect('/');
+
+        $order = DB::table('orders')->where('shopify_order_id', $id)->first();
+        if(!$order) return redirect('/orders');
+
+        $invoiceName = $order->invoice_name;
+        $invoicePath = "/pdfs/$invoiceName";
+        $invoiceUrl = 'https://' . env('AWS_BUCKET') . '.s3.' . 
+        env('AWS_DEFAULT_REGION') . '.amazonaws.com' . $invoicePath;
+
+        return redirect($invoiceUrl);
     }
 }
