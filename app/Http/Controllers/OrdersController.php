@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use NumberFormatter;
 
+use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
 
 class OrdersController extends Controller
@@ -159,7 +160,8 @@ class OrdersController extends Controller
             'phone' => '7687843512',
             "send_receipt" => true,
             "send_fulfillment_receipt" => true,
-            'closed_at' => null
+            'closed_at' => null,
+            "taxes_included" => true
         ];
         $postFields['order']['shipping_address'] = $postFields['order']['billing_address'];
         $postFields['order']['line_items'] = [];
@@ -175,7 +177,8 @@ class OrdersController extends Controller
                 "quantity" => (string)$item->quantity,
                 "price" => $itemProduct['variants'][0]['price'],
                 "variant_id" => (int)$itemProduct['variants'][0]['id'],
-                "vendor" => $itemProduct['vendor']
+                "vendor" => $itemProduct['vendor'],
+                "taxable" => true
             ]);
         }
 
@@ -376,12 +379,47 @@ class OrdersController extends Controller
         return view('admin.orders')->with($data);
     }
 
-    public function order($id)
+    private function getOrder(int $id)
+    {
+        $url = env('SHOPIFY_URL') . "/orders/$id.json";
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        return json_decode($response, true);
+    }
+
+    public function order(Request $request)
     {
         if(!session('userId')) return redirect('/');
+        if(!$_GET['id']) return redirect('/orders');
 
-        $order = DB::table('orders')->where('shopify_order_id', $id)->first();
+        $order = DB::table('orders')->where('shopify_order_id', $_GET['id'])->first();
         if(!$order) return redirect('/orders');
+        
+        $orderId = $order->id;
+        $orderProducts = [];
+        $products = DB::table('order_products')->where('order_id', $orderId)->get();
+
+        foreach($products as $product) {
+            $productDetails = $this->getProduct($product->shopify_id);
+            $orderProducts[$product->shopify_id] = $productDetails['product'];
+        }
+
+        $data = [
+            'title' => "Order #" . $_GET['id'],
+            'type' => 'singleorder',
+            'user' => $this->getUserType(session('userId')),
+            'order' => $this->getOrder($_GET['id'])['order'],
+            'products' => $products,
+            'orderProducts' => $orderProducts,
+            'serial' => 1,
+            'fmt' => new NumberFormatter('en_IN', NumberFormatter::CURRENCY)
+        ];
+
+        return view('admin.order')->with($data);
     }
 
     public function downloadInvoice(int $id)

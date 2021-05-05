@@ -70,7 +70,7 @@
 
                   <tr>
                     <td>
-                      <a href="{{ $item['order_status_url'] }}" target="_blank">
+                      <a href="/order/?id={{ $item['id'] }}" target="_blank">
                         {{ $item['name'] }}
                       </a>
                     </td>
@@ -83,6 +83,8 @@
                     <td>
                       @if($deliveryStatus === 'delivered')
                         {{ 'Delivered' }}
+                      @elseif($deliveryStatus === 'cancelled')
+                        {{ 'Order Cancelled' }}
                       @else
                         {{ 'On The Way' }}
                       @endif

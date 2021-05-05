@@ -127,6 +127,20 @@
           </div>
         </div>
 
+        {{-- Availability --}}
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('availability')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Availability</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="availability" 
+              value="{{ old('availability') }}">
+            </div>
+            @error('availability')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
         {{-- Category --}}
         <div class="col-12">
           <div class="product__inputbox">
@@ -143,11 +157,10 @@
         </div>
 
         {{-- Brand --}}
-
         <div class="col-12">
           <div class="product__inputbox">
             <select name="brand" class="product__inputbox__newoption" required>
-              <option disabled selected value="">Choose Brand (Selected)</option>
+              <option disabled selected value="">Choose Brand (Required)</option>
               @if(!empty($categories))
                 @foreach ($categories as $category)
                   <option value="{{ $category->brand }}">{{ $category->brand }}</option>

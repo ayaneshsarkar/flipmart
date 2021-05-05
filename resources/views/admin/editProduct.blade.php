@@ -172,6 +172,20 @@
           </div>
         @endif
 
+        {{-- Availability --}}
+        <div class="col-12">
+          <div class="product__inputbox">
+            <div class="product__inputbox_number {{ ($errors->has('availability')) ? 'danger' : 'm-b-30' }}">
+              <div class="labelbox">
+                <span>Availability</span>
+              </div>
+              <input type="number" class="product__inputbox_number-input" name="availability" 
+              value="{{ $product['variants'][0]['inventory_quantity'] }}">
+            </div>
+            @error('availability')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
         {{-- Category --}}
         <div class="col-12">
           <div class="product__inputbox">

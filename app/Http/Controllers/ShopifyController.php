@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 class ShopifyController extends Controller
 {
-    public function installShopify($shop = 'sflipmart')
+    public function installShopify($shop = 'iflipmart')
     {
         $shopFull = "$shop.myshopify.com";
         $apiKey = env('SHOPIFY_API_KEY');

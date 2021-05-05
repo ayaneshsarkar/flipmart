@@ -144,7 +144,7 @@
 					</div>
 
 					<!-- block2 -->
-					<div class="block2 wrap-pic-w pos-relative m-b-30">
+					{{-- <div class="block2 wrap-pic-w pos-relative m-b-30">
 						<img src="images/icons/bg-01.jpg" alt="IMG">
 
 						<div class="block2-content sizefull ab-t-l flex-col-c-m">
@@ -163,7 +163,7 @@
 								</a>
 							</div>
 						</div>
-					</div>
+					</div> --}}
 				</div>
 			</div>
 		</div>
@@ -188,7 +188,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
 								<img src="images/download/product-1.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -221,7 +221,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -254,7 +254,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -287,7 +287,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -324,7 +324,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -357,7 +357,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -390,7 +390,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -423,7 +423,7 @@
 							<div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelsale">
 								<img src="images/download/product-2.jpg" alt="IMG-PRODUCT">
 
-								<div class="block2-overlay trans-0-4">
+								<div class="block2-overlay trans-0-4 no-cart">
 									<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 										<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 										<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
@@ -460,7 +460,7 @@
 	</section>
 
 	<!-- Banner2 -->
-	<section class="banner2 bg5 p-t-55 p-b-55">
+	{{-- <section class="banner2 bg5 p-t-55 p-b-55">
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
@@ -548,7 +548,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> --}}
 
 	<!-- Shipping -->
 	<section class="shipping bgwhite p-t-62 p-b-46">

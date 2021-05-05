@@ -257,7 +257,8 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
-            'description' => 'required|string'
+            'description' => 'required|string',
+            'availability' => 'required|integer'
         ]);
 
         if($validator->fails()) {
@@ -279,7 +280,7 @@ class ProductController extends Controller
                 [
                     'price' => $this->getDiscount($request->input('price'), $discount),
                     'compare_at_price' => $request->input('price'),
-                    "inventory_quantity" => 1000
+                    "inventory_quantity" => $request->input('availability')
                 ]
             ]
         ];
@@ -347,7 +348,7 @@ class ProductController extends Controller
             ]);
         }
 
-        return redirect('/admin')->with(['success' => 'Product created successfully!']);
+        return redirect('/products')->with(['success' => 'Product created successfully!']);
     }
 
     public function products()
@@ -518,7 +519,8 @@ class ProductController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
-            'description' => 'required|string'
+            'description' => 'required|string',
+            'availability' => 'required|integer'
         ]);
 
         if($validator->fails()) {
@@ -549,7 +551,7 @@ class ProductController extends Controller
                 [
                     'price' => $this->getDiscount($request->input('price'), $discount),
                     'compare_at_price' => $request->input('price'),
-                    "inventory_quantity" => 1000
+                    "inventory_quantity" => $request->input('availability')
                 ]
             ]
         ];
@@ -574,7 +576,7 @@ class ProductController extends Controller
                 );
             }
 
-            return \redirect('/admin')->with([ 
+            return \redirect('/products')->with([ 
                 'success' => 'Product Successfully Updated!' 
             ]);
         } else {

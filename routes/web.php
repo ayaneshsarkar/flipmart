@@ -70,7 +70,7 @@ Route::get('/get-cart-total', 'CartController@getCartTotal');
 
 //Orders
 Route::get('/create-order', 'OrdersController@createOrder');
-Route::get('/order/{id}', 'OrdersController@order');
+Route::get('/order', 'OrdersController@order');
 Route::get('/delete-order/{id}', 'OrdersController@deleteOrder');
 Route::get('/close-order/{id}', 'OrdersController@closeOrder');
 Route::get('/open-order/{id}', 'OrdersController@openOrder');
