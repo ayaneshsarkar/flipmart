@@ -360,6 +360,8 @@ class OrdersController extends Controller
     public function orders() {
         if(!session('userId')) return redirect('/');
 
+        // echo json_encode($this->getOrderItems(session('userId'))); exit;
+
         $data = [
             'title' => 'Orders',
             'type' => 'orders',

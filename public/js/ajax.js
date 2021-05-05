@@ -3716,7 +3716,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  // Cart HTML
 
 var insertCartHTML = function insertCartHTML(data, productData) {
-  var html = "\n  <li class=\"header-cart-item\" id=\"cart-".concat(productData.cartId, "\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\" data-cart=\"").concat(productData.cartId, "\">\n        <img src=\"").concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"#\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(data.variants[0].price, "\n      </span>\n    </div>\n  </li>\n  ");
+  var html = "\n  <li class=\"header-cart-item\" id=\"cart-".concat(productData.cartId, "\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\" data-cart=\"").concat(productData.cartId, "\">\n        <img src=\"").concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"/shop/").concat(data.id, "\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(data.variants[0].price, "\n      </span>\n    </div>\n  </li>\n  ");
   return html;
 };
 

@@ -13,7 +13,7 @@ const insertCartHTML = (data, productData) => {
     </a>
 
     <div class="header-cart-item-txt">
-      <a href="#" class="header-cart-item-name">
+      <a href="/shop/${data.id}" class="header-cart-item-name">
         ${data.title}
       </a>
 

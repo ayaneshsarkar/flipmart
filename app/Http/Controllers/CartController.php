@@ -64,7 +64,7 @@ class CartController extends Controller
     public function cart()
     {
         // Authorize the User
-        if(!session('userId')) return null;
+        if(!session('userId')) return \redirect('/signin');
 
         // Get the Username
         $username = DB::table('users')->where('id', session('userId'))->first()->name;

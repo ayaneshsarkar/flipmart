@@ -55,10 +55,13 @@ class ProductController extends Controller
     }
 
     public function admin() {
+        if(!session('userId')) return redirect('/signin');
+
         $data = [
             'title' => 'Admin',
             'type' => 'admin',
-            'orderCount' => 0,
+            'user' => DB::table('users')->where('id', session('userId'))->first(),
+            'orderCount' => DB::table('orders')->count(),
             'productCount' => DB::table('products')->count(),
             'categoryCount' => DB::table('categories')->count()
         ];

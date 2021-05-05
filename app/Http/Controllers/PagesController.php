@@ -11,157 +11,203 @@ use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Http;
 
 class PagesController extends Controller
 {
+    private function getProduct(int $id)
+    {
+        $url = env('SHOPIFY_URL') . "/products/$id.json";
 
-  private function cartResponse($currentUser) {
-    return DB::table('carts')->join('products', 'carts.product_id', '=', 'products.id')
-            ->where('carts.user_id', $currentUser)
-            // ->join('users', 'products.user_id', '=', 'users.id')
-            ->select('carts.quantity', 'carts.price as cartPrice', 'carts.total', 'products.*', 'carts.id as cartId')
-            ->orderByDesc('carts.updated_at')
-            ->get();
-  }
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
 
-  public function index() 
-  {
+        return \json_decode($response, true);
+    }
 
-    $data = [
-      'title' => 'Welcome To FlipMart',
-      'page' => 'home',
-      'login' => FALSE,
-      'register' => FALSE
-    ];
+    private function checkCart(int $userId)
+    {
+        return DB::table('carts')->where('user_id', $userId)->get();
+    }
 
-    if(session('loggedIn') == TRUE) {
-      $data['cartResults'] = [];
-      $data['cartTotal'] = 0;
+    private function getCart(int $userId)
+    {
+        // Initialize Shopify Data Array
+        $shopifyData = [];
+
+        // Get the Data
+        $cartData = DB::table('carts')
+                    ->join('products', 'carts.product_id', 'products.id')
+                    ->where('carts.user_id', $userId)
+                    ->select(
+                        'carts.*', 
+                        'carts.total as price', 
+                        'carts.id as cartId', 
+                        'products.*'
+                    )
+        ->get();
+
+        // Get the Shopify Data
+        foreach($cartData as $data) {
+            if($data->shopify_id && !empty($this->getProduct($data->shopify_id)['product'])) {
+                array_push($shopifyData, $this->getProduct($data->shopify_id)['product']);
+            }
+        }
+
+        return [
+            'cartData' => $cartData,
+            'shopifyData' => $shopifyData
+        ];
+    }
+
+    private function cartTotal(int $userId)
+    {
+        return DB::table('carts')->where('user_id', $userId)->sum('total');
+    }
+
+    public function index() 
+    {
+
+        $data = [
+            'title' => 'Welcome To FlipMart',
+            'page' => 'home',
+            'login' => FALSE,
+            'register' => FALSE
+        ];
+
+        if(session('loggedIn') == TRUE) {
+            if($this->checkCart(session('userId'))) {
+                $data['cartResults'] = $this->getCart(session('userId'));
+            } else {
+                $data['cartResults'] = [];
+            }
+
+            $data['cartCount'] = 
+            DB::table('carts')->where('user_id', session('userId'))->count() ?? 0;
+            $data['cartTotal'] = $this->cartTotal(session('userId')) ?? 0;
+        }
+
+
+        return  view('pages/index')->with($data);
+    }
+
+    public function about() 
+    {
+        $data = [
+            'title' => 'About',
+            'page' => 'about',
+            'login' => FALSE,
+            'register' => FALSE
+        ];
+
+        if(session('loggedIn') == TRUE) {
+            if($this->checkCart(session('userId'))) {
+                $data['cartResults'] = $this->getCart(session('userId'));
+            } else {
+                $data['cartResults'] = [];
+            }
+
+            $data['cartCount'] = 
+            DB::table('carts')->where('user_id', session('userId'))->count() ?? 0;
+            $data['cartTotal'] = $this->cartTotal(session('userId')) ?? 0;
+        }
+
+        return view('pages.about')->with($data);
+    }
+
+    public function contact() 
+    {
+        $data = [
+            'title' => 'Contact',
+            'page' => 'contact',
+            'login' => FALSE,
+            'register' => FALSE
+        ];
+
+        if(session('loggedIn') == TRUE) {
+            if($this->checkCart(session('userId'))) {
+                $data['cartResults'] = $this->getCart(session('userId'));
+            } else {
+                $data['cartResults'] = [];
+            }
+
+            $data['cartCount'] = 
+            DB::table('carts')->where('user_id', session('userId'))->count() ?? 0;
+            $data['cartTotal'] = $this->cartTotal(session('userId')) ?? 0;
+        }
+
+        return  view('pages.contact')->with($data);
     }
 
 
-    return  view('pages/index')->with($data);
-  }
 
-  public function about() 
-  {
-    $data = [
-      'title' => 'About',
-      'page' => 'about',
-      'login' => FALSE,
-      'register' => FALSE
-    ];
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
 
-    if(session('loggedIn') == TRUE) {
-      $data['cartResults'] = $this->cartResponse(session('userId'));
-      $data['cartTotal'] = DB::table('carts')->sum('total');
-    }
+    public function storeMessage(Request $request) 
+    {
 
-    return  view('pages.about')->with($data);
-  }
+        $validator = Validator::make($request->all(), [
 
-  public function contact() 
-  {
-    $data = [
-      'title' => 'Contact',
-      'page' => 'contact',
-      'login' => FALSE,
-      'register' => FALSE
-    ];
+        'fullname' => 'required|string|max:255',
+        'phone_number' => 'required|string|min:10|max:12',
+        'email' => 'required|email',
+        'message' => 'required|string'
 
-    if(session('loggedIn') == TRUE) {
-      $data['cartResults'] = $this->cartResponse(session('userId'));
-      $data['cartTotal'] = DB::table('carts')->sum('total');
-    }
+        ]);
 
-    return  view('pages.contact')->with($data);
-  }
+        if($validator->fails()) {
+        return redirect('/contact')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
-  public function cart() {
+        $fullname = $request->input('fullname');
+        $phoneNumber = $request->input('phone_number');
+        $email = $request->input('email');
+        $message = $request->input('message');
 
-    $data = [
-      'title' => 'Cart',
-      'page' => 'cart',
-      'login' => FALSE,
-      'register' => FALSE
-    ];
-
-    if(session('loggedIn') == TRUE) {
-      $data['cartResults'] = $this->cartResponse(session('userId'));
-      $data['cartTotal'] = DB::table('carts')->sum('total');
-    }
-
-    return  view('pages.cart')->with($data);
-
-  }
-
-
-
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @param  \Illuminate\Http\Request  $request
-   * @return \Illuminate\Http\Response
-   */
-
-  public function storeMessage(Request $request) 
-  {
-
-    $validator = Validator::make($request->all(), [
-
-      'fullname' => 'required|string|max:255',
-      'phone_number' => 'required|string|min:10|max:12',
-      'email' => 'required|email',
-      'message' => 'required|string'
-
-    ]);
-
-    if($validator->fails()) {
-      return redirect('/contact')
-              ->withErrors($validator)
-              ->withInput();
-    }
-
-    $fullname = $request->input('fullname');
-    $phoneNumber = $request->input('phone_number');
-    $email = $request->input('email');
-    $message = $request->input('message');
-
-    $data = [
-      'fullname' => $fullname,
-      'phoneNumber' => $phoneNumber,
-      'email' => $email,
-      'bodyMessage' => $message
-    ];
-
-    Mail::send('emails.contact', $data, function ($message) use ($fullname) {
-        $message->from('ayaneshsarkar101@gmail.com', 'Ayanesh Sarkar');
-        $message->to('ayaneshsarkar101@gmail.com', 'Ayanesh Sarkar');
-        $message->replyTo('ayaneshsarkar101@gmail.com', 'Ayanesh Sarkar');
-        $message->subject("Contact Form from $fullname");
-    });
-
-    $contactSuccess = 'FALSE';
-
-    if(Mail::failures()) {
-      return Redirect::route('/contact')->with(['contactSuccess' => $contactSuccess]);
-    }
-
-    DB::table('messages')->insert(
-
-      [
+        $data = [
         'fullname' => $fullname,
-        'phone_number' => $phoneNumber,
+        'phoneNumber' => $phoneNumber,
         'email' => $email,
-        'message' => $message
-      ]
+        'bodyMessage' => $message
+        ];
 
-    );
+        Mail::send('emails.contact', $data, function ($message) use ($fullname) {
+            $message->from('ayaneshsarkar101@gmail.com', 'Ayanesh Sarkar');
+            $message->to('ayaneshsarkar101@gmail.com', 'Ayanesh Sarkar');
+            $message->replyTo('ayaneshsarkar101@gmail.com', 'Ayanesh Sarkar');
+            $message->subject("Contact Form from $fullname");
+        });
 
-    $contactSuccess = 'TRUE';
+        $contactSuccess = 'FALSE';
 
-    return Redirect::route('contact')->with(['contactSuccess' => $contactSuccess]);
+        if(Mail::failures()) {
+        return Redirect::route('/contact')->with(['contactSuccess' => $contactSuccess]);
+        }
 
-  }
+        DB::table('messages')->insert(
+
+        [
+            'fullname' => $fullname,
+            'phone_number' => $phoneNumber,
+            'email' => $email,
+            'message' => $message
+        ]
+
+        );
+
+        $contactSuccess = 'TRUE';
+
+        return Redirect::route('contact')->with(['contactSuccess' => $contactSuccess]);
+
+    }
 
 }

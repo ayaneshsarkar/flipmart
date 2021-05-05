@@ -11096,9 +11096,16 @@ categoryKids.addEventListener('click', function () {
 });
 var account = document.getElementById('account');
 var accountDropdown = document.querySelector('.header-account-dropdown');
+var singleProductSlug = document.getElementById('singleProductSlug');
 
 if (account && accountDropdown) {
   accountDropdown.addEventListener('click', function () {
+    accountDropdown.classList.toggle('show-header-account-dropdown');
+  });
+}
+
+if (singleProductSlug) {
+  account.addEventListener('click', function () {
     accountDropdown.classList.toggle('show-header-account-dropdown');
   });
 }

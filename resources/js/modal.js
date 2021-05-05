@@ -135,9 +135,16 @@ categoryKids.addEventListener('click', function() {
 
 const account = document.getElementById('account');
 const accountDropdown = document.querySelector('.header-account-dropdown');
+const singleProductSlug = document.getElementById('singleProductSlug');
 
 if(account && accountDropdown) {
   accountDropdown.addEventListener('click', function() {
+    accountDropdown.classList.toggle('show-header-account-dropdown');
+  });
+}
+
+if(singleProductSlug) {
+  account.addEventListener('click', function() {
     accountDropdown.classList.toggle('show-header-account-dropdown');
   });
 }

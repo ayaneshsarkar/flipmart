@@ -1,8 +1,3 @@
-@php 
-	// var_dump(count($products)); exit; 
-	// var_dump($products['products']); exit;
-@endphp
-
 @include('layouts.includes.header')
 
 	<!-- Nav -->

@@ -56,34 +56,27 @@
             </a>
           </li>
 
-          <li>
-            <a href="#">
-              <span class="icon">
-                <i class="fa fa-pie-chart" aria-hidden="true"></i>
-              </span>
-              <span class="list">Reports</span>
-            </a>
-          </li>
+          @if(DB::table('users')->where('id', session('userId'))->first()->admin_type === 'admin')
+            <li>
+              <a href="{{ URL::to('/products') }}" 
+              class="{{ ($type && $type === 'products') ? 'active' : '' }}">
+                <span class="icon">
+                  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                </span>
+                <span class="list">View Products</span>
+              </a>
+            </li>
 
-          <li>
-            <a href="{{ URL::to('/products') }}" 
-            class="{{ ($type && $type === 'products') ? 'active' : '' }}">
-              <span class="icon">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-              </span>
-              <span class="list">View Products</span>
-            </a>
-          </li>
-
-          <li>
-            <a href="{{ URL::to('/viewbrands') }}"
-            class="{{ ($type && $type === 'viewbrands') ? 'active' : '' }}">
-              <span class="icon">
-                <i class="fa fa-desktop" aria-hidden="true"></i>
-              </span>
-              <span class="list">View Brands</span>
-            </a>
-          </li>
+            <li>
+              <a href="{{ URL::to('/viewbrands') }}"
+              class="{{ ($type && $type === 'viewbrands') ? 'active' : '' }}">
+                <span class="icon">
+                  <i class="fa fa-desktop" aria-hidden="true"></i>
+                </span>
+                <span class="list">View Brands</span>
+              </a>
+            </li>
+          @endif
         </ul>
 
         <div class="hamberger" style="cursor: pointer;">
@@ -98,7 +91,7 @@
       </div>
     </div>
 
-    <div class="container" style="padding-right: 0;">
+    <div class="container">
       <div class="dropdown_mobile">
         <div class="dropdown_mobile-wrap">
           <div class="item">

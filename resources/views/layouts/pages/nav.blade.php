@@ -87,7 +87,7 @@
 
 							<div class="header-wrapicon2">
 								<img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
-								<span class="header-icons-noti" id="cartCount">0</span>
+								<span class="header-icons-noti" id="cartCount">{{ $cartCount ?? 0 }}</span>
 
 								{{-- Header Cart Noti --}}
 								@include('layouts.includes.cartDropdown')
@@ -97,13 +97,13 @@
 						
 					@else
 
-					<a href="#" id="modalBtnSignUp" class="modalBtn header-wrapicon1 dis-block">
-						SIGN UP
-					</a>
-					<span class="linedivide1"></span>
-					<a href="#" id="modalBtnSignIn" class="modalBtn header-wrapicon1 dis-block">
-						SIGN IN
-					</a>
+						<a href="#" id="modalBtnSignUp" class="modalBtn header-wrapicon1 dis-block">
+							SIGN UP
+						</a>
+						<span class="linedivide1"></span>
+						<a href="#" id="modalBtnSignIn" class="modalBtn header-wrapicon1 dis-block">
+							SIGN IN
+						</a>
 
 					@endif
 				</div>
@@ -176,16 +176,16 @@
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="index.html">Home</a>
-						<i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i>
+						<a href="/">Home</a>
+						{{-- <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i> --}}
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="product.html">Shop</a>
+						<a href="/shop">Shop</a>
           </li>
           
           <li class="item-menu-mobile">
-            <a href="#">Categories</a>
+            <a>Categories</a>
             <ul class="sub-menu">
 							<li><a href="#">Menz Wear</a></li>
 							<li><a href="#">Womenz Wear</a></li>
@@ -195,11 +195,15 @@
 
 
 					<li class="item-menu-mobile">
-						<a href="about.html">About</a>
+						<a href="/about">About</a>
 					</li>
 
 					<li class="item-menu-mobile">
-						<a href="contact.html">Contact</a>
+						<a href="/contact">Contact</a>
+					</li>
+
+					<li class="item-menu-mobile">
+						<a href="/cart">Cart</a>
 					</li>
 				</ul>
 			</nav>

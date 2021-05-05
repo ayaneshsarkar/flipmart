@@ -138,7 +138,7 @@
 					</div>
 				</div>
 			@else
-			<div id="checkoutButton"></div>
+				<div id="checkoutButton"></div>
 			@endif
 		</div>
 	</section>
