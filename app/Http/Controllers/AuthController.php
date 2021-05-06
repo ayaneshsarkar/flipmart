@@ -32,11 +32,14 @@ class AuthController extends Controller
      */
     public function signup()
     {
+        if(session('userId')) return redirect('/');
+
         $data = [
             'title' => 'Welcome To FlipMart',
             'login' => FALSE,
             'register' => TRUE
         ];
+
         return  view('pages/index')->with($data);
     }
 
@@ -47,11 +50,14 @@ class AuthController extends Controller
      */
     public function signin()
     {
+        if(session('userId')) return redirect('/');
+
         $data = [
             'title' => 'Welcome To FlipMart',
             'login' => TRUE,
             'register' => FALSE
         ];
+
         return  view('pages/index')->with($data);
     }
 
@@ -74,6 +80,7 @@ class AuthController extends Controller
      */
     public function register(Request $request)
     {
+        if(session('userId')) return redirect('/');
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
@@ -171,6 +178,7 @@ class AuthController extends Controller
 
     public function login(Request $request) 
     {
+        if(session('userId')) return redirect('/');
 
         $validator = Validator::make($request->all(), [
             'email' => 'required',

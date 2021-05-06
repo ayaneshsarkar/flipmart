@@ -7,11 +7,22 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Category;
+use NumberFormatter;
 
-use function GuzzleHttp\json_encode;
 
 class ProductController extends Controller
 {
+    private function authorizeAdmin()
+    {
+        $userId = session('userId');
+        if(!$userId) return false;
+
+        $user = DB::table('users')->where('id', $userId)->first();
+        if(!$user) return false;
+
+        return $user->admin_type !== 'admin' ? false : true;
+    }
+
     private function getProducts()
     {
         $products = Http::withHeaders([
@@ -20,15 +31,6 @@ class ProductController extends Controller
         ])->get(env('SHOPIFY_URL') . '/products.json');
 
         return $products;
-    }
-
-    private function productResults() {
-        // return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-        //                     ->select('products.*', 'users.name', 'users.id as userId')
-        //                     ->orderBy('updated_at')
-        //                     ->paginate(3);
-
-        return DB::table('products')->orderBy('created_at')->get();
     }
 
     private function getProduct($id)
@@ -102,6 +104,8 @@ class ProductController extends Controller
 
     public function addProduct() 
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $category = new Category();
 
         $data = [
@@ -116,6 +120,8 @@ class ProductController extends Controller
 
 
     public function addCategory() {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $data['title'] = 'Add Brand';
         $data['type'] = 'addcategory';
         return view('admin.addCategory')->with($data);
@@ -123,6 +129,8 @@ class ProductController extends Controller
 
     public function viewBrands()
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+        
         $data = [
             'title' => 'View Brands',
             'type' => 'viewbrands',
@@ -135,6 +143,8 @@ class ProductController extends Controller
 
     public function deleteBrand($id)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $brand = DB::table('categories')->where('id', $id)->first();
 
         if($brand) {
@@ -148,6 +158,8 @@ class ProductController extends Controller
 
     public function editBrand(Request $request)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $id = $request->get('id') ?? NULL;
         $brand = DB::table('categories')->where('id', $id)->first();
 
@@ -166,6 +178,8 @@ class ProductController extends Controller
 
     public function updateBrand(Request $request)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+        
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
             'brand' => 'required|string|max:255'
@@ -201,6 +215,7 @@ class ProductController extends Controller
 
     public function storeCategory(Request $request) 
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
 
         $validator = Validator::make($request->all(), [
             'brand' => 'nullable|string|max:255'
@@ -248,6 +263,8 @@ class ProductController extends Controller
 
     public function storeProduct(Request $request)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
             'price' => 'required|integer',
@@ -356,11 +373,14 @@ class ProductController extends Controller
 
     public function products()
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $data = [
             'title' => 'View Products',
             'type' => 'products',
             'serial' => 1,
-            'products' => $this->getProducts()['products']
+            'products' => $this->getProducts()['products'],
+            'fmt' => new NumberFormatter('en_IN', NumberFormatter::CURRENCY)
         ];
 
         return view('admin.products')->with($data);
@@ -368,6 +388,8 @@ class ProductController extends Controller
 
     public function deleteProduct($id)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $product = $this->getProduct($id);
 
         if(!empty($product['errors'])) {
@@ -424,6 +446,8 @@ class ProductController extends Controller
 
     public function editProduct(Request $request)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+
         $id = $request->get('id') ?? NULL;
         $product = $this->getProduct($id);
 
@@ -509,6 +533,8 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request)
     {
+        if(!$this->authorizeAdmin()) return redirect('/signin');
+        
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
             'title' => 'required|string|max:255',

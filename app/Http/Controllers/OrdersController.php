@@ -10,11 +10,19 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use NumberFormatter;
 
-use function GuzzleHttp\json_decode;
-use function GuzzleHttp\json_encode;
-
 class OrdersController extends Controller
 {
+    private function authorizeAdmin()
+    {
+        $userId = session('userId');
+        if(!$userId) return false;
+
+        $user = DB::table('users')->where('id', $userId)->first();
+        if(!$user) return false;
+
+        return $user->admin_type !== 'admin' ? false : true;
+    }
+
     private function getOrders()
     {
         $url = env('SHOPIFY_URL') . "/orders.json?status=any";
@@ -247,7 +255,7 @@ class OrdersController extends Controller
     public function deleteOrder(int $id)
     {
         // Authorization
-        if(!session('userId')) return redirect('/');
+        if(!$this->authorizeAdmin()) return redirect('/signin');
 
         // Getting the Order
         $order = DB::table('orders')->where('shopify_order_id', $id)->first();
@@ -274,7 +282,7 @@ class OrdersController extends Controller
 
     public function closeOrder(int $id)
     {
-        if(!session('userId')) return redirect('/');
+        if(!$this->authorizeAdmin()) return redirect('/signin');
 
         $url = env('SHOPIFY_URL') . "/orders/$id/close.json";
 
@@ -294,7 +302,7 @@ class OrdersController extends Controller
 
     public function openOrder(int $id)
     {
-        if(!session('userId')) return redirect('/');
+        if(!$this->authorizeAdmin()) return redirect('/signin');;
 
         $url = env('SHOPIFY_URL') . "/orders/$id/open.json";
 
@@ -314,7 +322,7 @@ class OrdersController extends Controller
 
     public function cancelOrder(int $id)
     {
-        if(!session('userId')) return redirect('/');
+        if(!session('userId')) return redirect('/signin');
 
         $url = env('SHOPIFY_URL') . "/orders/$id/cancel.json";
 
@@ -332,35 +340,8 @@ class OrdersController extends Controller
         return redirect('/orders');
     }
 
-    public function uncancelOrder(int $id)
-    {
-        if(!session('userId')) return redirect('/');
-
-        $url = env('SHOPIFY_URL') . "/orders/$id.json";
-
-        $response = Http::withHeaders([
-            'content-type' => 'application/json',
-            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
-        ])->put($url, [
-            'order' => [
-                'cancelled_at' => null,
-                'closed_at' => null
-            ]
-        ])->json();
-
-        if($response['order']) {
-            DB::table('orders')->where('shopify_order_id', $id)->update([
-                'status' => 'open'
-            ]);
-        }
-
-        return redirect('/orders');
-    }
-
     public function orders() {
-        if(!session('userId')) return redirect('/');
-
-        // echo json_encode($this->getOrderItems(session('userId'))); exit;
+        if(!session('userId')) return redirect('/signin');
 
         $data = [
             'title' => 'Orders',
@@ -393,9 +374,9 @@ class OrdersController extends Controller
         return json_decode($response, true);
     }
 
-    public function order(Request $request)
+    public function order()
     {
-        if(!session('userId')) return redirect('/');
+        if(!session('userId')) return redirect('/signin');
         if(!$_GET['id']) return redirect('/orders');
 
         $order = DB::table('orders')->where('shopify_order_id', $_GET['id'])->first();
@@ -426,7 +407,7 @@ class OrdersController extends Controller
 
     public function downloadInvoice(int $id)
     {
-        if(!session('userId')) return redirect('/');
+        if(!session('userId')) return redirect('/signin');
 
         $order = DB::table('orders')->where('shopify_order_id', $id)->first();
         if(!$order) return redirect('/orders');

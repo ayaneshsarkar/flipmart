@@ -45,7 +45,7 @@
 
                   <td class="center">
                     <div class="d-flex align-items-center">
-                      ${{ $product['variants'][0]['price'] }}
+                      {{ $fmt->formatCurrency($product['variants'][0]['price'], 'INR') }}
                     </div>
                   </td>
 

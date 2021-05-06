@@ -74,7 +74,6 @@ Route::get('/delete-order/{id}', 'OrdersController@deleteOrder');
 Route::get('/close-order/{id}', 'OrdersController@closeOrder');
 Route::get('/open-order/{id}', 'OrdersController@openOrder');
 Route::get('/cancel-order/{id}', 'OrdersController@cancelOrder');
-Route::get('/uncancel-order/{id}', 'OrdersController@uncancelOrder');
 Route::get('/download-invoice/{id}', 'OrdersController@downloadInvoice');
 
 // Auth::routes();
