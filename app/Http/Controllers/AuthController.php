@@ -241,4 +241,108 @@ class AuthController extends Controller
         }
     }
 
+    public function editProfile()
+    {
+        // Authorization
+        if(!session('userId')) return redirect('/signin');
+
+        $user = DB::table('users')->where('id', session('userId'))->first();
+        if(!$user) return redirect('/signin');
+
+        $data = [
+            'title' => 'Edit Profile',
+            'type' => 'editprofile',
+            'user' => $user
+        ];
+
+        return view('admin.editProfile')->with($data);
+    }
+
+    public function changePassword()
+    {
+        // Authorization
+        if(!session('userId')) return redirect('/signin');
+
+        $user = DB::table('users')->where('id', session('userId'))->first();
+        if(!$user) return redirect('/signin');
+
+        $data = [
+            'title' => 'Change Password',
+            'type' => 'changepassword',
+            'user' => $user
+        ];
+
+        return view('admin.changePassword')->with($data);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        // Authorization
+        if(!session('userId')) return redirect('/signin');
+
+        $user = DB::table('users')->where('id', session('userId'))->first();
+        if(!$user) return redirect('/signin');
+
+        // Validator
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'city' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'pincode' => 'required|integer|digits:6',
+            'phone_number' => 'required|integer|digits:10',
+            'address' => 'required|string'
+        ]);
+
+        // Sending Errors
+        if($validator->fails()) {
+            return redirect('/edit-profile')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        DB::table('users')->where('id', session('userId'))->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'city' => $request->input('city'),
+            'state' => $request->input('state'),
+            'pincode' => $request->input('pincode'),
+            'phone_number' => $request->input('phone_number'),
+            'address' => $request->input('address')
+        ]);
+
+        if(session('cartSession')) return redirect('/cart');
+        
+        return redirect('/admin')->with('success', 'Profile Updated Successfully!');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        // Authorization
+        if(!session('userId')) return redirect('/signin');
+
+        $user = DB::table('users')->where('id', session('userId'))->first();
+        if(!$user) return redirect('/signin');
+
+        // Validator
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|string|min:5|same:confirm_password',
+            'confirm_password' => 'required|string|min:5|same:password'
+        ]);
+
+        // Sending Errors
+        if($validator->fails()) {
+            return redirect('/change-password')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        DB::table('users')->where('id', $user->id)->update([
+            'password' => password_hash($request->input('password'), PASSWORD_BCRYPT)
+        ]);
+
+        if(session('cartSession')) return redirect('/cart');
+
+        return redirect('/admin')->with('success', 'Password Successfully Updated!');
+    }
 }

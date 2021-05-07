@@ -77,6 +77,16 @@
               </a>
             </li>
           @endif
+
+          <li>
+            <a href="{{ URL::to('/edit-profile') }}"
+            class="{{ ($type && $type === 'editprofile') ? 'active' : '' }}">
+              <span class="icon">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+              </span>
+              <span class="list">Profile</span>
+            </a>
+          </li>
         </ul>
 
         <div class="hamberger" style="cursor: pointer;">

@@ -76,7 +76,10 @@ Route::get('/open-order/{id}', 'OrdersController@openOrder');
 Route::get('/cancel-order/{id}', 'OrdersController@cancelOrder');
 Route::get('/download-invoice/{id}', 'OrdersController@downloadInvoice');
 
-// Auth::routes();
+Route::get('/edit-profile', 'AuthController@editProfile');
+Route::get('/change-password', 'AuthController@changePassword');
+Route::post('/update-profile', 'AuthController@updateProfile');
+Route::post('/update-password', 'AuthController@updatePassword');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function() {
