@@ -207,7 +207,7 @@
 
 					<!-- Product -->
 					<div class="row">
-						@if(count($products['products']) == 0)
+						@if(count($products) == 0)
 
 							<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 								<p>No Results Found</p>
@@ -215,7 +215,7 @@
 
 						@else
 
-							@foreach ($products['products'] as $product)				
+							@foreach ($products as $product)
 
 								<div class="col-sm-12 col-md-6 col-lg-4 p-b-50">
 									<!-- Block2 -->

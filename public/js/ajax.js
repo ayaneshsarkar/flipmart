@@ -3393,7 +3393,7 @@ if (cartMinus) {
               shopifyId = minus.getAttribute('data-shopify') || null;
 
               if (!cartForm) {
-                _context3.next = 14;
+                _context3.next = 12;
                 break;
               }
 
@@ -3406,11 +3406,14 @@ if (cartMinus) {
 
             case 10:
               res = _context3.sent;
-              singleCartTotal = document.getElementById("cart-total-".concat(shopifyId));
-              if (singleCartTotal) singleCartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.total);
-              if (cartTotal) cartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.cartTotal);
 
-            case 14:
+              if (res.data.status) {
+                singleCartTotal = document.getElementById("cart-total-".concat(shopifyId));
+                if (singleCartTotal) singleCartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.total);
+                if (cartTotal) cartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.cartTotal);
+              }
+
+            case 12:
             case "end":
               return _context3.stop();
           }
@@ -3433,7 +3436,7 @@ if (cartPlus) {
               shopifyId = plus.getAttribute('data-shopify') || null;
 
               if (!cartForm) {
-                _context4.next = 14;
+                _context4.next = 12;
                 break;
               }
 
@@ -3446,11 +3449,14 @@ if (cartPlus) {
 
             case 10:
               res = _context4.sent;
-              singleCartTotal = document.getElementById("cart-total-".concat(shopifyId));
-              if (singleCartTotal) singleCartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.total);
-              if (cartTotal) cartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.cartTotal);
 
-            case 14:
+              if (res.data.status) {
+                singleCartTotal = document.getElementById("cart-total-".concat(shopifyId));
+                if (singleCartTotal) singleCartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.total);
+                if (cartTotal) cartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.cartTotal);
+              }
+
+            case 12:
             case "end":
               return _context4.stop();
           }

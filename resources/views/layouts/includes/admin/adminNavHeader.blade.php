@@ -15,8 +15,8 @@
 
       <div class="right_info">
         <div class="icon_wrap">
-          <div class="icon">
-            <i class="fa fa-user" aria-hidden="true"></i>
+          <div class="icon" id="adminLogout">
+            <i class="fa fa-power-off" aria-hidden="true"></i>
           </div>
         </div>
 

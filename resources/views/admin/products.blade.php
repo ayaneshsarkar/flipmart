@@ -72,7 +72,7 @@
                   <td class="center">
                     <div class="d-flex align-items-center">
                       <div class="d-flex align-items-center">
-                        <a href="/deleteproduct/{{ $product['id'] }}">
+                        <a class="alertswal" href="/deleteproduct/{{ $product['id'] }}">
                           <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
                       </div>

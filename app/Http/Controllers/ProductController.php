@@ -375,11 +375,23 @@ class ProductController extends Controller
     {
         if(!$this->authorizeAdmin()) return redirect('/signin');
 
+        $products = $this->getProducts()['products'];
+        $availableProducts = [];
+
+        foreach($products as $product) {
+            $productId = $product['id'];
+            $productDB = DB::table('products')
+                            ->where('shopify_id', $productId)->first();
+            if(!$productDB->deleted_at) {
+                array_push($availableProducts, $product);
+            }
+        }
+
         $data = [
             'title' => 'View Products',
             'type' => 'products',
             'serial' => 1,
-            'products' => $this->getProducts()['products'],
+            'products' => $availableProducts,
             'fmt' => new NumberFormatter('en_IN', NumberFormatter::CURRENCY)
         ];
 
@@ -390,23 +402,18 @@ class ProductController extends Controller
     {
         if(!$this->authorizeAdmin()) return redirect('/signin');
 
-        $product = $this->getProduct($id);
+        $product = DB::table('products')->where('shopify_id', $id)->first();
 
-        if(!empty($product['errors'])) {
-            return \redirect('/admin')->with([ 'error' => 'No such product exists!' ]);
+        if(empty($product) || $product->deleted_at) {
+            return redirect('/products');
         }
 
-        $response = Http::withHeaders([
-            'content-type' => 'application/json',
-            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
-        ])->delete(env('SHOPIFY_URL') . "/products/$id.json");
+        // Mark Product As Deleted
+        DB::table('products')->where('shopify_id', $id)->update([
+            'deleted_at' => now()
+        ]);
 
-        if($response->status() === 200) {
-            DB::table('products')->where('shopify_id', $id)->delete();
-            return \redirect('/admin')->with([ 'success' => 'Product Successfully Deleted!' ]);
-        } else {
-            return \redirect('/admin')->with([ 'error' => 'Something went wrong!' ]);
-        }
+        return \redirect('/admin')->with([ 'success' => 'Product Successfully Deleted!' ]);
     }
 
     private function productImages($id)

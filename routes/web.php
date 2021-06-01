@@ -17,7 +17,7 @@ Route::get('/', 'PagesController@index')->name('home')->middleware('cors');
 Route::get('/about', 'PagesController@about')->name('about');
 Route::get('/contact', 'PagesController@contact')->name('contact');
 
-Route::get("shop/{slug}", "ShopsController@product");
+Route::get("shop/{slug}/{title?}", "ShopsController@product");
 
 Route::get('/shop', 'ShopsController@shop')->name('shop');
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import swal from 'sweetalert';
 import { deleteProductImage } from './components/product';
 
@@ -121,5 +122,18 @@ if(alerts) {
         }
       });
     })
+  });
+}
+
+// Admin Logout
+const adminLogout = document.getElementById('adminLogout');
+
+if(adminLogout) {
+  adminLogout.addEventListener('click', async () => {
+    const res = await axios.post('/logout', { logout : 'logout' });
+
+    if(res.data) {
+      window.location.href = '/';
+    }
   });
 }

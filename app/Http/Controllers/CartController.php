@@ -25,7 +25,10 @@ class CartController extends Controller
 
     private function checkCart(int $productId)
     {
-        return DB::table('carts')->where('product_id', $productId)->first();
+        return DB::table('carts')
+                    ->where('product_id', $productId)
+                    ->where('user_id', session('userId'))
+                    ->first();
     }
 
     private function getCart()
@@ -50,7 +53,10 @@ class CartController extends Controller
 
         // Get the Shopify Data
         foreach($cartData as $data) {
-            if($data->shopify_id && !empty($this->getProduct($data->shopify_id)['product'])) {
+            if(
+                $data->shopify_id && 
+                !empty($this->getProduct($data->shopify_id)['product'])
+            ) {
                 array_push($shopifyData, $this->getProduct($data->shopify_id)['product']);
             }
         }
@@ -163,7 +169,7 @@ class CartController extends Controller
 
         // Check Valid Cart Item
         $cart = $this->checkCart($productId);
-        if(empty($cart)) return null;
+        if(empty($cart) || $cart->user_id != session('userId')) return null;
 
         // Get Shopify Data
         $shopify = $this->getProduct($shopifyId);
@@ -175,7 +181,10 @@ class CartController extends Controller
         $comparePrice = $shopifyData['variants'][0]['compare_at_price'] * $quantity;
 
         // Update The Cart
-        DB::table('carts')->where('product_id', $productId)->update([
+        DB::table('carts')
+            ->where('product_id', $productId)
+            ->where('user_id', session('userId'))
+        ->update([
             'quantity' => $quantity,
             'total' => $price,
             'compare_total' => $comparePrice
@@ -198,7 +207,9 @@ class CartController extends Controller
 
         $cartData = DB::table('carts')->where('id', $id)->first();
 
-        if(empty($cartData)) return null;
+        if(empty($cartData) || $cartData->user_id != session('userId')) {
+            return null;
+        }
 
         // Delete Cart
         DB::table('carts')->where('id', $id)->delete();

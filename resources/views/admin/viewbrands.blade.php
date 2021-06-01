@@ -34,7 +34,7 @@
                   </a>
                 </td>
                 <td>
-                  <a href="/deletebrand/{{ $brand->id }}">
+                  <a class="alertswal" href="/deletebrand/{{ $brand->id }}">
                     {{-- <i class="fa fa-trash" aria-hidden="true"></i> --}} Delete
                   </a>
                 </td>

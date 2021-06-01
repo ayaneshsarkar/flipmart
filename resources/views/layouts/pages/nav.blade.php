@@ -97,11 +97,11 @@
 						
 					@else
 
-						<a href="#" id="modalBtnSignUp" class="modalBtn header-wrapicon1 dis-block">
+						<a style="cursor: pointer" id="modalBtnSignUp" class="modalBtn header-wrapicon1 dis-block">
 							SIGN UP
 						</a>
 						<span class="linedivide1"></span>
-						<a href="#" id="modalBtnSignIn" class="modalBtn header-wrapicon1 dis-block">
+						<a style="cursor: pointer" id="modalBtnSignIn" class="modalBtn header-wrapicon1 dis-block">
 							SIGN IN
 						</a>
 
@@ -121,14 +121,14 @@
 			<div class="btn-show-menu">
 				<!-- Header Icon mobile -->
 				<div class="header-icons-mobile">
-					<a href="#" class="header-wrapicon1 dis-block">
+					<a class="header-wrapicon1 dis-block">
 						SIGN UP
 					</a>
 
 					<span class="linedivide2"></span>
 
 					<div class="header-wrapicon2">
-						SIGN IN          
+						SIGN IN
           </div>
 				</div>
 

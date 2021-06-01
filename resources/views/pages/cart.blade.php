@@ -43,7 +43,7 @@
 									$productId = 
 									DB::table('products')->where('shopify_id', $product['id'])->first()->id;
 
-									$cart = DB::table('carts')->where('product_id', $productId)->first();
+									$cart = DB::table('carts')->where('product_id', $productId)->where('user_id', session('userId'))->first();
 								@endphp
 
 								<tr class="table-row" id="cart-{{ $cart->id }}">

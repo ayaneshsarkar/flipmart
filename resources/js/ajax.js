@@ -98,12 +98,15 @@ if(cartMinus) {
         formData.append('quantityType', 'minus');
 
         const res = await axios.post('/updatecart', formData);
-        const singleCartTotal = document.getElementById(`cart-total-${shopifyId}`);
+        
+        if(res.data.status) {
+          const singleCartTotal = document.getElementById(`cart-total-${shopifyId}`);
 
-        if(singleCartTotal)
-        singleCartTotal.textContent = formatNumber('en-US', 'USD', res.data.total);
+          if(singleCartTotal)
+          singleCartTotal.textContent = formatNumber('en-US', 'USD', res.data.total);
 
-        if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', res.data.cartTotal);
+          if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', res.data.cartTotal);
+        }
       }
     });
   });
@@ -123,12 +126,15 @@ if(cartPlus) {
         formData.append('quantityType', 'plus');
 
         const res = await axios.post('/updatecart', formData);
-        const singleCartTotal = document.getElementById(`cart-total-${shopifyId}`);
+        
+        if(res.data.status) {
+          const singleCartTotal = document.getElementById(`cart-total-${shopifyId}`);
 
-        if(singleCartTotal)
-        singleCartTotal.textContent = formatNumber('en-US', 'USD', res.data.total);
+          if(singleCartTotal)
+          singleCartTotal.textContent = formatNumber('en-US', 'USD', res.data.total);
 
-        if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', res.data.cartTotal);
+          if(cartTotal) cartTotal.textContent = formatNumber('en-US', 'USD', res.data.cartTotal);
+        }
       }
     });
   });

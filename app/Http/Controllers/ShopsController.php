@@ -58,12 +58,24 @@ class ShopsController extends Controller
 
     private function getProducts()
     {
+        $availableProducts = [];
         $products = Http::withHeaders([
             'content-type' => 'application/json',
             'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
         ])->get(env('SHOPIFY_URL') . '/products.json');
 
-        return $products;
+        if($products['products']) {
+            foreach($products['products'] as $product) {
+                $productId = $product['id'];
+                $productDB = DB::table('products')
+                            ->where('shopify_id', $productId)->first();
+                if($productDB && !$productDB->deleted_at) {
+                    array_push($availableProducts, $product);
+                }
+            }
+        }
+
+        return $availableProducts;
     }
 
     private function productResults() {
@@ -177,10 +189,25 @@ class ShopsController extends Controller
 
     public function product($id) 
     {
+        $product = $this->productDetail($id);
+
+        if(!$product || !$product['product']) {
+            return \redirect('/shop');
+        }
+
+        $product = $product['product'];
+
+        $productId = $product['id'];
+        $productDB = DB::table('products')
+                    ->where('shopify_id', $productId)->first();
+        if($productDB->deleted_at) {
+            return \redirect('/shop');
+        }
+
         $data = [
-            'title' => 'Product',
+            'title' => $product['title'],
             'page' => 'shop',
-            'product' => $this->productDetail($id)['product'],
+            'product' => $product,
             'productImages' => $this->productImages($id)['images'],
             'productData' => $this->productData($id),
             'random' => Str::random(10),
