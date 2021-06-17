@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 use App\Category;
 use NumberFormatter;
 
@@ -149,6 +150,12 @@ class ProductController extends Controller
         $brand = DB::table('categories')->where('id', $id)->first();
 
         if($brand) {
+            if($brand->main_image) {
+                if(file_exists(public_path("brandimages/$brand->main_image"))) {
+                    unlink(public_path("brandimages/$brand->main_image"));
+                }
+            }
+
             DB::table('categories')->where('id', $id)->delete();
         } else {
             return redirect('/admin')->with(['error' => 'No such Brand exist!']);
@@ -219,7 +226,8 @@ class ProductController extends Controller
         if(!$this->authorizeAdmin()) return redirect('/signin');
 
         $validator = Validator::make($request->all(), [
-            'brand' => 'nullable|string|max:255'
+            'brand' => 'required|string|max:255',
+            'main_image' => 'required|image'
         ]);
 
         if($validator->fails()) {
@@ -228,14 +236,20 @@ class ProductController extends Controller
                     ->withInput();
         }
 
-        if($request->input('brand') == NULL) {
-            return redirect('/admin')->with(['success' => "It's okay, you don't have to add category all the time."]);
+        if($request->hasFile('main_image')) {
+            $ext = $request->file('main_image')->getClientOriginalExtension();
+            $mainImage = Str::random(10) . '.' . $ext;
+
+            $request->file('main_image')->move(\public_path('brandimages'), $mainImage);
         }
 
         // Create Category
-        DB::table('categories')->insert([ 'brand' => $request->input('brand') ]);
+        DB::table('categories')->insert([ 
+            'brand' => $request->input('brand'),
+            'main_image' => $mainImage ?? null 
+        ]);
 
-        return redirect('/admin')->with(['success' => 'Successfully created category!']);
+        return redirect('/admin')->with(['success' => 'Successfully created brand!']);
 
     }
 
