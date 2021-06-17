@@ -1,1 +1,294 @@
-!function(e){var o={};function n(t){if(o[t])return o[t].exports;var i=o[t]={i:t,l:!1,exports:{}};return e[t].call(i.exports,i,i.exports,n),i.l=!0,i.exports}n.m=e,n.c=o,n.d=function(e,o,t){n.o(e,o)||Object.defineProperty(e,o,{enumerable:!0,get:t})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,o){if(1&o&&(e=n(e)),8&o)return e;if(4&o&&"object"==typeof e&&e&&e.__esModule)return e;var t=Object.create(null);if(n.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:e}),2&o&&"string"!=typeof e)for(var i in e)n.d(t,i,function(o){return e[o]}.bind(null,i));return t},n.n=function(e){var o=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(o,"a",o),o},n.o=function(e,o){return Object.prototype.hasOwnProperty.call(e,o)},n.p="/",n(n.s=47)}({47:function(e,o,n){e.exports=n(48)},48:function(e,o){!function(e){"use strict";e(".animsition").animsition({inClass:"fade-in",outClass:"fade-out",inDuration:1500,outDuration:800,linkElement:".animsition-link",loading:!0,loadingParentElement:"html",loadingClass:"animsition-loading-1",loadingInner:'<div data-loader="ball-scale"></div>',timeout:!1,timeoutCountdown:5e3,onLoadEvent:!0,browser:["animation-duration","-webkit-animation-duration"],overlay:!1,overlayClass:"animsition-overlay-slide",overlayParentElement:"html",transition:function(e){window.location.href=e}});var o=e(window).height()/2;e(window).on("scroll",(function(){e(this).scrollTop()>o?e("#myBtn").css("display","flex"):e("#myBtn").css("display","none")})),e("#myBtn").on("click",(function(){e("html, body").animate({scrollTop:0},300)})),e(".js-show-header-dropdown").on("click",(function(){e(this).parent().find(".header-dropdown")}));for(var n=e(".js-show-header-dropdown"),t=-1,i=0;i<n.length;i++)e(n[i]).on("click",(function(){if(jQuery.inArray(this,n)==t)e(this).parent().find(".header-dropdown").toggleClass("show-header-dropdown"),t=-1;else{for(var o=0;o<n.length;o++)e(n[o]).parent().find(".header-dropdown").removeClass("show-header-dropdown");e(this).parent().find(".header-dropdown").toggleClass("show-header-dropdown"),t=jQuery.inArray(this,n)}}));e(".js-show-header-dropdown, .header-dropdown").click((function(e){e.stopPropagation()})),e(window).on("click",(function(){for(var o=0;o<n.length;o++)e(n[o]).parent().find(".header-dropdown").removeClass("show-header-dropdown");t=-1}));var r=e(".topbar").height(),d=e(".container-menu-header");e(window).on("scroll",(function(){if(e(this).scrollTop()>=r)e(".header1").addClass("fixed-header"),e(d).css("top",-r);else{var o=-e(this).scrollTop();e(d).css("top",o),e(".header1").removeClass("fixed-header")}e(this).scrollTop()>=200&&e(window).width()>992?(e(".fixed-header2").addClass("show-fixed-header2"),e(".header2").css("visibility","hidden"),e(".header2").find(".header-dropdown").removeClass("show-header-dropdown")):(e(".fixed-header2").removeClass("show-fixed-header2"),e(".header2").css("visibility","visible"),e(".fixed-header2").find(".header-dropdown").removeClass("show-header-dropdown"))})),e(".btn-show-menu-mobile").on("click",(function(){e(this).toggleClass("is-active"),e(".wrap-side-menu").slideToggle()}));var s=e(".arrow-main-menu");for(i=0;i<s.length;i++)e(s[i]).on("click",(function(){e(this).parent().find(".sub-menu").slideToggle(),e(this).toggleClass("turn-arrow")}));e(window).resize((function(){e(window).width()>=992&&("block"==e(".wrap-side-menu").css("display")&&(e(".wrap-side-menu").css("display","none"),e(".btn-show-menu-mobile").toggleClass("is-active")),"block"==e(".sub-menu").css("display")&&(e(".sub-menu").css("display","none"),e(".arrow-main-menu").removeClass("turn-arrow")))})),e(".btn-romove-top-noti").on("click",(function(){e(this).parent().remove()})),e(".block2-btn-addwishlist").on("click",(function(o){o.preventDefault(),e(this).addClass("block2-btn-towishlist"),e(this).removeClass("block2-btn-addwishlist"),e(this).off("click")})),e(".btn-num-product-down").on("click",(function(o){o.preventDefault();var n=Number(e(this).next().val());n>1&&e(this).next().val(n-1)})),e(".btn-num-product-up").on("click",(function(o){o.preventDefault();var n=Number(e(this).prev().val());e(this).prev().val(n+1)})),e(".active-dropdown-content .js-toggle-dropdown-content").toggleClass("show-dropdown-content"),e(".active-dropdown-content .dropdown-content").slideToggle("fast"),e(".js-toggle-dropdown-content").on("click",(function(){e(this).toggleClass("show-dropdown-content"),e(this).parent().find(".dropdown-content").slideToggle("fast")}));var a=e(".video-mo-01").children("iframe").attr("src");e('[data-target="#modal-video-01"]').on("click",(function(){e(".video-mo-01").children("iframe")[0].src+="&autoplay=1",setTimeout((function(){e(".video-mo-01").css("opacity","1")}),300)})),e('[data-dismiss="modal"]').on("click",(function(){e(".video-mo-01").children("iframe")[0].src=a,e(".video-mo-01").css("opacity","0")}))}(jQuery)}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/main.js":
+/*!******************************!*\
+  !*** ./resources/js/main.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  "use strict";
+  /*[ Load page ]
+  ===========================================================*/
+
+  $(".animsition").animsition({
+    inClass: 'fade-in',
+    outClass: 'fade-out',
+    inDuration: 1500,
+    outDuration: 800,
+    linkElement: '.animsition-link',
+    loading: true,
+    loadingParentElement: 'html',
+    loadingClass: 'animsition-loading-1',
+    loadingInner: '<div data-loader="ball-scale"></div>',
+    timeout: false,
+    timeoutCountdown: 5000,
+    onLoadEvent: true,
+    browser: ['animation-duration', '-webkit-animation-duration'],
+    overlay: false,
+    overlayClass: 'animsition-overlay-slide',
+    overlayParentElement: 'html',
+    transition: function transition(url) {
+      window.location.href = url;
+    }
+  });
+  /*[ Back to top ]
+  ===========================================================*/
+
+  var windowH = $(window).height() / 2;
+  $(window).on('scroll', function () {
+    if ($(this).scrollTop() > windowH) {
+      $("#myBtn").css('display', 'flex');
+    } else {
+      $("#myBtn").css('display', 'none');
+    }
+  });
+  $('#myBtn').on("click", function () {
+    $('html, body').animate({
+      scrollTop: 0
+    }, 300);
+  });
+  /*[ Show header dropdown ]
+  ===========================================================*/
+
+  $('.js-show-header-dropdown').on('click', function () {
+    $(this).parent().find('.header-dropdown');
+  });
+  var menu = $('.js-show-header-dropdown');
+  var sub_menu_is_showed = -1;
+
+  for (var i = 0; i < menu.length; i++) {
+    $(menu[i]).on('click', function () {
+      if (jQuery.inArray(this, menu) == sub_menu_is_showed) {
+        $(this).parent().find('.header-dropdown').toggleClass('show-header-dropdown');
+        sub_menu_is_showed = -1;
+      } else {
+        for (var i = 0; i < menu.length; i++) {
+          $(menu[i]).parent().find('.header-dropdown').removeClass("show-header-dropdown");
+        }
+
+        $(this).parent().find('.header-dropdown').toggleClass('show-header-dropdown');
+        sub_menu_is_showed = jQuery.inArray(this, menu);
+      }
+    });
+  }
+
+  $(".js-show-header-dropdown, .header-dropdown").click(function (event) {
+    event.stopPropagation();
+  });
+  $(window).on("click", function () {
+    for (var i = 0; i < menu.length; i++) {
+      $(menu[i]).parent().find('.header-dropdown').removeClass("show-header-dropdown");
+    }
+
+    sub_menu_is_showed = -1;
+  });
+  /*[ Fixed Header ]
+  ===========================================================*/
+
+  var posWrapHeader = $('.topbar').height();
+  var header = $('.container-menu-header');
+  $(window).on('scroll', function () {
+    if ($(this).scrollTop() >= posWrapHeader) {
+      $('.header1').addClass('fixed-header');
+      $(header).css('top', -posWrapHeader);
+    } else {
+      var x = -$(this).scrollTop();
+      $(header).css('top', x);
+      $('.header1').removeClass('fixed-header');
+    }
+
+    if ($(this).scrollTop() >= 200 && $(window).width() > 992) {
+      $('.fixed-header2').addClass('show-fixed-header2');
+      $('.header2').css('visibility', 'hidden');
+      $('.header2').find('.header-dropdown').removeClass("show-header-dropdown");
+    } else {
+      $('.fixed-header2').removeClass('show-fixed-header2');
+      $('.header2').css('visibility', 'visible');
+      $('.fixed-header2').find('.header-dropdown').removeClass("show-header-dropdown");
+    }
+  });
+  /*[ Show menu mobile ]
+  ===========================================================*/
+
+  $('.btn-show-menu-mobile').on('click', function () {
+    $(this).toggleClass('is-active');
+    $('.wrap-side-menu').slideToggle();
+  });
+  var arrowMainMenu = $('.arrow-main-menu');
+
+  for (var i = 0; i < arrowMainMenu.length; i++) {
+    $(arrowMainMenu[i]).on('click', function () {
+      $(this).parent().find('.sub-menu').slideToggle();
+      $(this).toggleClass('turn-arrow');
+    });
+  }
+
+  $(window).resize(function () {
+    if ($(window).width() >= 992) {
+      if ($('.wrap-side-menu').css('display') == 'block') {
+        $('.wrap-side-menu').css('display', 'none');
+        $('.btn-show-menu-mobile').toggleClass('is-active');
+      }
+
+      if ($('.sub-menu').css('display') == 'block') {
+        $('.sub-menu').css('display', 'none');
+        $('.arrow-main-menu').removeClass('turn-arrow');
+      }
+    }
+  });
+  /*[ remove top noti ]
+  ===========================================================*/
+
+  $('.btn-romove-top-noti').on('click', function () {
+    $(this).parent().remove();
+  });
+  /*[ Block2 button wishlist ]
+  ===========================================================*/
+
+  $('.block2-btn-addwishlist').on('click', function (e) {
+    e.preventDefault();
+    $(this).addClass('block2-btn-towishlist');
+    $(this).removeClass('block2-btn-addwishlist');
+    $(this).off('click');
+  });
+  /*[ +/- num product ]
+  ===========================================================*/
+
+  $('.btn-num-product-down').on('click', function (e) {
+    e.preventDefault();
+    var numProduct = Number($(this).next().val());
+    if (numProduct > 1) $(this).next().val(numProduct - 1);
+  });
+  $('.btn-num-product-up').on('click', function (e) {
+    e.preventDefault();
+    var numProduct = Number($(this).prev().val());
+    $(this).prev().val(numProduct + 1);
+  });
+  /*[ Show content Product detail ]
+  ===========================================================*/
+
+  $('.active-dropdown-content .js-toggle-dropdown-content').toggleClass('show-dropdown-content');
+  $('.active-dropdown-content .dropdown-content').slideToggle('fast');
+  $('.js-toggle-dropdown-content').on('click', function () {
+    $(this).toggleClass('show-dropdown-content');
+    $(this).parent().find('.dropdown-content').slideToggle('fast');
+  });
+  /*[ Play video 01]
+  ===========================================================*/
+
+  var srcOld = $('.video-mo-01').children('iframe').attr('src');
+  $('[data-target="#modal-video-01"]').on('click', function () {
+    $('.video-mo-01').children('iframe')[0].src += "&autoplay=1";
+    setTimeout(function () {
+      $('.video-mo-01').css('opacity', '1');
+    }, 300);
+  });
+  $('[data-dismiss="modal"]').on('click', function () {
+    $('.video-mo-01').children('iframe')[0].src = srcOld;
+    $('.video-mo-01').css('opacity', '0');
+  });
+})(jQuery);
+
+/***/ }),
+
+/***/ 1:
+/*!************************************!*\
+  !*** multi ./resources/js/main.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! D:\Apps\xampp\htdocs\flipmart\resources\js\main.js */"./resources/js/main.js");
+
+
+/***/ })
+
+/******/ });

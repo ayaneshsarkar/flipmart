@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Category;
 use NumberFormatter;
 
+use function GuzzleHttp\json_encode;
 
 class ProductController extends Controller
 {
@@ -638,5 +639,31 @@ class ProductController extends Controller
         } else {
             return \redirect('/admin')->with([ 'error' => 'Something went wrong!' ]);
         }
+    }
+
+    public function deleteProductImage(Request $request)
+    {
+        if(empty(session('userId'))) return null;
+
+        $productId = $request->input('productId');
+        $imageId = $request->input('imageId');
+
+        $url = env('SHOPIFY_URL') . "/products/$productId/images/$imageId.json";
+
+        $image = $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get($url);
+
+        if($image['image'] && $image['image']['position'] === 1) {
+            return response()->json([ 'status' => 404 ], 200);
+        }
+
+        $response = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->delete($url);
+
+        return response()->json([ 'status' => $response->status() ], 202);
     }
 }

@@ -1,4 +1,4 @@
-import { SHOPIFY_URL, proxy } from '../config';
+import swal from 'sweetalert';
 import { fetchShopify } from './fetchHelper';
 
 // Cart HTML
@@ -30,10 +30,19 @@ const insertCartHTML = (data, productData) => {
 export const deleteProductImage = async (productId, imageId) => {
   try {
     const res = await fetchShopify(
-      'DELETE', `${proxy}${SHOPIFY_URL}/products/${productId}/images/${imageId}.json`
+      'GET', `/deleteproductimagejs?productId=${productId}&imageId=${imageId}`
     );
+
+    const data = await res.json();
     
-    return await res.status;
+    if(data && data.status === 404) {
+      swal({
+        title: 'Error 404',
+        text: 'Main Image Cannot be Deleted, you can always change it.'
+      });
+    }
+    
+    return data.status;
 
   } catch(err) {
     console.log(err);

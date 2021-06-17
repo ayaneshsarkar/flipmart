@@ -81,6 +81,8 @@ Route::get('/change-password', 'AuthController@changePassword');
 Route::post('/update-profile', 'AuthController@updateProfile');
 Route::post('/update-password', 'AuthController@updatePassword');
 
+Route::get('/deleteproductimagejs', 'ProductController@deleteProductImage');
+
 // Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function() {
     var_dump(session('userId'));
