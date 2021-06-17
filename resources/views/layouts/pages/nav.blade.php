@@ -43,9 +43,9 @@
               <li class="{{ (!empty($page) && $page == 'category') ? 'sale-noti' : '' }}">
                 <a href="#" id="categoryAll">Categories</a>
                 <ul class="sub_menu">
-									<li><a href="#" id="categoryMen">Menz Footear</a></li>
-									<li><a href="#" id="categoryWomen">Womenz Footwear</a></li>
-									<li><a href="#" id="categoryKids">Kidz Footear</a></li>
+									<li><a href="/shop?category=men" id="categoryMen">Menz Footear</a></li>
+									<li><a href="/shop?category=women" id="categoryWomen">Womenz Footwear</a></li>
+									<li><a href="/shop?category=kids" id="categoryKids">Kidz Footear</a></li>
 								</ul>
 
 								<div style="display: none">

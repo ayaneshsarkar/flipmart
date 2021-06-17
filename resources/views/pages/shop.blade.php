@@ -7,27 +7,6 @@
 	@include('layouts.pages.modalSignIn')
   @include('layouts.pages.modalSignUp')
 
-  @php
-		function sortClass($class) {
-			if($class == 'low') {
-				return 'lowSort';
-			} elseif ($class == 'high') {
-				return 'highSort';
-			} else {
-				return '';
-			}
-		}
-
-		$minRange = $min ?? 10;
-		$maxRange = $max ?? 50;
-
-		$cartClass = 'errorCart';
-
-		if(session('loggedIn') == TRUE) {
-			$cartClass = 'successCart';
-		}
-  @endphp
-
 	<!-- Title Page -->
 
 	<section class="bg-title-page p-t-50 p-b-40 flex-col-c-m" 
@@ -55,25 +34,25 @@
 
 						<ul class="p-b-54">
 							<li class="p-t-4">
-								<a href="{{ URL::to('/shop?category_sort=all') }}" class="s-text13 {{ ($category == 'all') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop') }}" class="s-text13 {{ (!$category) ? 'active1' : '' }}">
 									All
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="{{ URL::to('/shop?category_sort=women') }}" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category=women') }}" class="s-text13 {{ ($category == 'women') ? 'active1' : '' }}">
 									Women
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="{{ URL::to('/shop?category_sort=men') }}" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category=men') }}" class="s-text13 {{ ($category == 'men') ? 'active1' : '' }}">
 									Men
 								</a>
 							</li>
 
 							<li class="p-t-4">
-								<a href="{{ URL::to('/shop?category_sort=kids') }}" id="categoryKids"  class="s-text13 {{ ($category == 'kids') ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop?category=kids') }}" id="categoryKids"  class="s-text13 {{ ($category == 'kids') ? 'active1' : '' }}">
 									Kids
 								</a>
 							</li>
@@ -224,7 +203,7 @@
 											<img src="{{ $product['image']['src'] }}" 
 											alt="{{ $product['title'] }}">
 
-											<div class="block2-overlay trans-0-4 no-cart">
+											{{-- <div class="block2-overlay trans-0-4 no-cart">
 												<div class="block2-btn-addcart w-size1 trans-0-4">
 													<button 
 													class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4 cartButton"
@@ -232,7 +211,7 @@
 														Add to Cart
 													</button>
 												</div>
-											</div>
+											</div> --}}
 										</div>
 
 										<div class="block2-txt p-t-20">

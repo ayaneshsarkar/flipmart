@@ -56,7 +56,7 @@ class ShopsController extends Controller
         ];
     }
 
-    private function getProducts()
+    private function getProducts(?string $category)
     {
         $availableProducts = [];
         $products = Http::withHeaders([
@@ -67,10 +67,19 @@ class ShopsController extends Controller
         if($products['products']) {
             foreach($products['products'] as $product) {
                 $productId = $product['id'];
+
                 $productDB = DB::table('products')
-                            ->where('shopify_id', $productId)->first();
+                            ->where('shopify_id', $productId)
+                ->first();
+
                 if($productDB && !$productDB->deleted_at) {
-                    array_push($availableProducts, $product);
+                    if(in_array($category, ['men', 'women', 'kids'])) {
+                        if(\strtolower($product['product_type']) === $category) {
+                            array_push($availableProducts, $product);
+                        }
+                    } else {
+                        array_push($availableProducts, $product);
+                    }
                 }
             }
         }
@@ -78,62 +87,20 @@ class ShopsController extends Controller
         return $availableProducts;
     }
 
-    private function productResults() {
-        // return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-        //                     ->select('products.*', 'users.name', 'users.id as userId')
-        //                     ->orderBy('updated_at')
-        //                     ->paginate(3);
-
-        return DB::table('products')->orderBy('created_at')->get();
-    }
-
-    private function rangeResults($min, $max) {
-        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-                            ->select('products.*', 'users.name', 'users.id as userId')
-                            ->whereBetween('price', [$min, $max])
-                            ->orderBy('price')
-                            ->paginate(10);
-    }
-
-    private function lowSort() {
-        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-                            ->select('products.*', 'users.name', 'users.id as userId')
-                            ->orderBy('price')
-                            ->paginate(10);
-    }
-
-    private function highSort() {
-        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-                            ->select('products.*', 'users.name', 'users.id as userId')
-                            ->orderByDesc('price')
-                            ->paginate(10);
-    }
-
-    private function categorySort($category) {
-        return DB::table('products')->join('users', 'products.user_id', '=', 'users.id')
-        ->select('products.*', 'users.name', 'users.id as userId')
-        ->where('category', ucwords($category))
-        ->orderByDesc('updated_at')
-        ->paginate(10);
-    }
-
     private function cartTotal(int $userId)
     {
         return DB::table('carts')->where('user_id', $userId)->sum('total');
     }
 
-    public function shop(Request $request) 
+    public function shop() 
     {
-        $min = $max = $priceSort = $category =  '';
+        $category = $_GET['category'] ?? null;
 
         $data = [
             'title' => 'Shop',
             'page' => 'shop',
-            'products' => $this->getProducts(),
-            'category' => 'all',
-            'min' => '',
-            'max' => '',
-            'sortClass' => '',
+            'products' => $this->getProducts($category),
+            'category' => $category,
             'login' => FALSE,
             'register' => FALSE
         ];

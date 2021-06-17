@@ -259,8 +259,8 @@
     // document.getElementById('value-upper')
     // ];
 
-    // //document.getElementById('value-lower').innerHTML = <?= $minRange; ?>
-    // //document.getElementById('value-upper').innerHTML = <?= $maxRange; ?>
+    // //document.getElementById('value-lower').innerHTML
+    // //document.getElementById('value-upper').innerHTML
 
     // filterBar.noUiSlider.on('update', function( values, handle ) {
     //     skipValues[handle].innerHTML = Math.round(values[handle]) ;
@@ -270,54 +270,6 @@
 
 </script>
 <!--===============================================================================================-->
-
-<script>
-  // document.getElementById('value-lower').innerHTML = `<?= $minRange; ?>`;
-  // document.getElementById('value-upper').innerHTML = `<?= $maxRange; ?>`;
-
-  // let sortResult = document.getElementById('sortResult');
-  // const sortForm = document.getElementById('sortForm');
-
-  // let sortSelection = document.querySelector('.selection-2');
-
-  // let selectText = document.querySelector('.select2-selection__rendered');
-
-  // if(document.querySelector('.highSort')) {
-  //   sortSelection.value = 'Price: high to low';
-
-  //   selectText.textContent = sortSelection.value;
-  // }
-
-  // if(document.querySelector('.lowSort')) {
-  //   sortSelection.value = 'Price: low to high';
-
-  //   selectText.textContent = sortSelection.value;
-  // }
-  
-  // function sortSelectFunction() {
-  //   if(sortSelection.value === 'Default Sorting') {
-  //     sortResult.value = 'default';
-  //     sortForm.submit();
-  //   }
-  //   if(sortSelection.value === 'Price: low to high') {
-  //     sortResult.value = 'low';
-  //     sortForm.submit();
-  //   }
-  //   if(sortSelection.value === 'Price: high to low') {
-  //     sortResult.value = 'high';
-  //     sortForm.submit();
-  //   }
-  // }
-
-  // const accountDropdown = document.querySelector('.header-account-dropdown');
-
-  // if(accountDropdown) {
-  //   $('#account').click(function() {
-  //     $('.header-account-dropdown').toggleClass('show-header-account-dropdown');
-  //   });
-  // }
-  
-</script>
 
 <script src="{{ asset('js/ajax.js') }}"></script>
 <script src="{{ asset('js/modal.js') }}"></script>
