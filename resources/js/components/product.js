@@ -38,14 +38,19 @@ export const deleteProductImage = async (productId, imageId) => {
     if(data && data.status === 404) {
       swal({
         title: 'Error 404',
-        text: 'Main Image Cannot be Deleted, you can always change it.'
+        text: 'Main Image Cannot be Deleted, you can always change it.',
+        icon: 'warning'
       });
     }
     
     return data.status;
 
   } catch(err) {
-    console.log(err);
+    swal({
+      title: 'Something Went Wrong!',
+      text: 'Operation did not process, please try again.',
+      icon: 'error'
+    });
   }
 }
 

@@ -650,19 +650,27 @@ class ProductController extends Controller
 
         $url = env('SHOPIFY_URL') . "/products/$productId/images/$imageId.json";
 
-        $image = $response = Http::withHeaders([
-            'content-type' => 'application/json',
-            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
-        ])->get($url);
+        try {
+            $image = Http::withHeaders([
+                'content-type' => 'application/json',
+                'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+            ])->get($url);
+        } catch(\Exception $err) {
+            return response()->json([ 'status' => 500 ]);
+        }
 
         if($image['image'] && $image['image']['position'] === 1) {
             return response()->json([ 'status' => 404 ], 200);
         }
 
-        $response = Http::withHeaders([
-            'content-type' => 'application/json',
-            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
-        ])->delete($url);
+        try {
+            $response = Http::withHeaders([
+                'content-type' => 'application/json',
+                'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+            ])->delete($url);
+        } catch(\Exception $e) {
+            return response()->json([ 'status' => 500 ]);
+        }
 
         return response()->json([ 'status' => $response->status() ], 202);
     }
