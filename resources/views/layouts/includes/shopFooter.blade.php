@@ -191,15 +191,15 @@
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/select2/select2.min.js"></script>
 <script type="text/javascript">
-  $(".selection-1").select2({
-    minimumResultsForSearch: 20,
-    dropdownParent: $('#dropDownSelect1')
-  });
+  // $(".selection-1").select2({
+  //   minimumResultsForSearch: 20,
+  //   dropdownParent: $('#dropDownSelect1')
+  // });
 
-  $(".selection-2").select2({
-    minimumResultsForSearch: 20,
-    dropdownParent: $('#dropDownSelect2')
-  });
+  // $(".selection-2").select2({
+  //   minimumResultsForSearch: 20,
+  //   dropdownParent: $('#dropDownSelect2')
+  // });
 </script>
 <!--===============================================================================================-->
 <script type="text/javascript" src="vendor/daterangepicker/moment.min.js"></script>
@@ -243,79 +243,79 @@
 <script type="text/javascript">
   /*[ No ui ]
     ===========================================================*/
-    var filterBar = document.getElementById('filter-bar');
+    // var filterBar = document.getElementById('filter-bar');
 
-    noUiSlider.create(filterBar, {
-        start: [ 10, 50 ],
-        connect: true,
-        range: {
-            'min': 10,
-            'max': 50
-        }
-    });
+    // noUiSlider.create(filterBar, {
+    //     start: [ 10, 50 ],
+    //     connect: true,
+    //     range: {
+    //         'min': 10,
+    //         'max': 50
+    //     }
+    // });
 
-    var skipValues = [
-    document.getElementById('value-lower'),
-    document.getElementById('value-upper')
-    ];
+    // var skipValues = [
+    // document.getElementById('value-lower'),
+    // document.getElementById('value-upper')
+    // ];
 
-    //document.getElementById('value-lower').innerHTML = <?= $minRange; ?>
-    //document.getElementById('value-upper').innerHTML = <?= $maxRange; ?>
+    // //document.getElementById('value-lower').innerHTML = <?= $minRange; ?>
+    // //document.getElementById('value-upper').innerHTML = <?= $maxRange; ?>
 
-    filterBar.noUiSlider.on('update', function( values, handle ) {
-        skipValues[handle].innerHTML = Math.round(values[handle]) ;
-        document.getElementById('minPrice').value = skipValues[0].innerHTML;
-        document.getElementById('maxPrice').value = skipValues[1].innerHTML;
-    });
+    // filterBar.noUiSlider.on('update', function( values, handle ) {
+    //     skipValues[handle].innerHTML = Math.round(values[handle]) ;
+    //     document.getElementById('minPrice').value = skipValues[0].innerHTML;
+    //     document.getElementById('maxPrice').value = skipValues[1].innerHTML;
+    // });
 
 </script>
 <!--===============================================================================================-->
 
 <script>
-  document.getElementById('value-lower').innerHTML = `<?= $minRange; ?>`;
-  document.getElementById('value-upper').innerHTML = `<?= $maxRange; ?>`;
+  // document.getElementById('value-lower').innerHTML = `<?= $minRange; ?>`;
+  // document.getElementById('value-upper').innerHTML = `<?= $maxRange; ?>`;
 
-  let sortResult = document.getElementById('sortResult');
-  const sortForm = document.getElementById('sortForm');
+  // let sortResult = document.getElementById('sortResult');
+  // const sortForm = document.getElementById('sortForm');
 
-  let sortSelection = document.querySelector('.selection-2');
+  // let sortSelection = document.querySelector('.selection-2');
 
-  let selectText = document.querySelector('.select2-selection__rendered');
+  // let selectText = document.querySelector('.select2-selection__rendered');
 
-  if(document.querySelector('.highSort')) {
-    sortSelection.value = 'Price: high to low';
+  // if(document.querySelector('.highSort')) {
+  //   sortSelection.value = 'Price: high to low';
 
-    selectText.textContent = sortSelection.value;
-  }
+  //   selectText.textContent = sortSelection.value;
+  // }
 
-  if(document.querySelector('.lowSort')) {
-    sortSelection.value = 'Price: low to high';
+  // if(document.querySelector('.lowSort')) {
+  //   sortSelection.value = 'Price: low to high';
 
-    selectText.textContent = sortSelection.value;
-  }
+  //   selectText.textContent = sortSelection.value;
+  // }
   
-  function sortSelectFunction() {
-    if(sortSelection.value === 'Default Sorting') {
-      sortResult.value = 'default';
-      sortForm.submit();
-    }
-    if(sortSelection.value === 'Price: low to high') {
-      sortResult.value = 'low';
-      sortForm.submit();
-    }
-    if(sortSelection.value === 'Price: high to low') {
-      sortResult.value = 'high';
-      sortForm.submit();
-    }
-  }
+  // function sortSelectFunction() {
+  //   if(sortSelection.value === 'Default Sorting') {
+  //     sortResult.value = 'default';
+  //     sortForm.submit();
+  //   }
+  //   if(sortSelection.value === 'Price: low to high') {
+  //     sortResult.value = 'low';
+  //     sortForm.submit();
+  //   }
+  //   if(sortSelection.value === 'Price: high to low') {
+  //     sortResult.value = 'high';
+  //     sortForm.submit();
+  //   }
+  // }
 
-  const accountDropdown = document.querySelector('.header-account-dropdown');
+  // const accountDropdown = document.querySelector('.header-account-dropdown');
 
-  if(accountDropdown) {
-    $('#account').click(function() {
-      $('.header-account-dropdown').toggleClass('show-header-account-dropdown');
-    });
-  }
+  // if(accountDropdown) {
+  //   $('#account').click(function() {
+  //     $('.header-account-dropdown').toggleClass('show-header-account-dropdown');
+  //   });
+  // }
   
 </script>
 

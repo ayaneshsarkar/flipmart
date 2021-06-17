@@ -82,11 +82,11 @@
 
 
 						<!--  -->
-						<h4 class="m-text14 p-b-32">
+						{{-- <h4 class="m-text14 p-b-32">
 							Filters
-						</h4>
+						</h4> --}}
 
-						<div class="filter-price p-t-22 p-b-50 bo3">
+						{{-- <div class="filter-price p-t-22 p-b-50 bo3">
 							<div class="m-text15 p-b-17">
 								Price
 							</div>
@@ -111,7 +111,7 @@
 									</div>
 								</div>
 							{{ Form::close() }}
-						</div>
+						</div> --}}
 
 						{{-- <div class="filter-color p-t-22 p-b-50 bo3">
 							<div class="m-text15 p-b-12">
@@ -161,15 +161,15 @@
 				<div class="col-sm-6 col-md-8 col-lg-9 p-b-50">
 
 					<!-- Sort By Price -->
-					<div class="flex-sb-m flex-w p-b-35">
-						<div class="flex-w" style="align-items: center">
-							<div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
+					{{-- <div class="flex-sb-m flex-w p-b-35">
+						<div class="flex-w" style="align-items: center"> --}}
+							{{-- <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 								<select onchange="sortSelectFunction()" class="selection-2 {{ sortClass($sortClass) }}" name="sorting">
 									<option>Default Sorting</option>
 									<option>Price: low to high</option>
 									<option>Price: high to low</option>
 								</select>
-							</div>
+							</div> --}}
 
 							{{-- <div class="rs2-select2 bo4 of-hidden w-size12 m-t-5 m-b-5 m-r-10">
 								<select class="selection-2" name="sorting">
@@ -183,27 +183,27 @@
 								</select>
 							</div> --}}
 
-							<div class="search-product pos-relative bo4 of-hidden m-t-5 m-b-5" style="height: 50px">
+							{{-- <div class="search-product pos-relative bo4 of-hidden m-t-5 m-b-5" style="height: 50px">
 								<input class="s-text7 size6 p-l-23 p-r-50" type="text" name="search-product" placeholder="Search Products..." style="height: 100%">
 	
 								<button class="flex-c-m size5 ab-r-m color2 color0-hov trans-0-4">
 									<i class="fs-12 fa fa-search" aria-hidden="true"></i>
 								</button>
-							</div>
+							</div> --}}
 
-							<div style="display: none">
+							{{-- <div style="display: none">
 								{{ Form::open(['action' => 'ShopsController@shop', 'method' => 'GET', 'id' => 'sortForm']) }}
 									<input type="hidden" id="sortResult" name="price_sort">
 								{{ Form::close() }}
 							</div>
 
-							<p id='test'></p>
-						</div>
+							<p id='test'></p> --}}
+						{{-- </div> --}}
 
-						<span class="s-text8 p-t-5 p-b-5">
+						{{-- <span class="s-text8 p-t-5 p-b-5">
 							Showing 1–3 of 5 results
-						</span>
-					</div>
+						</span> --}}
+					{{-- </div> --}}
 
 					<!-- Product -->
 					<div class="row">
@@ -271,6 +271,8 @@
 				</div>
 			</div>
 		</div>
+
+		<div id="singleProductSlug"></div>
 	</section>
 
   @include('layouts.includes.shopFooter')

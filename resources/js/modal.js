@@ -139,6 +139,7 @@ const singleProductSlug = document.getElementById('singleProductSlug');
 
 if(account && accountDropdown) {
   accountDropdown.addEventListener('click', function() {
+    console.log('clicked')
     accountDropdown.classList.toggle('show-header-account-dropdown');
   });
 }
