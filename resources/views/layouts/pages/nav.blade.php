@@ -16,7 +16,11 @@
 
 				<div class="topbar-child2">
 					<span class="topbar-email">
-						ayaneshofficial@gmail.com
+						@if(session('userId'))
+							{{ DB::table('users')->where('id', session('userId'))->first()->email }}
+						@else
+							Please Sign In or Create an Account
+						@endif
 					</span>
 				</div>
 			</div>

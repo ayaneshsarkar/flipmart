@@ -20,6 +20,7 @@
                 <th>Price</th>
                 <th>Category</th>
                 <th>Vendor</th>
+                <th>Featured</th>
                 <th></th>
                 <th></th>
               </tr>
@@ -59,6 +60,14 @@
                     <div class="d-flex align-items-center">
                       {{ $product['vendor'] }}
                     </div>
+                  </td>
+
+                  <td class="center">
+                    @php 
+                      $featured = DB::table('products')->where('shopify_id', $product['id'])->first()->featured;
+                    @endphp
+
+                    {{ $featured ? 'Yes' : 'No' }} 
                   </td>
 
                   <td class="center">

@@ -2661,3 +2661,9 @@ input.num-product::-webkit-inner-spin-button {
   opacity: 0 !important;
 }
 
+#checkoutOrderButton:disabled {
+  pointer-events: none;
+  background-color: #453D3D !important;
+  color: #ccc;
+}
+

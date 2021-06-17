@@ -15,6 +15,42 @@ use Illuminate\Support\Facades\Http;
 
 class PagesController extends Controller
 {
+    private function getFeaturedProducts()
+    {
+        $availableProducts = [];
+
+        $products = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get(env('SHOPIFY_URL') . '/products.json');
+
+        if($products['products']) {
+            $allProducts = $products['products'];
+
+            \usort($allProducts, function ($a, $b) {
+                $a = $a['published_at'];
+                $b = $b['published_at'];
+        
+                if ($a == $b) return 0;
+                return ($a < $b) ? 1 : -1;
+            });
+
+            foreach($allProducts as $product) {
+                $productId = $product['id'];
+
+                $productDB = DB::table('products')
+                            ->where('shopify_id', $productId)
+                ->first();
+
+                if($productDB && !$productDB->deleted_at && $productDB->featured) {
+                    array_push($availableProducts, $product);
+                }
+            }
+        }
+
+        return $availableProducts;
+    }
+
     private function getProduct(int $id)
     {
         $url = env('SHOPIFY_URL') . "/products/$id.json";
@@ -74,7 +110,8 @@ class PagesController extends Controller
             'title' => 'Welcome To FlipMart',
             'page' => 'home',
             'login' => FALSE,
-            'register' => FALSE
+            'register' => FALSE,
+            'featuredProducts' => $this->getFeaturedProducts()
         ];
 
         if(session('loggedIn') == TRUE) {
@@ -90,7 +127,7 @@ class PagesController extends Controller
         }
 
 
-        return  view('pages/index')->with($data);
+        return view('pages/index')->with($data);
     }
 
     public function about() 

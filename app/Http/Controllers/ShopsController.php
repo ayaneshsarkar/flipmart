@@ -65,7 +65,17 @@ class ShopsController extends Controller
         ])->get(env('SHOPIFY_URL') . '/products.json');
 
         if($products['products']) {
-            foreach($products['products'] as $product) {
+            $allProducts = $products['products'];
+
+            \usort($allProducts, function ($a, $b) {
+                $a = $a['published_at'];
+                $b = $b['published_at'];
+        
+                if ($a == $b) return 0;
+                return ($a < $b) ? 1 : -1;
+            });
+
+            foreach($allProducts as $product) {
                 $productId = $product['id'];
 
                 $productDB = DB::table('products')

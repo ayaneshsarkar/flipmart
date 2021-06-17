@@ -1,7 +1,7 @@
 import axios from 'axios';
 import swal from 'sweetalert';
 import { manageMultipleCart, deleteCart, formatNumber } from './components/product';
-import { getCartTotal, chargeApplication } from './components/order';
+import { chargeApplication } from './components/order';
 
 const addToCart = document.getElementById('addToCart');
 const cartResults = document.getElementById('cartResults');
@@ -170,6 +170,14 @@ if(mainCartImage) {
 // Order
 if(checkoutButton) {
   checkoutButton.addEventListener('click', async () => {
+    checkoutButton.setAttribute('disabled', 'true');
+    checkoutButton.textContent = 'Processing...';
+
+    swal({
+      title: 'Order Processed!',
+      text: 'Order has been processed, please wait, do not press back or refresh.',
+    });
+
     const res = await axios.get('/authorize-user');
     
     if(res.data === 1) {

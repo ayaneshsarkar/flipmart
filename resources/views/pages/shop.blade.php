@@ -13,11 +13,11 @@
 			style="background-image: linear-gradient(to right bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.6)), 
 			url(images/shoes-all.jpg);">
 		<h2 class="l-text2 t-center">
-			{{ (in_array($category, ['all', 'men', 'women', 'kids'])) ? 'Welcome' : '' }}
+			{{-- {{ (in_array($category, ['all', 'men', 'women', 'kids'])) ? 'Welcome' : '' }} --}}
+			Welcome
 		</h2>
 		<p class="m-text13 t-center">
-			{{ (in_array($category, ['all', 'men', 'women', 'kids'])) ? 
-			"New Arrivals of " . date('Y') . ", Have a Look!" : '' }}
+			{{ "New Arrivals of " . date('Y') . ", Have a Look!" }}
 		</p>
 	</section>
 

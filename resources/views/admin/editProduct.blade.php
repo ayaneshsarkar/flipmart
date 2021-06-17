@@ -227,6 +227,18 @@
           </div>
         </div>
 
+        {{-- Featured --}}
+        <div class="col-12">
+          <div class="product__inputbox">
+            <select name="featured" class="product__inputbox__newoption" required>
+              <option disabled selected value="">Select Featured (Required)</option>
+              <option value="0" {{ !$productData->featured ? 'selected' : '' }}>No</option>
+              <option value="1" {{ $productData->featured ? 'selected' : '' }}>Yes</option>
+            </select>
+            @error('featured')<span class="invalid-text">{{$message}}</span>@enderror
+          </div>
+        </div>
+
 
         {{-- Description --}}
 

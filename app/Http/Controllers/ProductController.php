@@ -64,7 +64,7 @@ class ProductController extends Controller
             'type' => 'admin',
             'user' => DB::table('users')->where('id', session('userId'))->first(),
             'orderCount' => DB::table('orders')->count(),
-            'productCount' => DB::table('products')->count(),
+            'productCount' => DB::table('products')->where('deleted_at', null)->count(),
             'categoryCount' => DB::table('categories')->count()
         ];
         return view('admin.dashboard')->with($data);
@@ -270,15 +270,16 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'discount' => 'nullable|integer',
             'delivery_days' => 'required|integer',
-            'min_size' => 'required|integer',
-            'max_size' => 'required|integer',
+            'min_size' => 'required|integer|lt:max_size',
+            'max_size' => 'required|integer|gt:min_size',
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'images' => 'nullable',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'description' => 'required|string',
-            'availability' => 'required|integer'
+            'availability' => 'required|integer',
+            'featured' => 'required|integer|digits:1'
         ]);
 
         if($validator->fails()) {
@@ -364,7 +365,8 @@ class ProductController extends Controller
                 'delivery_days' => $request->input('delivery_days'),
                 'min_size' => $request->input('min_size'),
                 'max_size' => $request->input('max_size'),
-                'discount' => $request->input('discount') ?? NULL
+                'discount' => $request->input('discount') ?? NULL,
+                'featured' => $request->input('featured')
             ]);
         }
 
@@ -376,6 +378,15 @@ class ProductController extends Controller
         if(!$this->authorizeAdmin()) return redirect('/signin');
 
         $products = $this->getProducts()['products'];
+
+        \usort($products, function ($a, $b) {
+            $a = $a['published_at'];
+            $b = $b['published_at'];
+    
+            if ($a == $b) return 0;
+            return ($a < $b) ? 1 : -1;
+        });
+
         $availableProducts = [];
 
         foreach($products as $product) {
@@ -548,15 +559,16 @@ class ProductController extends Controller
             'price' => 'required|integer',
             'discount' => 'nullable|integer',
             'delivery_days' => 'required|integer',
-            'min_size' => 'required|integer',
-            'max_size' => 'required|integer',
+            'min_size' => 'required|integer|lt:max_size',
+            'max_size' => 'required|integer|gt:min_size',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'images' => 'nullable',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg,jiff|max:2048',
             'category' => 'required|string|max:255',
             'brand' => 'required|string|max:255',
             'description' => 'required|string',
-            'availability' => 'required|integer'
+            'availability' => 'required|integer',
+            'featured' => 'required|integer|digits:1'
         ]);
 
         if($validator->fails()) {
@@ -611,6 +623,14 @@ class ProductController extends Controller
                     $request->file('images'), $product['id'], null, true
                 );
             }
+
+            DB::table('products')->where('shopify_id', $request->input('id'))->update([
+                'delivery_days' => $request->input('delivery_days'),
+                'min_size' => $request->input('min_size'),
+                'max_size' => $request->input('max_size'),
+                'discount' => $request->input('discount') ?? NULL,
+                'featured' => $request->input('featured')
+            ]);
 
             return \redirect('/products')->with([ 
                 'success' => 'Product Successfully Updated!' 
