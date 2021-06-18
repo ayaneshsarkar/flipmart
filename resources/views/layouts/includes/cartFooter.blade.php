@@ -161,7 +161,7 @@
     </a>
 
     <div class="t-center s-text8 p-t-20">
-      Copyright © <?= date('Y') ?> All rights reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+      Copyright © <?= date('Y') ?> All rights reserved.
     </div>
   </div>
 </footer>
@@ -201,30 +201,30 @@
     dropdownParent: $('#dropDownSelect2')
   });
 
-  const account = document.getElementById('account');
-  const accountDropdown = document.querySelector('.header-account-dropdown');
+  // const account = document.getElementById('account');
+  // const accountDropdown = document.querySelector('.header-account-dropdown');
 
-  if(account && accountDropdown) {
-    account.addEventListener('click', function() {
-      accountDropdown.classList.toggle('show-header-account-dropdown');
-    });
-  }
+  // if(account && accountDropdown) {
+  //   account.addEventListener('click', function() {
+  //     accountDropdown.classList.toggle('show-header-account-dropdown');
+  //   });
+  // }
   
 
-  const logoutText = document.getElementById('logoutText');
-  const logoutForm = document.getElementById('logoutForm');
+  // const logoutText = document.getElementById('logoutText');
+  // const logoutForm = document.getElementById('logoutForm');
 
-  if(logoutText && logoutForm) {
-    logoutText.addEventListener('click', function() {
-      logoutForm.submit();
-    });
-  }
+  // if(logoutText && logoutForm) {
+  //   logoutText.addEventListener('click', function() {
+  //     logoutForm.submit();
+  //   });
+  // }
 
-  document.getElementById('updateButton').style.display = 'none';
+  // document.getElementById('updateButton').style.display = 'none';
 
-  document.getElementById('checkoutButton').addEventListener('click', function() {
-    document.getElementById('order').submit();
-  });
+  // document.getElementById('checkoutButton').addEventListener('click', function() {
+  //   document.getElementById('order').submit();
+  // });
 </script>
 
 <!--===============================================================================================-->

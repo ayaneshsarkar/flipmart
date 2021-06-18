@@ -141,6 +141,8 @@
 				<div id="checkoutButton"></div>
 			@endif
 		</div>
+
+		<div id="singleProductSlug"></div>
 	</section>
 
 

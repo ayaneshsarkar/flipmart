@@ -190,7 +190,8 @@ class ProductController extends Controller
         
         $validator = Validator::make($request->all(), [
             'id' => 'required|integer',
-            'brand' => 'required|string|max:255'
+            'brand' => 'required|string|max:255',
+            'main_image' => 'nullable|image'
         ]);
 
         $id = $request->input('id');
@@ -205,8 +206,22 @@ class ProductController extends Controller
 
         if(!$brand) return redirect('/admin')->with(['error' => 'No such Brand exist!']);
 
+        if($request->hasFile('main_image')) {
+            if($brand->main_image) {
+                if(file_exists(public_path("brandimages/$brand->main_image"))) {
+                    unlink(public_path("brandimages/$brand->main_image"));
+                }
+            }
+
+            $ext = $request->file('main_image')->getClientOriginalExtension();
+            $mainImage = Str::random(10) . '.' . $ext;
+
+            $request->file('main_image')->move(\public_path('brandimages'), $mainImage);
+        }
+
         DB::table('categories')->where('id', $id)->update([
-            'brand' => $request->input('brand')
+            'brand' => $request->input('brand'),
+            'main_image' => $mainImage ?? null
         ]);
 
         return redirect('/admin')->with(['success' => 'Brand updated successfully!']);

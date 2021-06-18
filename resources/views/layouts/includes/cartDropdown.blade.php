@@ -1,6 +1,10 @@
 <div class="header-cart header-dropdown" id="cartDropdown">
   @if(session('loggedIn') == TRUE)
     <ul class="header-cart-wrapitem cartDropdownItem" id="cartResults">
+      @if(count($cartResults['cartData']) === 0)
+        <p>Nothing Here</p>
+      @endif
+      
       @if(!empty($cartResults))
         @foreach ($cartResults['shopifyData'] as $cartResult)
           @php 
@@ -28,13 +32,10 @@
             </div>
           </li>
         @endforeach
-      @else
-        <p>Nothing Here</p>
       @endif
     </ul>
   @endif
 
-  {{-- @if((!empty($cartTotal)) && $cartTotal > 0) --}}
     <div class="header-cart-total" id="cartTotal">
       Total: ${{ !empty($cartTotal) && $cartTotal > 0 ? $cartTotal : 0 }}
     </div>

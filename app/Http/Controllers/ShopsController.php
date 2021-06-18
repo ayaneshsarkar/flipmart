@@ -56,7 +56,7 @@ class ShopsController extends Controller
         ];
     }
 
-    private function getProducts(?string $category)
+    private function getProducts(?string $category, ?bool $allowBrand = false)
     {
         $availableProducts = [];
         $products = Http::withHeaders([
@@ -83,7 +83,11 @@ class ShopsController extends Controller
                 ->first();
 
                 if($productDB && !$productDB->deleted_at) {
-                    if(in_array($category, ['men', 'women', 'kids'])) {
+                    if($allowBrand) {
+                        if(\strtolower($product['vendor']) === \strtolower($category)) {
+                            array_push($availableProducts, $product);
+                        }
+                    } elseif(in_array($category, ['men', 'women', 'kids']) && !$allowBrand) {
                         if(\strtolower($product['product_type']) === $category) {
                             array_push($availableProducts, $product);
                         }
@@ -105,15 +109,19 @@ class ShopsController extends Controller
     public function shop() 
     {
         $category = $_GET['category'] ?? null;
+        $brand = $_GET['brand'] ?? null;
 
         $data = [
             'title' => 'Shop',
             'page' => 'shop',
-            'products' => $this->getProducts($category),
             'category' => $category,
             'login' => FALSE,
             'register' => FALSE
         ];
+        
+        $brand ? 
+        $data['products'] = $this->getProducts($brand, true) :
+        $data['products'] = $this->getProducts($category);
 
         if(session('loggedIn') == TRUE) {
             if($this->checkCart(session('userId'))) {

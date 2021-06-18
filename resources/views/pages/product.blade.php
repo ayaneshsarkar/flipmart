@@ -14,12 +14,12 @@
 			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 		</a>
 
-		<a href="{{ URL::to('/shop?category_sort=' . strtolower($product['product_type'])) }}" class="s-text16">
+		<a href="{{ URL::to('/shop?category=' . strtolower($product['product_type'])) }}" class="s-text16">
 			{{ ucwords($product['product_type']) }}
 			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 		</a>
 
-		<a href="#" class="s-text16">
+		<a href="{{ URL::to('/shop?brand=' . strtolower($product['vendor'])) }}" class="s-text16">
 			{{ ucwords($product['vendor']) }}
 			<i class="fa fa-angle-right m-l-8 m-r-9" aria-hidden="true"></i>
 		</a>

@@ -15,6 +15,7 @@
           <thead>
             <tr>
               <th>#</th>
+              <th>Image</th>
               <th>Brand Name</th>
               <th>Created At</th>
               <th></th>
@@ -26,14 +27,21 @@
             @foreach($brands as $brand)
               <tr>
                 <td>{{ $serial++ }}</td>
-                <td>{{ $brand->brand }}</td>
-                <td>{{ date('F j, Y, g:i a', strtotime($brand->created_at)) }}</td>
                 <td>
+                  <img 
+                    src="{{ asset("brandimages/$brand->main_image") }}" 
+                    alt="{{ $brand->brand }}" 
+                    class="img"
+                  >
+                </td>
+                <td class="center">{{ $brand->brand }}</td>
+                <td class="center">{{ date('F j, Y, g:i a', strtotime($brand->created_at)) }}</td>
+                <td class="center">
                   <a href="/editbrand/?id={{ $brand->id }}">
                     {{-- <i class="fa fa-pencil" aria-hidden="true"></i> --}} Edit
                   </a>
                 </td>
-                <td>
+                <td class="center">
                   <a class="alertswal" href="/deletebrand/{{ $brand->id }}">
                     {{-- <i class="fa fa-trash" aria-hidden="true"></i> --}} Delete
                   </a>

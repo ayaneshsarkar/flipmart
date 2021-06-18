@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,42 @@ use Illuminate\Support\Facades\URL;
 
 class AuthController extends Controller
 {
+    private function getFeaturedProducts()
+    {
+        $availableProducts = [];
+
+        $products = Http::withHeaders([
+            'content-type' => 'application/json',
+            'X-Shopify-Access-Token' => env('SHOPIFY_ACCESS_TOKEN')
+        ])->get(env('SHOPIFY_URL') . '/products.json');
+
+        if($products['products']) {
+            $allProducts = $products['products'];
+
+            \usort($allProducts, function ($a, $b) {
+                $a = $a['published_at'];
+                $b = $b['published_at'];
+        
+                if ($a == $b) return 0;
+                return ($a < $b) ? 1 : -1;
+            });
+
+            foreach($allProducts as $product) {
+                $productId = $product['id'];
+
+                $productDB = DB::table('products')
+                            ->where('shopify_id', $productId)
+                ->first();
+
+                if($productDB && !$productDB->deleted_at && $productDB->featured) {
+                    array_push($availableProducts, $product);
+                }
+            }
+        }
+
+        return $availableProducts;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +74,9 @@ class AuthController extends Controller
         $data = [
             'title' => 'Welcome To FlipMart',
             'login' => FALSE,
-            'register' => TRUE
+            'register' => TRUE,
+            'featuredProducts' => $this->getFeaturedProducts(),
+            'brands' => DB::table('categories')->orderBy('created_at')->get()
         ];
 
         return  view('pages/index')->with($data);
@@ -55,7 +94,9 @@ class AuthController extends Controller
         $data = [
             'title' => 'Welcome To FlipMart',
             'login' => TRUE,
-            'register' => FALSE
+            'register' => FALSE,
+            'featuredProducts' => $this->getFeaturedProducts(),
+            'brands' => DB::table('categories')->orderBy('created_at')->get()
         ];
 
         return  view('pages/index')->with($data);

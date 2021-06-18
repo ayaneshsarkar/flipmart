@@ -74,98 +74,27 @@
 		</div>
 	</section>
 
-	<!-- Banner -->
+	<!-- Brands -->
 	<section class="banner bgwhite p-t-40 p-b-40">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-					<!-- block1 -->
-					<div class="block1 hov-img-zoom pos-relative m-b-30">
-						<img src="images/download/banner-1.jpg" alt="IMG-BENNER">
+				@foreach($brands as $brand)
+					<div class="col-sm-10 col-md-8 col-lg-4">
+							<div class="block1 hov-img-zoom pos-relative m-b-30">
+								<img src="{{ asset("brandimages/$brand->main_image") }}" 
+								alt="{{ $brand->brand }}">
 
-						<div class="block1-wrapbtn w-size2">
-							<!-- Button -->
-							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-								NIKE
-							</a>
-						</div>
-					</div>
-
-					<!-- block1 -->
-					<div class="block1 hov-img-zoom pos-relative m-b-30">
-						<img src="images/download/banner-3.jpg" alt="IMG-BENNER">
-
-						<div class="block1-wrapbtn w-size2">
-							<!-- Button -->
-							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-								Reebok
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-					<!-- block1 -->
-					<div class="block1 hov-img-zoom pos-relative m-b-30">
-						<img src="images/download/banner-2.jpg" alt="IMG-BENNER">
-
-						<div class="block1-wrapbtn w-size2">
-							<!-- Button -->
-							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-								ADIDAS
-							</a>
-						</div>
-					</div>
-
-					<!-- block1 -->
-					<div class="block1 hov-img-zoom pos-relative m-b-30">
-						<img src="images/download/banner-5.jpg" alt="IMG-BENNER">
-
-						<div class="block1-wrapbtn w-size2">
-							<!-- Button -->
-							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-								JORDAN
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-4 m-l-r-auto">
-					<!-- block1 -->
-					<div class="block1 hov-img-zoom pos-relative m-b-30">
-						<img src="images/download/banner-4.jpg" alt="IMG-BENNER">
-
-						<div class="block1-wrapbtn w-size2">
-							<!-- Button -->
-							<a href="#" class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4">
-								PUMA
-							</a>
-						</div>
-					</div>
-
-					<!-- block2 -->
-					{{-- <div class="block2 wrap-pic-w pos-relative m-b-30">
-						<img src="images/icons/bg-01.jpg" alt="IMG">
-
-						<div class="block2-content sizefull ab-t-l flex-col-c-m">
-							<h4 class="m-text4 t-center w-size3 p-b-8">
-								Sign up & get 20% off
-							</h4>
-
-							<p class="t-center w-size4">
-								Be the frist to know about the latest fashion news and get exclu-sive offers
-							</p>
-
-							<div class="w-size2 p-t-25">
-								<!-- Button -->
-								<a href="#" class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
-									Sign Up
-								</a>
+								<div class="block1-wrapbtn w-size2">
+									<!-- Button -->
+									<a href="/shop?brand={{ strtolower($brand->brand) }}" 
+										class="flex-c-m size2 m-text2 bg3 hov1 trans-0-4"
+									>
+										{{ strtoupper($brand->brand) }}
+									</a>
+								</div>
 							</div>
-						</div>
-					</div> --}}
-				</div>
-			</div>
+					</div>
+				@endforeach
 		</div>
 	</section>
 
@@ -223,23 +152,23 @@
 									<img src="{{ $product['image']['src'] }}" 
 											alt="{{ $product['title'] }}">
 
-									<div class="block2-overlay trans-0-4 no-cart">
+									{{-- <div class="block2-overlay trans-0-4 no-cart">
 										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">
 											<i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
 											<i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
 										</a>
 
-										{{-- <div class="block2-btn-addcart w-size1 trans-0-4">
+										<div class="block2-btn-addcart w-size1 trans-0-4">
 											<!-- Button -->
 											<button class="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4">
 												Add to Cart
 											</button>
-										</div> --}}
-									</div>
+										</div>
+									</div> --}}
 								</div>
 
 								<div class="block2-txt p-t-20">
-									<a href="product-detail.html" class="block2-name dis-block s-text3 p-b-5">
+									<a href="/shop/{{ $product['id'] }}" class="block2-name dis-block s-text3 p-b-5">
 										{{ $product['title'] }}
 									</a>
 
@@ -476,97 +405,6 @@
 
 		</div>
 	</section>
-
-	<!-- Banner2 -->
-	{{-- <section class="banner2 bg5 p-t-55 p-b-55">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="hov-img-zoom pos-relative" style="background: black">
-						<img src="images/download/banner-6.jpg" alt="IMG-BANNER" style="opacity: 0.6">
-
-						<div class="ab-t-l sizefull flex-col-c-m p-l-15 p-r-15">
-							<span class="m-text9 p-t-45 fs-20-sm">
-								KIDZ ARE
-							</span>
-
-							<h3 class="l-text1 fs-35-sm">
-								AWESOME
-							</h3>
-
-							<a href="#" class="s-text4 hov2 p-t-20 ">
-								View Collection
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-10 col-md-8 col-lg-6 m-l-r-auto p-t-15 p-b-15">
-					<div class="bgwhite hov-img-zoom pos-relative p-b-20per-ssm" style="background: black">
-						<img src="images/download/banner-7.jpg" alt="IMG-BANNER" style="opacity: 0.6 !important;">
-
-						<div class="ab-t-l sizefull flex-col-c-b p-l-15 p-r-15 p-b-20">
-							<div class="t-center">
-								<a href="product-detail.html" class="dis-block s-text3 p-b-5" style="color: white">
-									Adidas Ayanesh Special
-								</a>
-
-								<span class="block2-oldprice m-text7 p-r-5" style="color: white">
-									$29.50
-								</span>
-
-								<span class="block2-newprice m-text8" style="color: white">
-									$15.90
-								</span>
-							</div>
-
-							<div class="flex-c-m p-t-44 p-t-30-xl">
-								<div class="flex-col-c-m size3 bo1 m-l-5 m-r-5">
-									<span class="m-text10 p-b-1 days" style="color: white">
-										69
-									</span>
-
-									<span class="s-text5" style="color: white">
-										days
-									</span>
-								</div>
-
-								<div class="flex-col-c-m size3 bo1 m-l-5 m-r-5" style="color: white">
-									<span class="m-text10 p-b-1 hours" style="color: white">
-										04
-									</span>
-
-									<span class="s-text5" style="color: white">
-										hrs
-									</span>
-								</div>
-
-								<div class="flex-col-c-m size3 bo1 m-l-5 m-r-5">
-									<span class="m-text10 p-b-1 minutes" style="color: white">
-										32
-									</span>
-
-									<span class="s-text5" style="color: white">
-										mins
-									</span>
-								</div>
-
-								<div class="flex-col-c-m size3 bo1 m-l-5 m-r-5" style="color: white">
-									<span class="m-text10 p-b-1 seconds" style="color: white">
-										05
-									</span>
-
-									<span class="s-text5" style="color: white">
-										secs
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> --}}
 
 	<!-- Shipping -->
 	<section class="shipping bgwhite p-t-62 p-b-46">

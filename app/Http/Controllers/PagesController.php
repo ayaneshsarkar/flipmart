@@ -111,7 +111,8 @@ class PagesController extends Controller
             'page' => 'home',
             'login' => FALSE,
             'register' => FALSE,
-            'featuredProducts' => $this->getFeaturedProducts()
+            'featuredProducts' => $this->getFeaturedProducts(),
+            'brands' => DB::table('categories')->orderBy('created_at')->get()
         ];
 
         if(session('loggedIn') == TRUE) {
