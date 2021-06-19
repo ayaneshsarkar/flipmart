@@ -34,7 +34,7 @@
 
 						<ul class="p-b-54">
 							<li class="p-t-4">
-								<a href="{{ URL::to('/shop') }}" class="s-text13 {{ (!$category) ? 'active1' : '' }}">
+								<a href="{{ URL::to('/shop') }}" class="s-text13 {{ (!$category || $category == 'all') ? 'active1' : '' }}">
 									All
 								</a>
 							</li>

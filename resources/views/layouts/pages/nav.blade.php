@@ -45,11 +45,11 @@
               </li>
               
               <li class="{{ (!empty($page) && $page == 'category') ? 'sale-noti' : '' }}">
-                <a href="#" id="categoryAll">Categories</a>
+                <a href="/shop?category=all">Categories</a>
                 <ul class="sub_menu">
-									<li><a href="/shop?category=men" id="categoryMen">Menz Footear</a></li>
-									<li><a href="/shop?category=women" id="categoryWomen">Womenz Footwear</a></li>
-									<li><a href="/shop?category=kids" id="categoryKids">Kidz Footear</a></li>
+									<li><a href="/shop?category=men">Menz Footear</a></li>
+									<li><a href="/shop?category=women">Womenz Footwear</a></li>
+									<li><a href="/shop?category=kids">Kidz Footear</a></li>
 								</ul>
 
 								<div style="display: none">
@@ -196,6 +196,12 @@
 						{{-- <i class="arrow-main-menu fa fa-angle-right" aria-hidden="true"></i> --}}
 					</li>
 
+					@if(session('loggedIn'))
+						<li class="item-menu-mobile">
+							<a href="/admin">My Account</a>
+						</li>
+					@endif
+
 					<li class="item-menu-mobile">
 						<a href="/shop">Shop</a>
           </li>
@@ -203,9 +209,9 @@
           <li class="item-menu-mobile">
             <a>Categories</a>
             <ul class="sub-menu">
-							<li><a href="#">Menz Wear</a></li>
-							<li><a href="#">Womenz Wear</a></li>
-							<li><a href="#">Kidz Wear</a></li>
+							<li><a href="/shop?category=men">Menz Wear</a></li>
+							<li><a href="/shop?category=women">Womenz Wear</a></li>
+							<li><a href="/shop?category=kids">Kidz Wear</a></li>
 						</ul>
           </li>
 
@@ -221,6 +227,12 @@
 					<li class="item-menu-mobile">
 						<a href="/cart">Cart</a>
 					</li>
+
+					@if(session('loggedIn'))
+						<li class="item-menu-mobile" id="logoutTextMb">
+							<a style="cursor: pointer">Logout</a>
+						</li>
+					@endif
 				</ul>
 			</nav>
 		</div>
