@@ -3502,7 +3502,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  // Cart HTML
 
 var insertCartHTML = function insertCartHTML(data, productData) {
-  var html = "\n  <li class=\"header-cart-item\" id=\"cart-".concat(productData.cartId, "\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\" data-cart=\"").concat(productData.cartId, "\">\n        <img src=\"").concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"/shop/").concat(data.id, "\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(data.variants[0].price, "\n      </span>\n    </div>\n  </li>\n  ");
+  var mb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var html = "\n  <li class=\"header-cart-item\" id=\"cart-".concat(productData.cartId).concat(mb ? 'Mb' : '', "\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\" data-cart=\"").concat(productData.cartId, "\">\n        <img src=\"").concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"/shop/").concat(data.id, "\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(data.variants[0].price, "\n      </span>\n    </div>\n  </li>\n  ");
   return html;
 };
 
@@ -3561,13 +3562,14 @@ var manageCart = function manageCart(cartElement, data, productData) {
   cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
 };
 var manageMultipleCart = function manageMultipleCart(cartElement, cartData, shopifyData) {
+  var mb = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   cartElement.innerHTML = '';
   var cartArray = [];
   cartData.map(function (data) {
     var shopify = shopifyData.find(function (sd) {
       return sd.id === data.shopify_id;
     });
-    cartArray.push(insertCartHTML(shopify, data));
+    cartArray.push(insertCartHTML(shopify, data, mb));
   });
   cartElement.insertAdjacentHTML('beforeend', cartArray.join(''));
 };

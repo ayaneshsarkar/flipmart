@@ -3257,9 +3257,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var addToCart = document.getElementById('addToCart');
 var cartResults = document.getElementById('cartResults');
+var cartResultsMb = document.getElementById('cartResultsMb');
 var cartCount = document.getElementById('cartCount');
+var cartCountMb = document.getElementById('cartCountMb');
 var cartTotal = document.getElementById('cartTotal');
+var cartTotalMb = document.getElementById('cartTotalMb');
 var cartDropdown = document.getElementById('cartDropdown');
+var cartDropdownMb = document.getElementById('cartDropdownMb');
 var cartMinus = document.querySelectorAll('.cart-minus');
 var cartPlus = document.querySelectorAll('.cart-plus');
 var mainCartImage = document.querySelectorAll('.singleCartImage');
@@ -3294,11 +3298,18 @@ if (addToCart) {
               // Injecting Cart Data To DOM
               if (res.data.status) {
                 if (cartResults) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageMultipleCart"])(cartResults, res.data.cart.cartData, res.data.cart.shopifyData);
+                if (cartResultsMb) Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["manageMultipleCart"])(cartResultsMb, res.data.cart.cartData, res.data.cart.shopifyData, true);
                 if (cartCount) cartCount.innerHTML = res.data.cartCount;
+                if (cartCountMb) cartCountMb.innerHTML = res.data.cartCount;
 
                 if (cartTotal) {
                   cartTotal.innerHTML = '';
                   cartTotal.innerHTML = "Total: $".concat(parseFloat(res.data.cartTotal));
+                }
+
+                if (cartTotalMb) {
+                  cartTotalMb.innerHTML = '';
+                  cartTotalMb.innerHTML = "Total: $".concat(parseFloat(res.data.cartTotal));
                 }
               }
 
@@ -3328,44 +3339,53 @@ if (addToCart) {
 if (cartDropdown) {
   cartDropdown.addEventListener('click', /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-      var img, cartId, cartIdClass, cartElement, data;
+      var img, cartId, cartIdClass, cartIdClassMb, cartElement, cartElementMb, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               if (!(e.target.className === 'header-cart-item-img')) {
-                _context2.next = 9;
+                _context2.next = 11;
                 break;
               }
 
               img = e.target;
               cartId = img.getAttribute('data-cart') || null;
               cartIdClass = 'cart-' + cartId;
-              cartElement = document.getElementById(cartIdClass); // Delete Cart
+              cartIdClassMb = 'cart-' + cartId + 'Mb';
+              cartElement = document.getElementById(cartIdClass);
+              cartElementMb = document.getElementById(cartIdClassMb); // Delete Cart
 
-              _context2.next = 7;
+              _context2.next = 9;
               return Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["deleteCart"])(cartId);
 
-            case 7:
+            case 9:
               data = _context2.sent;
 
               if (data.status) {
                 // Update Cart
                 if (cartCount) cartCount.innerHTML = data.cartCount;
+                if (cartCountMb) cartCountMb.innerHTML = data.cartCount;
 
                 if (cartTotal) {
                   cartTotal.innerHTML = "Total: $".concat(parseFloat(data.cartTotal));
+                }
+
+                if (cartTotalMb) {
+                  cartTotalMb.innerHTML = "Total: $".concat(parseFloat(data.cartTotal));
                 } // Update DOM
 
 
                 if (data.cartCount) {
                   if (data.status && cartElement) cartElement.remove();
+                  if (data.status && cartElementMb) cartElementMb.remove();
                 } else {
                   cartResults.innerHTML = '<p>Nothing Here</p>';
+                  cartResultsMb.innerHTML = '<p>Nothing Here</p>';
                 }
               }
 
-            case 9:
+            case 11:
             case "end":
               return _context2.stop();
           }
@@ -3377,63 +3397,84 @@ if (cartDropdown) {
       return _ref2.apply(this, arguments);
     };
   }());
-} // Update Cart Quantity
+} // Delete Cart Mobile
 
 
-if (cartMinus) {
-  cartMinus.forEach(function (minus) {
-    minus.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var cartForm, productId, shopifyId, formData, res, singleCartTotal;
+if (cartDropdownMb) {
+  cartDropdownMb.addEventListener('click', /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(e) {
+      var img, cartId, cartIdClass, cartIdClassMb, cartElement, cartElementMb, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              cartForm = minus.form;
-              productId = minus.getAttribute('data-product') || null;
-              shopifyId = minus.getAttribute('data-shopify') || null;
-
-              if (!cartForm) {
-                _context3.next = 12;
+              if (!(e.target.className === 'header-cart-item-img')) {
+                _context3.next = 11;
                 break;
               }
 
-              formData = new FormData(cartForm);
-              formData.append('productId', productId);
-              formData.append('shopifyId', shopifyId);
-              formData.append('quantityType', 'minus');
-              _context3.next = 10;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/updatecart', formData);
+              img = e.target;
+              cartId = img.getAttribute('data-cart') || null;
+              cartIdClass = 'cart-' + cartId;
+              cartIdClassMb = 'cart-' + cartId + 'Mb';
+              cartElement = document.getElementById(cartIdClass);
+              cartElementMb = document.getElementById(cartIdClassMb); // Delete Cart
 
-            case 10:
-              res = _context3.sent;
+              _context3.next = 9;
+              return Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["deleteCart"])(cartId);
 
-              if (res.data.status) {
-                singleCartTotal = document.getElementById("cart-total-".concat(shopifyId));
-                if (singleCartTotal) singleCartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.total);
-                if (cartTotal) cartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.cartTotal);
+            case 9:
+              data = _context3.sent;
+
+              if (data.status) {
+                // Update Cart
+                if (cartCount) cartCount.innerHTML = data.cartCount;
+                if (cartCountMb) cartCountMb.innerHTML = data.cartCount;
+
+                if (cartTotal) {
+                  cartTotal.innerHTML = "Total: $".concat(parseFloat(data.cartTotal));
+                }
+
+                if (cartTotalMb) {
+                  cartTotalMb.innerHTML = "Total: $".concat(parseFloat(data.cartTotal));
+                } // Update DOM
+
+
+                if (data.cartCount) {
+                  if (data.status && cartElement) cartElement.remove();
+                  if (data.status && cartElementMb) cartElementMb.remove();
+                } else {
+                  cartResults.innerHTML = '<p>Nothing Here</p>';
+                  cartResultsMb.innerHTML = '<p>Nothing Here</p>';
+                }
               }
 
-            case 12:
+            case 11:
             case "end":
               return _context3.stop();
           }
         }
       }, _callee3);
-    })));
-  });
-}
+    }));
 
-if (cartPlus) {
-  cartPlus.forEach(function (plus) {
-    plus.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+    return function (_x3) {
+      return _ref3.apply(this, arguments);
+    };
+  }());
+} // Update Cart Quantity
+
+
+if (cartMinus) {
+  cartMinus.forEach(function (minus) {
+    minus.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var cartForm, productId, shopifyId, formData, res, singleCartTotal;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              cartForm = plus.form;
-              productId = plus.getAttribute('data-product') || null;
-              shopifyId = plus.getAttribute('data-shopify') || null;
+              cartForm = minus.form;
+              productId = minus.getAttribute('data-product') || null;
+              shopifyId = minus.getAttribute('data-shopify') || null;
 
               if (!cartForm) {
                 _context4.next = 12;
@@ -3443,7 +3484,7 @@ if (cartPlus) {
               formData = new FormData(cartForm);
               formData.append('productId', productId);
               formData.append('shopifyId', shopifyId);
-              formData.append('quantityType', 'plus');
+              formData.append('quantityType', 'minus');
               _context4.next = 10;
               return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/updatecart', formData);
 
@@ -3464,26 +3505,69 @@ if (cartPlus) {
       }, _callee4);
     })));
   });
+}
+
+if (cartPlus) {
+  cartPlus.forEach(function (plus) {
+    plus.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      var cartForm, productId, shopifyId, formData, res, singleCartTotal;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              cartForm = plus.form;
+              productId = plus.getAttribute('data-product') || null;
+              shopifyId = plus.getAttribute('data-shopify') || null;
+
+              if (!cartForm) {
+                _context5.next = 12;
+                break;
+              }
+
+              formData = new FormData(cartForm);
+              formData.append('productId', productId);
+              formData.append('shopifyId', shopifyId);
+              formData.append('quantityType', 'plus');
+              _context5.next = 10;
+              return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/updatecart', formData);
+
+            case 10:
+              res = _context5.sent;
+
+              if (res.data.status) {
+                singleCartTotal = document.getElementById("cart-total-".concat(shopifyId));
+                if (singleCartTotal) singleCartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.total);
+                if (cartTotal) cartTotal.textContent = Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["formatNumber"])('en-US', 'USD', res.data.cartTotal);
+              }
+
+            case 12:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    })));
+  });
 } // Delete Main Cart
 
 
 if (mainCartImage) {
   mainCartImage.forEach(function (img) {
-    img.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+    img.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
       var cartId, cartIdClass, cartElement, data;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context6.prev = _context6.next) {
             case 0:
               cartId = img.getAttribute('data-cart') || null;
               cartIdClass = 'cart-' + cartId;
               cartElement = document.getElementById(cartIdClass); // Delete Cart
 
-              _context5.next = 5;
+              _context6.next = 5;
               return Object(_components_product__WEBPACK_IMPORTED_MODULE_3__["deleteCart"])(cartId);
 
             case 5:
-              data = _context5.sent;
+              data = _context6.sent;
 
               if (data.status) {
                 if (cartElement) cartElement.remove();
@@ -3500,21 +3584,21 @@ if (mainCartImage) {
 
             case 7:
             case "end":
-              return _context5.stop();
+              return _context6.stop();
           }
         }
-      }, _callee5);
+      }, _callee6);
     })));
   });
 } // Order
 
 
 if (checkoutButton) {
-  checkoutButton.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+  checkoutButton.addEventListener('click', /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
     var res, charge;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context7.prev = _context7.next) {
           case 0:
             checkoutButton.setAttribute('disabled', 'true');
             checkoutButton.textContent = 'Processing...';
@@ -3522,22 +3606,22 @@ if (checkoutButton) {
               title: 'Order Processed!',
               text: 'Order has been processed, please wait, do not press back or refresh.'
             });
-            _context6.next = 5;
+            _context7.next = 5;
             return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/authorize-user');
 
           case 5:
-            res = _context6.sent;
+            res = _context7.sent;
 
             if (!(res.data === 1)) {
-              _context6.next = 11;
+              _context7.next = 11;
               break;
             }
 
-            _context6.next = 9;
+            _context7.next = 9;
             return Object(_components_order__WEBPACK_IMPORTED_MODULE_4__["chargeApplication"])();
 
           case 9:
-            charge = _context6.sent;
+            charge = _context7.sent;
 
             if (charge && charge.order) {
               window.location.href = '/orders';
@@ -3545,10 +3629,10 @@ if (checkoutButton) {
 
           case 11:
           case "end":
-            return _context6.stop();
+            return _context7.stop();
         }
       }
-    }, _callee6);
+    }, _callee7);
   })));
 }
 
@@ -3726,7 +3810,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  // Cart HTML
 
 var insertCartHTML = function insertCartHTML(data, productData) {
-  var html = "\n  <li class=\"header-cart-item\" id=\"cart-".concat(productData.cartId, "\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\" data-cart=\"").concat(productData.cartId, "\">\n        <img src=\"").concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"/shop/").concat(data.id, "\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(data.variants[0].price, "\n      </span>\n    </div>\n  </li>\n  ");
+  var mb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var html = "\n  <li class=\"header-cart-item\" id=\"cart-".concat(productData.cartId).concat(mb ? 'Mb' : '', "\">\n    <a class=\"cartImage\">\n      <div class=\"header-cart-item-img\" data-cart=\"").concat(productData.cartId, "\">\n        <img src=\"").concat(data.image.src, "\" alt=\"").concat(data.title, "\">\n      </div>\n    </a>\n\n    <div class=\"header-cart-item-txt\">\n      <a href=\"/shop/").concat(data.id, "\" class=\"header-cart-item-name\">\n        ").concat(data.title, "\n      </a>\n\n      <span class=\"header-cart-item-info\">\n        ").concat(productData.quantity, " x $").concat(data.variants[0].price, "\n      </span>\n    </div>\n  </li>\n  ");
   return html;
 };
 
@@ -3785,13 +3870,14 @@ var manageCart = function manageCart(cartElement, data, productData) {
   cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
 };
 var manageMultipleCart = function manageMultipleCart(cartElement, cartData, shopifyData) {
+  var mb = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   cartElement.innerHTML = '';
   var cartArray = [];
   cartData.map(function (data) {
     var shopify = shopifyData.find(function (sd) {
       return sd.id === data.shopify_id;
     });
-    cartArray.push(insertCartHTML(shopify, data));
+    cartArray.push(insertCartHTML(shopify, data, mb));
   });
   cartElement.insertAdjacentHTML('beforeend', cartArray.join(''));
 };
