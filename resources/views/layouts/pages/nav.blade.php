@@ -117,24 +117,36 @@
 		<!-- Header Mobile -->
 		<div class="wrap_header_mobile">
 			<!-- Logo moblie -->
-			<a href="index.html" class="logo-mobile">
-				<img src="{{ asset('images/icons/logo.png') }}" alt="IMG-LOGO">
+			<a href="/" class="logoText">
+				FLIPMART
 			</a>
 
 			<!-- Button show menu -->
 			<div class="btn-show-menu">
 				<!-- Header Icon mobile -->
-				<div class="header-icons-mobile">
-					<a class="header-wrapicon1 dis-block">
-						SIGN UP
-					</a>
+					<div class="header-icons-mobile">
+						@if(!session('loggedIn'))
+							<a class="header-wrapicon1 dis-block" id="modalBtnSignUpMb" style="cursor: pointer">
+								SIGN UP
+							</a>
 
-					<span class="linedivide2"></span>
+							<span class="linedivide2"></span>
 
-					<div class="header-wrapicon2">
-						SIGN IN
-          </div>
-				</div>
+							<div class="header-wrapicon2" id="modalBtnSignInMb" style="cursor: pointer">
+								SIGN IN
+							</div>
+						@else
+							@if($page && $page != 'cart')
+								<div class="header-wrapicon2">
+									<img src="{{ asset('images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
+									<span class="header-icons-noti" id="cartCountMb">{{ $cartCount ?? 0 }}</span>
+
+									{{-- Header Cart Noti --}}
+									@include('layouts.includes.cartDropdownMb')
+								</div>
+							@endif
+						@endif
+					</div>
 
 				<div class="btn-show-menu-mobile hamburger hamburger--squeeze">
 					<span class="hamburger-box">

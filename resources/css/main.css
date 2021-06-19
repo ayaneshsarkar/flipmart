@@ -1099,6 +1099,15 @@ li.sale-noti > a {
   margin-top: 5px;
 }
 
+@media only screen and (max-width: 400px) {
+  .linedivide1 {
+    height: auto;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 0;
+  }
+}
+
 /*[ Header cart ]
 -----------------------------------------------------------
 */
@@ -2667,3 +2676,16 @@ input.num-product::-webkit-inner-spin-button {
   color: #ccc;
 }
 
+/* #logoutTextMb {
+  display: none;
+}
+
+@media only screen and (max-width: 992px) {
+  #logoutTextMb {
+    display: block;
+  }
+
+  #logoutText {
+    display: none;
+  }
+} */

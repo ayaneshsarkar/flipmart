@@ -1,6 +1,6 @@
-<div class="header-cart header-dropdown" id="cartDropdown">
+<div class="header-cart header-dropdown" id="cartDropdownMb">
   @if(session('loggedIn') == TRUE)
-    <ul class="header-cart-wrapitem cartDropdownItem" id="cartResults">
+    <ul class="header-cart-wrapitem cartDropdownItem" id="cartResultsMb">
       @if(count($cartResults['cartData']) === 0)
         <p>Nothing Here</p>
       @endif
@@ -14,7 +14,7 @@
             $cart = DB::table('carts')->where('product_id', $productId)->first();
 					@endphp
 
-          <li class="header-cart-item" id="cart-{{ $cart->id }}">
+          <li class="header-cart-item" id="cart-{{ $cart->id }}Mb">
             <a class="cartImage">
               <div class="header-cart-item-img" data-cart="{{ $cart->id }}">
                 <img src="{{ $cartResult['image']['src'] }}" alt="{{ $cartResult['title'] }}">
@@ -36,7 +36,7 @@
     </ul>
   @endif
 
-    <div class="header-cart-total" id="cartTotal">
+    <div class="header-cart-total" id="cartTotalMb">
       Total: ${{ !empty($cartTotal) && $cartTotal > 0 ? $cartTotal : 0 }}
     </div>
 

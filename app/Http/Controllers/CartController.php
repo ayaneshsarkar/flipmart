@@ -78,6 +78,7 @@ class CartController extends Controller
         // Initialize the Data
         $data = [
             'title' => "Cart for $username",
+            'page' => 'cart',
             'type' => 'cart',
             'carts' => $this->getCart(),
             'cartTotal' => 

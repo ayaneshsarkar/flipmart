@@ -2,10 +2,10 @@ import swal from 'sweetalert';
 import { fetchShopify } from './fetchHelper';
 
 // Cart HTML
-const insertCartHTML = (data, productData) => {
+const insertCartHTML = (data, productData, mb = false) => {
   const html = 
   `
-  <li class="header-cart-item" id="cart-${productData.cartId}">
+  <li class="header-cart-item" id="cart-${productData.cartId}${mb ? 'Mb' : ''}">
     <a class="cartImage">
       <div class="header-cart-item-img" data-cart="${productData.cartId}">
         <img src="${data.image.src}" alt="${data.title}">
@@ -59,14 +59,14 @@ export const manageCart = (cartElement, data, productData) => {
   cartElement.insertAdjacentHTML('beforeend', insertCartHTML(data, productData));
 }
 
-export const manageMultipleCart = (cartElement, cartData, shopifyData) => {
+export const manageMultipleCart = (cartElement, cartData, shopifyData, mb = false) => {
   cartElement.innerHTML = '';
 
   const cartArray = [];
 
   cartData.map(data => {
     const shopify = shopifyData.find(sd => sd.id === data.shopify_id);
-    cartArray.push(insertCartHTML(shopify, data));
+    cartArray.push(insertCartHTML(shopify, data, mb));
   });
 
   cartElement.insertAdjacentHTML('beforeend', cartArray.join(''));

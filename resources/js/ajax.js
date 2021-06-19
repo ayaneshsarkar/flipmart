@@ -4,10 +4,20 @@ import { manageMultipleCart, deleteCart, formatNumber } from './components/produ
 import { chargeApplication } from './components/order';
 
 const addToCart = document.getElementById('addToCart');
+
 const cartResults = document.getElementById('cartResults');
+const cartResultsMb = document.getElementById('cartResultsMb');
+
 const cartCount = document.getElementById('cartCount');
+const cartCountMb = document.getElementById('cartCountMb');
+
 const cartTotal = document.getElementById('cartTotal');
+const cartTotalMb = document.getElementById('cartTotalMb');
+
 const cartDropdown = document.getElementById('cartDropdown');
+
+const cartDropdownMb = document.getElementById('cartDropdownMb');
+
 const cartMinus = document.querySelectorAll('.cart-minus');
 const cartPlus = document.querySelectorAll('.cart-plus');
 const mainCartImage = document.querySelectorAll('.singleCartImage');

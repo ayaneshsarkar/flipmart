@@ -1,5 +1,3 @@
-const { cssNumber } = require("jquery");
-
 // Get Modal Element
 var modalSignUp = document.getElementById('modalSignUp');
 var modalSignIn = document.getElementById('modalSignIn');
@@ -7,6 +5,8 @@ var modalSignIn = document.getElementById('modalSignIn');
 // Get Modal Button
 var modalBtnSignUp = document.getElementById('modalBtnSignUp');
 var modalBtnSignIn = document.getElementById('modalBtnSignIn');
+const mobileModalBtnSignUp = document.getElementById('modalBtnSignUpMb');
+const mobileModalBtnSignIn = document.getElementById('modalBtnSignInMb');
 
 // Get Close Button
 var closeBtn = document.getElementsByClassName('closeBtn')[0];
@@ -29,10 +29,13 @@ if(modalBtnSignIn) {
   modalBtnSignIn.addEventListener('click', openModalSignIn);
 }
 
-// Listen For Close
-//closeBtn.addEventListener('click', closeModal);
-// closeBtnSignUp.addEventListener('click', closeBtnSignUp);
-// closeBtnSignIn.addEventListener('click', closeBtnSignIn);
+if(mobileModalBtnSignUp) {
+  mobileModalBtnSignUp.addEventListener('click', openModal);
+}
+
+if(mobileModalBtnSignIn) {
+  mobileModalBtnSignIn.addEventListener('click', openModalSignIn);
+}
 
 // Listen For Click Outside
 window.addEventListener('click', clickOutSide);
@@ -97,7 +100,7 @@ const cross = document.getElementById('contactCross');
 const contact = document.getElementById('contactSuccess');
 
 if(cross) {
-    contactCross.addEventListener('click', closeDisplay);
+  contactCross.addEventListener('click', closeDisplay);
 }
 
 function closeDisplay() {
@@ -139,7 +142,6 @@ const singleProductSlug = document.getElementById('singleProductSlug');
 
 if(account && accountDropdown) {
   accountDropdown.addEventListener('click', function() {
-    console.log('clicked')
     accountDropdown.classList.toggle('show-header-account-dropdown');
   });
 }
