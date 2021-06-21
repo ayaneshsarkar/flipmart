@@ -1470,3 +1470,23 @@
   }
 }
 
+@media only screen and (max-width: 576px) {
+  .wrapper.mediaTab .sidebar_menu {
+    display: none;
+  }
+
+  .wrapper.mediaTab .container {
+    width: 100%;
+    margin-left: 0;
+    padding: 25px;
+  }
+
+  .wrapper.mediaTab .container .item_wrap .product__heading {
+    padding: 0;
+  }
+
+  .wrapper.mediaTab .container .item_wrap #tablePadding {
+    padding: 0 !important;
+  }
+}
+
