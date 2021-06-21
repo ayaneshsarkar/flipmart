@@ -1,156 +1,134 @@
 <!-- Footer -->
 <footer class="bg6 p-t-45 p-b-43 p-l-45 p-r-45">
-		<div class="flex-w p-b-90">
-			<div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
-				<h4 class="s-text12 p-b-30">
-					GET IN TOUCH WITH ME
-				</h4>
+  <div class="flex-w p-b-90">
+    <div class="w-size6 p-t-30 p-l-15 p-r-15 respon3">
+      <h4 class="s-text12 p-b-30">
+        GET IN TOUCH
+      </h4>
 
-				<div>
-					<p class="s-text7 w-size27">
-						Any questions? Let us know in South Sreepur Boral, Kolkata - 700154 OR Call us on (+91) 9836994302
-					</p>
+      <div>
+        <p class="s-text7 w-size27">
+          Any questions? Let us know in South Sreepur Boral, Kolkata - 700154 OR Call us on (+91) 9836994302
+        </p>
 
-					<div class="flex-m p-t-30">
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
-						<a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
-					</div>
-				</div>
-			</div>
+        <div class="flex-m p-t-30">
+          <a href="https://facebook.com" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+          <a href="https://instagram.com" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+          <a href="https://in.pintrest.com" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+          <a href="https://snapchat.com" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+          <a href="https://youtube.com" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+        </div>
+      </div>
+    </div>
 
-			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
-				<h4 class="s-text12 p-b-30">
-					Categories
-				</h4>
+    <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+      <h4 class="s-text12 p-b-30">
+        Categories
+      </h4>
 
-				<ul>
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Men
-						</a>
-					</li>
+      <ul>
+        <li class="p-b-9">
+          <a href="/shop?category=men" class="s-text7">
+            Men
+          </a>
+        </li>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Women
-						</a>
-					</li>
+        <li class="p-b-9">
+          <a href="/shop?category=women" class="s-text7">
+            Women
+          </a>
+        </li>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Children
-						</a>
-					</li>
+        <li class="p-b-9">
+          <a href="/shop?category=kids" class="s-text7">
+            Kids
+          </a>
+        </li>
+      </ul>
+    </div>
 
-				</ul>
-			</div>
+    <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+      <h4 class="s-text12 p-b-30">
+        Links
+      </h4>
 
-			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
-				<h4 class="s-text12 p-b-30">
-					Links
-				</h4>
+      <ul>
+        <li class="p-b-9">
+          <a href="/about" class="s-text7">
+            About Us
+          </a>
+        </li>
 
-				<ul>
-					
+        <li class="p-b-9">
+          <a href="/contact" class="s-text7">
+            Contact Us
+          </a>
+        </li>
+      </ul>
+    </div>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							About Us
-						</a>
-					</li>
+    <div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
+      <h4 class="s-text12 p-b-30">
+        Help
+      </h4>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Contact Us
-						</a>
-					</li>
+      <ul>
+        <li class="p-b-9">
+          <a href="/contact" class="s-text7">
+            Contact Us
+          </a>
+        </li>
+      </ul>
+    </div>
 
-				</ul>
-			</div>
+    <div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
+      <h4 class="s-text12 p-b-30">
+        Newsletter
+      </h4>
 
-			<div class="w-size7 p-t-30 p-l-15 p-r-15 respon4">
-				<h4 class="s-text12 p-b-30">
-					Help
-				</h4>
+      <form id="newsletterForm">
+        <div class="effect1 w-size9">
+          <input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com">
+          <span class="effect1-line"></span>
+        </div>
 
-				<ul>
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Contant
-						</a>
-					</li>
+        <div class="w-size2 p-t-20">
+          <!-- Button -->
+          <button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
+            Subscribe
+          </button>
+        </div>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Orders
-						</a>
-					</li>
+      </form>
+    </div>
+  </div>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Shipping
-						</a>
-					</li>
+  <div class="t-center p-l-15 p-r-15">
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/paypal.png') }}" alt="IMG-PAYPAL">
+    </a>
 
-					<li class="p-b-9">
-						<a href="#" class="s-text7">
-							Queries
-						</a>
-					</li>
-				</ul>
-			</div>
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/visa.png') }}" alt="IMG-VISA">
+    </a>
 
-			<div class="w-size8 p-t-30 p-l-15 p-r-15 respon3">
-				<h4 class="s-text12 p-b-30">
-					Contact
-				</h4>
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/mastercard.png') }}" alt="IMG-MASTERCARD">
+    </a>
 
-				<form>
-					<div class="effect1 w-size9">
-						<input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com">
-						<span class="effect1-line"></span>
-					</div>
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/express.png') }}" alt="IMG-EXPRESS">
+    </a>
 
-					<div class="w-size2 p-t-20">
-						<!-- Button -->
-						<button class="flex-c-m size2 bg4 bo-rad-23 hov1 m-text3 trans-0-4">
-							Contact
-						</button>
-					</div>
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/discover.png') }}" alt="IMG-DISCOVER">
+    </a>
 
-				</form>
-			</div>
-		</div>
-
-		<div class="t-center p-l-15 p-r-15">
-			<a href="#">
-				<img class="h-size2" src="images/icons/paypal.png" alt="IMG-PAYPAL">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="images/icons/visa.png" alt="IMG-VISA">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="images/icons/mastercard.png" alt="IMG-MASTERCARD">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="images/icons/express.png" alt="IMG-EXPRESS">
-			</a>
-
-			<a href="#">
-				<img class="h-size2" src="images/icons/discover.png" alt="IMG-DISCOVER">
-			</a>
-
-			<div class="t-center s-text8 p-t-20">
-				Copyright © @php echo date('Y'); @endphp All rights reserved.
-			</div>
-		</div>
-	</footer>
+    <div class="t-center s-text8 p-t-20">
+      Copyright © <?= date('Y') ?> All rights reserved.
+    </div>
+  </div>
+</footer>
 
 
 
@@ -209,8 +187,8 @@
 <!--===============================================================================================-->
 	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> --}}
 	<script>
-		const account = document.getElementById('account');
-		const accountDropdown = document.querySelector('.header-account-dropdown');
+		var account = document.getElementById('account');
+		var accountDropdown = document.querySelector('.header-account-dropdown');
 
 		if(account && accountDropdown) {
 			account.addEventListener('click', function() {
@@ -219,8 +197,8 @@
 		}
 		
 
-		const logoutText = document.getElementById('logoutText');
-		const logoutForm = document.getElementById('logoutForm');
+		var logoutText = document.getElementById('logoutText');
+		var logoutForm = document.getElementById('logoutForm');
 
 		if(logoutText && logoutForm) {
 			logoutText.addEventListener('click', function() {

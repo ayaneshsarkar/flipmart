@@ -10,7 +10,7 @@
     </div>
 
     <div class="col-12">
-      <div class="table-responsive" style="padding: 0 20px;">
+      <div class="table-responsive" id="tablePadding" style="padding: 0 20px;">
         <table class="table table-striped">
           <thead>
             <tr>

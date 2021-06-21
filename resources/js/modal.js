@@ -1,3 +1,5 @@
+import swal from "sweetalert";
+
 // Get Modal Element
 var modalSignUp = document.getElementById('modalSignUp');
 var modalSignIn = document.getElementById('modalSignIn');
@@ -171,4 +173,17 @@ if(document.querySelector('.modalCross')) {
   document.querySelector('.modalCross').addEventListener('click', function() {
     document.querySelector('.modalSession').style.display = 'none';
   });
+}
+
+const newsletterForm = document.getElementById('newsletterForm');
+
+if(newsletterForm) {
+  newsletterForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    swal({
+      title: 'Coming Up!',
+      text: "We'll be releasing our newsletter very soon, stay tuned!"
+    });
+  })
 }

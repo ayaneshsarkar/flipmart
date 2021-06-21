@@ -6,6 +6,12 @@
     </div>
 
     <div class="top_menu">
+      <div class="home_link d-none" id="adminNavMenu">
+        <a>
+          <span class="icon"><i class="fa fa-bars" aria-hidden="true"></i></span>
+        </a>
+      </div>
+
       <div class="home_link">
         <a href="{{ URL::to('/') }}">
           <span class="icon"><i class="fa fa-home"></i></span>

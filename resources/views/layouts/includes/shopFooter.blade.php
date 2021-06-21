@@ -12,11 +12,11 @@
         </p>
 
         <div class="flex-m p-t-30">
-          <a href="#" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
-          <a href="#" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
-          <a href="#" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
-          <a href="#" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
-          <a href="#" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
+          <a href="https://facebook.com" class="fs-18 color1 p-r-20 fa fa-facebook"></a>
+          <a href="https://instagram.com" class="fs-18 color1 p-r-20 fa fa-instagram"></a>
+          <a href="https://in.pintrest.com" class="fs-18 color1 p-r-20 fa fa-pinterest-p"></a>
+          <a href="https://snapchat.com" class="fs-18 color1 p-r-20 fa fa-snapchat-ghost"></a>
+          <a href="https://youtube.com" class="fs-18 color1 p-r-20 fa fa-youtube-play"></a>
         </div>
       </div>
     </div>
@@ -28,26 +28,20 @@
 
       <ul>
         <li class="p-b-9">
-          <a href="#" class="s-text7">
+          <a href="/shop?category=men" class="s-text7">
             Men
           </a>
         </li>
 
         <li class="p-b-9">
-          <a href="#" class="s-text7">
+          <a href="/shop?category=women" class="s-text7">
             Women
           </a>
         </li>
 
         <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Dresses
-          </a>
-        </li>
-
-        <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Sunglasses
+          <a href="/shop?category=kids" class="s-text7">
+            Kids
           </a>
         </li>
       </ul>
@@ -60,26 +54,14 @@
 
       <ul>
         <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Search
-          </a>
-        </li>
-
-        <li class="p-b-9">
-          <a href="#" class="s-text7">
+          <a href="/about" class="s-text7">
             About Us
           </a>
         </li>
 
         <li class="p-b-9">
-          <a href="#" class="s-text7">
+          <a href="/contact" class="s-text7">
             Contact Us
-          </a>
-        </li>
-
-        <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Returns
           </a>
         </li>
       </ul>
@@ -92,26 +74,8 @@
 
       <ul>
         <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Track Order
-          </a>
-        </li>
-
-        <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Returns
-          </a>
-        </li>
-
-        <li class="p-b-9">
-          <a href="#" class="s-text7">
-            Shipping
-          </a>
-        </li>
-
-        <li class="p-b-9">
-          <a href="#" class="s-text7">
-            FAQs
+          <a href="/contact" class="s-text7">
+            Contact Us
           </a>
         </li>
       </ul>
@@ -122,7 +86,7 @@
         Newsletter
       </h4>
 
-      <form>
+      <form id="newsletterForm">
         <div class="effect1 w-size9">
           <input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com">
           <span class="effect1-line"></span>
@@ -140,28 +104,28 @@
   </div>
 
   <div class="t-center p-l-15 p-r-15">
-    <a href="#">
-      <img class="h-size2" src="images/icons/paypal.png" alt="IMG-PAYPAL">
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/paypal.png') }}" alt="IMG-PAYPAL">
     </a>
 
-    <a href="#">
-      <img class="h-size2" src="images/icons/visa.png" alt="IMG-VISA">
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/visa.png') }}" alt="IMG-VISA">
     </a>
 
-    <a href="#">
-      <img class="h-size2" src="images/icons/mastercard.png" alt="IMG-MASTERCARD">
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/mastercard.png') }}" alt="IMG-MASTERCARD">
     </a>
 
-    <a href="#">
-      <img class="h-size2" src="images/icons/express.png" alt="IMG-EXPRESS">
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/express.png') }}" alt="IMG-EXPRESS">
     </a>
 
-    <a href="#">
-      <img class="h-size2" src="images/icons/discover.png" alt="IMG-DISCOVER">
+    <a>
+      <img class="h-size2" src="{{ asset('images/icons/discover.png') }}" alt="IMG-DISCOVER">
     </a>
 
     <div class="t-center s-text8 p-t-20">
-      Copyright © <?= date('Y'); ?> All rights reserved.
+      Copyright © <?= date('Y') ?> All rights reserved.
     </div>
   </div>
 </footer>

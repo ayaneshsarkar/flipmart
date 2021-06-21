@@ -137,3 +137,12 @@ if(adminLogout) {
     }
   });
 }
+
+
+// Mobile Toggle
+const adminNavMenu = document.getElementById('adminNavMenu');
+const wrapperMb = document.querySelector('.wrapper');
+
+if(adminNavMenu && wrapperMb) {
+  adminNavMenu.addEventListener('click', () => wrapperMb.classList.toggle('activeMb'));
+}

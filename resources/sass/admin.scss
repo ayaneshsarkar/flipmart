@@ -84,7 +84,7 @@ $mainTransition: all 0.3s linear;
 
       .right_info {
         display: flex;
-        font-size: 15px !important;
+        font-size: 16px !important;
 
         .icon_wrap {
           padding: 8px 15px;
@@ -279,8 +279,8 @@ $mainTransition: all 0.3s linear;
           width: 100%;
           height: 50px;
 
-          @media(max-width: 768px) {
-            margin: 15px;
+          @media only screen and (max-width: 768px) {
+            margin: 15px 0;
           }
 
           &.product {
@@ -289,6 +289,10 @@ $mainTransition: all 0.3s linear;
 
           &.category {
             background-color: $pink;
+
+            @media only screen and (max-width: 991px) {
+              margin: 0;
+            }
           }
 
           &__inner {
@@ -324,8 +328,12 @@ $mainTransition: all 0.3s linear;
             background-color: $pink;
           }
 
-          @media(max-width: 768px) {
+          @media only screen and (max-width: 768px) {
             margin-bottom: 20px;
+          }
+
+          @media only screen and (max-width: 576px) {
+            margin-bottom: 16px;
           }
 
           &__inner {
@@ -519,6 +527,42 @@ $mainTransition: all 0.3s linear;
 
 @media only screen and (max-width: 576px) {
   .wrapper.mediaTab {
+    &.activeMb {
+      transition: $mainTransition;
+
+      .top_navbar {
+        .adminLogo {
+          width: 250px;
+        }
+
+        .top_menu {
+          width: calc(100% - 250px);
+        }
+      }
+
+      .sidebar_menu {
+        display: block;
+        width: 250px;
+        z-index: 5;
+        transition: $mainTransition;
+
+        ul li a span {
+          display: inline-block !important;
+        }
+      }
+    }
+
+    #adminNavMenu {
+      display: block !important;
+    }
+
+    .top_navbar {
+      .top_menu {
+        justify-content: space-between !important;
+        padding-left: 25px;
+      }
+    }
+
     .sidebar_menu {
       display: none;
     }
@@ -530,6 +574,14 @@ $mainTransition: all 0.3s linear;
 
       .item_wrap {
         .product__heading {
+          padding: 0;
+
+          &.profile {
+            padding: 0 20px;
+          }
+        }
+
+        .category__heading {
           padding: 0;
         }
 

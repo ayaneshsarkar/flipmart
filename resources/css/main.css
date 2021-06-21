@@ -224,6 +224,18 @@ iframe {
   -o-animation: modalopen 0.7s ease;
 }
 
+@media only screen and (max-width: 660px) {
+  .my-modal-content {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .my-modal-content {
+    width: 90%;
+  }
+}
+
 .closeBtn {
   color: #333333;
   position: absolute;

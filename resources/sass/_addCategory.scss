@@ -15,12 +15,40 @@ $borderDanger: 1px solid #F44336 !important;
   h2 {
     font-size: 30px;
     font-weight: 500;
+    align-self: center;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 25px;
+    }
+
+    @media only screen and (max-width: 650px) {
+      font-size: 20px;
+    }
+
+    @media only screen and (max-width: 576px) {
+      font-size: 16px;
+    }
+
+    &.main {
+      font-size: 30px !important;
+      padding: 0 20px;
+      text-align: start;
+      align-self: flex-start;
+    }
   }
 
   a {
     font-size: 25px;
     font-weight: 400;
     color: $theme;
+
+    @media only screen and (max-width: 650px) {
+      font-size: 20px;
+    }
+
+    @media only screen and (max-width: 576px) {
+      font-size: 16px;
+    }
 
     &:hover {
       color: $themeHover;

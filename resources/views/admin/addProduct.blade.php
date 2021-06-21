@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-12">
         <div class="product__heading">
-          <h2>Add Product</h2>
+          <h2 class="main">Add Product</h2>
         </div>
       </div>
 

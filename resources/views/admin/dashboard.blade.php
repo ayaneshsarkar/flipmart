@@ -21,7 +21,7 @@
       </div>
 
       <div 
-      class="{{ $user->admin_type === 'admin' ? 'col-lg-4 col-md-6 col-sm-12' : 'col-md-6 col-sm-12' }}">
+      class="{{ $user->admin_type === 'admin' ? 'col-lg-4 col-md-6 col-sm-12' : 'col-sm-12' }}">
         <div class="widget widget-tile">
           <span class="icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span>
           <div class="data-info">

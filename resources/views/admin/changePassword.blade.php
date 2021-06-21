@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-12">
         <div class="product__heading">
-          <h2>{{ $title }}</h2>
+          <h2 class="main" style="font-size: 25px !important;">{{ $title }}</h2>
         </div>
       </div>
 

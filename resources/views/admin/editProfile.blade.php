@@ -3,7 +3,7 @@
   <div class="item_wrap" id="mainItems">
     <div class="row">
       <div class="col-12">
-        <div class="product__heading d-flex justify-content-between">
+        <div class="product__heading profile d-flex justify-content-between">
           <h2>{{ $title }}</h2>
           <h2><a href="/change-password">Change Password</a></h2>
         </div>
@@ -60,7 +60,7 @@
           <div class="product__inputbox">
             <div class="product__inputbox_number {{ ($errors->has('pincode')) ? 'danger' : 'm-b-30' }}">
               <div class="labelbox">
-                <span>Pincode</span>
+                <span>PIN</span>
               </div>
               <input type="number" class="product__inputbox_number-input" name="pincode" 
               value="{{ $user->pincode }}">
@@ -74,7 +74,7 @@
           <div class="product__inputbox">
             <div class="product__inputbox_number {{ ($errors->has('phone_number')) ? 'danger' : 'm-b-30' }}">
               <div class="labelbox">
-                <span>Phone Number</span>
+                <span><i class="fa fa-phone" aria-hidden="true"></i></span>
               </div>
               <input type="number" class="product__inputbox_number-input" name="phone_number" 
               value="{{ $user->phone_number ?? null }}">

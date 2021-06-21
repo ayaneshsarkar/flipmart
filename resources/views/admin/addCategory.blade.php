@@ -4,7 +4,7 @@
   <div class="row">
     <div class="col-12">
       <div class="category__heading">
-        <h2>Add Brand</h2>
+        <h2 class="main">Add Brand</h2>
       </div>
     </div>
 
