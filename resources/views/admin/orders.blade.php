@@ -36,7 +36,7 @@
           <div class="order__active_total">
             <h2 class="order__active_total-header">
               {{ $user == 'admin' ? 'All' : 'Your' }} Orders &ndash; 
-              <span>{{ $count }} (₹{{ $total }})</span>
+              <span>{{ $count }} (₹{{ floor($total) }})</span>
             </h2>
           </div>
         </div>
@@ -44,7 +44,7 @@
 
       @if($items)
         <div class="col-12">
-          <div class="table-responsive-lg" style="padding: 0 20px;">
+          <div class="table-responsive" style="padding: 0 20px;">
             <table class="table table-striped">
               <thead>
                 <tr>

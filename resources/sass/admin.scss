@@ -441,7 +441,7 @@ $mainTransition: all 0.3s linear;
 
 }
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .wrapper.mediaTab {
     font-size: 8px;
 
