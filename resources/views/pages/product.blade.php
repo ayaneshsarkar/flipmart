@@ -71,7 +71,7 @@
 				</p>
 				
 				<div class="p-t-33 p-b-60">
-					{{ Form::open(['action' => 'CartController@storeCart', 'method' => 'POST', 'id' => 'addToCart', 'data-title' => $product['title']]) }}
+					{{ Form::open(['action' => 'CartController@storeCart', 'method' => 'POST', 'id' => 'addToCart', 'data-title' => $product['title'], 'data-auth' => session('loggedIn')]) }}
 						{{-- Shopify ID --}}
 						<input type="hidden" name="shopify_id" value="{{ $product['id'] }}">
 
