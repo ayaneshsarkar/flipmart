@@ -28,13 +28,23 @@ const checkoutButton = document.getElementById('checkoutOrderButton');
 if(addToCart) {
   addToCart.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const dataAuth = addToCart.getAttribute('data-auth');
     
     // Swal Notification
-    swal({
-      icon: 'success',
-      title: 'Add to the Cart!',
-      text: `${addToCart.getAttribute('data-title')} has been added to the cart.`
-    })
+    if(dataAuth) {
+      swal({
+        icon: 'success',
+        title: 'Add to the Cart!',
+        text: `${addToCart.getAttribute('data-title')} has been added to the cart.`
+      })
+    } else {
+      swal({
+        icon: 'error',
+        title: 'Cannot Add To Cart!',
+        text: `You must be logged in to use this feature.`
+      })
+    }
 
     try {
       // Assigning the FormData

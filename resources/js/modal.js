@@ -148,7 +148,7 @@ if(account && accountDropdown) {
   });
 }
 
-if(singleProductSlug) {
+if(singleProductSlug && account) {
   account.addEventListener('click', function() {
     accountDropdown.classList.toggle('show-header-account-dropdown');
   });
