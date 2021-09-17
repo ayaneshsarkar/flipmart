@@ -202,3 +202,36 @@
     });
 
 })(jQuery);
+
+
+const targets = document.querySelectorAll('img');
+const backgroundImgs = document.querySelectorAll('.item-slick1');
+
+const lazyLoad = target => {
+    const io = new IntersectionObserver((e, o) => {
+        e.forEach(e => {
+            if(e.isIntersecting) {
+                const img = e.target;
+                const src = img.getAttribute('data-lazy');
+                const bg = img.getAttribute('data-bg');
+                const style = img.getAttribute('style');
+
+                if(src) {
+                    img.setAttribute('src', src);
+                }
+
+                if(bg) {
+                    const setStyle = bg + ' ' + style;
+                    img.setAttribute('style', setStyle);
+                }
+
+                o.disconnect();
+            }
+        })
+    });
+
+    io.observe(target);
+};
+
+targets.forEach(lazyLoad);
+backgroundImgs.forEach(lazyLoad);

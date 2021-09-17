@@ -11,7 +11,7 @@
 	<section class="slide1">
 		<div class="wrap-slick1">
 			<div class="slick1">
-				<div class="item-slick1 item1-slick1" style="background-image: url(images/download/shoeBG-1.jpg);">
+				<div class="item-slick1 item1-slick1" data-bg="background-image: url(images/download/shoeBG-1.jpg);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
 							Menz Shoes {{ date('Y') }}
@@ -30,7 +30,7 @@
 					</div>
         </div>
         
-        <div class="item-slick1 item1-slick1" style="background-image: url(images/download/shoeBG-2.jpg);">
+        <div class="item-slick1 item1-slick1" data-bg="background-image: url(images/download/shoeBG-2.jpg);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
 							Womenz Shoes {{ date('Y') }}
@@ -49,7 +49,7 @@
 					</div>
         </div>
         
-        <div class="item-slick1 item1-slick1" style="background-image: url(images/download/shoeBG-3.jpg);">
+        <div class="item-slick1 item1-slick1" data-bg="background-image: url(images/download/shoeBG-3.jpg);">
 					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						<span class="caption1-slide1 m-text1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
 							Kidz Shoes {{ date('Y') }}
@@ -81,8 +81,8 @@
 				@foreach($brands as $brand)
 					<div class="col-sm-10 col-md-8 col-lg-4">
 							<div class="block1 hov-img-zoom pos-relative m-b-30">
-								<img src="{{ asset("brandimages/$brand->main_image") }}" 
-								alt="{{ $brand->brand }}">
+								<img data-lazy="{{ asset("brandimages/$brand->main_image") }}" 
+								{{--alt="{{ $brand->brand }}"--}}>
 
 								<div class="block1-wrapbtn w-size2">
 									<!-- Button -->
@@ -150,7 +150,8 @@
 							<div class="block2">
 								<div class="block2-img wrap-pic-w of-hidden pos-relative">
 									<img src="{{ $product['image']['src'] }}" 
-											alt="{{ $product['title'] }}">
+											alt="{{ $product['title'] }}"
+										>
 
 									{{-- <div class="block2-overlay trans-0-4 no-cart">
 										<a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">

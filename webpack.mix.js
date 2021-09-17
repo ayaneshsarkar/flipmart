@@ -18,6 +18,7 @@ mix.js('resources/js/slick-custom.js', 'public/js/slick-custom.js');
 mix.js('resources/js/ajax.js', 'public/js/ajax.js');
 mix.js('resources/js/modal.js', 'public/js/modal.js');
 mix.js('resources/js/admin.js', 'public/js/admin.js');
+mix.js('resources/js/intersectionObserver.js', 'public/js/intersectionObserver.js');
 mix.sass('resources/sass/app.scss', 'public/css');
 mix.sass('resources/sass/admin.scss', 'public/css/admin.css');
 mix.styles('resources/css/main.css', 'public/css/main.css');

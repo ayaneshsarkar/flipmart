@@ -4,6 +4,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/admin.css": "/css/admin.css",
+    "/js/intersectionObserver.js": "/js/intersectionObserver.js",
     "/js/main.js": "/js/main.js",
     "/js/map-custom.js": "/js/map-custom.js",
     "/js/modal.js": "/js/modal.js",

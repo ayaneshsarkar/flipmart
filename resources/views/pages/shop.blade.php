@@ -201,7 +201,8 @@
 									<div class="block2">
 										<div class="block2-img wrap-pic-w of-hidden pos-relative">
 											<img src="{{ $product['image']['src'] }}" 
-											alt="{{ $product['title'] }}">
+											alt="{{ $product['title'] }}"
+											>
 
 											{{-- <div class="block2-overlay trans-0-4 no-cart">
 												<div class="block2-btn-addcart w-size1 trans-0-4">

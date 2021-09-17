@@ -88,7 +88,7 @@
 
       <form id="newsletterForm">
         <div class="effect1 w-size9">
-          <input class="s-text7 bg6 w-full p-b-5" type="text" name="email" placeholder="email@example.com">
+          <input class="s-text7 bg6 w-full p-b-5" type="email" name="email" placeholder="email@example.com" required>
           <span class="effect1-line"></span>
         </div>
 
@@ -207,6 +207,7 @@
 		}
 	</script>
 
+  <script src="{{ asset('js/intersectionObserver.js') }}"></script>
 	<script src="{{ asset('js/ajax.js') }}"></script>
 	<script src="{{ asset('js/modal.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
