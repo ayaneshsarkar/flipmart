@@ -62,57 +62,60 @@
 
               <tbody>
                 @foreach($items as $item)
-                  @php 
-                    $deliveryStatus = DB::table('orders')
-                      ->where('shopify_order_id', $item['id'])
-                      ->first()->status;
-                  @endphp
+                  @if($item)
+                    @php 
+                      $deliveryStatus = DB::table('orders')
+                        ->where('shopify_order_id', $item['id'])
+                        ->first();
+                      $deliveryStatus = $deliveryStatus->status ?? null;
+                    @endphp
 
-                  <tr>
-                    <td>
-                      <a href="/order/?id={{ $item['id'] }}" target="_blank">
-                        {{ $item['name'] }}
-                      </a>
-                    </td>
-                    <td>
-                      <a href="/download-invoice/{{ $item['id'] }}" target="_blank">
-                        Invoice
-                      </a>
-                    </td>
-                    <td>{{ $fmt->formatCurrency($item['current_subtotal_price'], 'INR') }}</td>
-                    <td>
-                      @if($deliveryStatus === 'delivered')
-                        {{ 'Delivered' }}
-                      @elseif($deliveryStatus === 'cancelled')
-                        {{ 'Order Cancelled' }}
-                      @else
-                        {{ 'On The Way' }}
-                      @endif
-                    </td>
-
-                    <td>
-                      @if($deliveryStatus === 'cancelled')
-                        CANCELLED
-                      @elseif($deliveryStatus === 'open')
-                        <a href="/cancel-order/{{ $item['id'] }}" class="alertswal">
-                          Cancel Order
-                        </a>
-                      @endif
-                    </td>
-
-                    @if($user ==='admin')
+                    <tr>
                       <td>
-                        @if($deliveryStatus === 'open')
-                          <a href="/close-order/{{ $item['id'] }}" class="alertswal">Close</a>
-                        @elseif($deliveryStatus === 'delivered')
-                          <a href="/open-order/{{ $item['id'] }}" class="alertswal">Reopen</a>
+                        <a href="/order/?id={{ $item['id'] }}" target="_blank">
+                          {{ $item['name'] }}
+                        </a>
+                      </td>
+                      <td>
+                        <a href="/download-invoice/{{ $item['id'] }}" target="_blank">
+                          Invoice
+                        </a>
+                      </td>
+                      <td>{{ $fmt->formatCurrency($item['current_subtotal_price'], 'INR') }}</td>
+                      <td>
+                        @if($deliveryStatus === 'delivered')
+                          {{ 'Delivered' }}
+                        @elseif($deliveryStatus === 'cancelled')
+                          {{ 'Order Cancelled' }}
+                        @else
+                          {{ 'On The Way' }}
                         @endif
                       </td>
+
                       <td>
-                        <a href="/delete-order/{{ $item['id'] }}" class="alertswal">Delete</a>
+                        @if($deliveryStatus === 'cancelled')
+                          CANCELLED
+                        @elseif($deliveryStatus === 'open')
+                          <a href="/cancel-order/{{ $item['id'] }}" class="alertswal">
+                            Cancel Order
+                          </a>
+                        @endif
                       </td>
-                    @endif
-                  </tr>
+
+                      @if($user ==='admin')
+                        <td>
+                          @if($deliveryStatus === 'open')
+                            <a href="/close-order/{{ $item['id'] }}" class="alertswal">Close</a>
+                          @elseif($deliveryStatus === 'delivered')
+                            <a href="/open-order/{{ $item['id'] }}" class="alertswal">Reopen</a>
+                          @endif
+                        </td>
+                        <td>
+                          <a href="/delete-order/{{ $item['id'] }}" class="alertswal">Delete</a>
+                        </td>
+                      @endif
+                    </tr>
+                  @endif
                 @endforeach
               </tbody>
             </table>
